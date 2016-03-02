@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>Pages - Admin Dashboard UI Kit - Lock Screen</title>
+    <title>EducaInova - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     <link rel="apple-touch-icon" href="{% static 'management/pages/ico/60.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'management/pages/ico/76.png' %}">
@@ -58,7 +58,7 @@
       <div class="login-container bg-white">
         <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
           <img src="{% static 'management/assets/img/logo.png' %}" alt="logo" data-src="{% static 'management/assets/img/logo.png' %}" data-src-retina="assets/img/logo_2x.png" height="22">
-          <p class="p-t-35">Sign into your pages account</p>
+          <p class="p-t-35">Insira seus dados de acesso abaixo</p>
           {% if form.errors %}
             <p class="text-red text-center">Nome de usuário ou senha incorretos. Por favor, tente novamente.</p>
           {% endif %}
@@ -66,17 +66,17 @@
           <form id="form-login" class="p-t-15" role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
             <!-- START Form Control-->
             <div class="form-group form-group-default">
-              <label>Login</label>
+              <label>Nome de Usuário</label>
               <div class="controls">
-                <input type="text" id="id_username" name="username" placeholder="User Name" class="form-control" required>
+                <input type="text" id="id_username" name="username" placeholder="Nome de Usuário" class="form-control" required>
               </div>
             </div>
             <!-- END Form Control-->
             <!-- START Form Control-->
             <div class="form-group form-group-default">
-              <label>Password</label>
+              <label>Senha</label>
               <div class="controls">
-                <input type="password" class="form-control" id="id_password" name="password" placeholder="Credentials" required>
+                <input type="password" class="form-control" id="id_password" name="password" placeholder="Senha de Acesso" required>
               </div>
             </div>
             <!-- START Form Control-->
@@ -84,15 +84,15 @@
               <div class="col-md-6 no-padding">
                 <div class="checkbox ">
                   <input type="checkbox" value="1" id="checkbox1">
-                  <label for="checkbox1">Keep Me Signed in</label>
+                  <label for="checkbox1">Mantenha-me logado</label>
                 </div>
               </div>
               <div class="col-md-6 text-right">
-                <a href="#" class="text-info small">Help? Contact Support</a>
+                <a href="#" class="text-info small">Ajuda? Contacte o suporte!</a>
               </div>
             </div>
             <!-- END Form Control-->
-            <button class="btn btn-complete btn-cons m-t-10" value="login" type="submit">Sign in</button>
+            <button class="btn btn-complete btn-cons m-t-10" value="login" type="submit">Entrar</button>
             <input type="hidden" name="next" value="{{ next }}" />
           </form>
           <!--END Login Form-->
