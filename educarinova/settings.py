@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'educarinova.core',
-    'educarinova.management',
+    'educarinova.management.apps.ManagementConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
