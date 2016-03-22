@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>EducaInova - Login</title>
+    <title>Login - Educarinova</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     <link rel="apple-touch-icon" href="{% static 'management/pages/ico/60.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'management/pages/ico/76.png' %}">
@@ -66,9 +66,9 @@
           <form id="form-login" class="p-t-15" role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
             <!-- START Form Control-->
             <div class="form-group form-group-default">
-              <label>Nome de Usuário</label>
+              <label>Usuário</label>
               <div class="controls">
-                <input type="text" id="id_username" name="username" placeholder="Nome de Usuário" class="form-control" required>
+                <input type="text" id="id_username" name="username" placeholder="Nome de usuário" class="form-control" required>
               </div>
             </div>
             <!-- END Form Control-->
@@ -76,7 +76,7 @@
             <div class="form-group form-group-default">
               <label>Senha</label>
               <div class="controls">
-                <input type="password" class="form-control" id="id_password" name="password" placeholder="Senha de Acesso" required>
+                <input type="password" class="form-control" id="id_password" name="password" placeholder="Senha de acesso" required>
               </div>
             </div>
             <!-- START Form Control-->

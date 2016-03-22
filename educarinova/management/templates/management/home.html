@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash</title>
+</head>
+<body>
+    {% for school in schools %}
+        <h1><a href="{% url 'management.views.test_students' school=school.pk %}">{{ school.company_name }}</a></h1>
+    {% endfor %}
+</body>
+</html>

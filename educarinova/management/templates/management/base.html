@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>Pages - Admin Dashboard UI Kit - Dashboard</title>
+    <title>{% block title %}Educarinova - Uma nova maneira de gerenciar seu ambiente escolar{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     <link rel="apple-touch-icon" href="{% static 'management/pages/ico/60.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'management/pages/ico/76.png' %}">
@@ -96,7 +96,7 @@
                 <span class="icon-thumbnail">P</span>
               </li>
               <li class="">
-                <a href="calendar_month.html">Alunos</a>
+                <a href="/students/">Alunos</a>
                 <span class="icon-thumbnail">A</span>
               </li>
             </ul>
@@ -1689,13 +1689,47 @@
     <script src="{% static 'management/assets/plugins/jquery-metrojs/MetroJs.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'management/assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'management/assets/plugins/skycons/skycons.js' %}" type="text/javascript"></script>
+
+
+
+
+    <script src="{% static 'management/assets/plugins/pace/pace.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/jquery/jquery-1.11.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/modernizr.custom.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/jquery-ui/jquery-ui.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/boostrapv3/js/bootstrap.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/jquery/jquery-easy.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/jquery-unveil/jquery.unveil.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/jquery-bez/jquery.bez.min.js' %}"></script>
+    <script src="{% static 'management/assets/plugins/jquery-ios-list/jquery.ioslist.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/jquery-actual/jquery.actual.min.js' %}"></script>
+    <script src="{% static 'management/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'management/assets/plugins/bootstrap-select2/select2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'management/assets/plugins/classie/classie.js' %}"></script>
+    <script src="{% static 'management/assets/plugins/switchery/js/switchery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'management/assets/plugins/jquery-autonumeric/autoNumeric.js' %}"></script>
+    <script type="text/javascript" src="{% static 'management/assets/plugins/dropzone/dropzone.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'management/assets/plugins/bootstrap-tag/bootstrap-tagsinput.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'management/assets/plugins/jquery-inputmask/jquery.inputmask.min.js' %}"></script>
+    <script src="{% static 'management/assets/plugins/boostrap-form-wizard/js/jquery.bootstrap.wizard.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/jquery-validation/js/jquery.validate.min.js' %}" type="text/javascript"></script>
+
+
+
+
     <script src="{% static 'management/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/summernote/js/summernote.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'management/assets/plugins/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'management/assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js' %}"></script>
     <!-- END VENDOR JS -->
     <!-- BEGIN CORE TEMPLATE JS -->
     <script src="{% static 'management/pages/js/pages.min.js' %}"></script>
     <!-- END CORE TEMPLATE JS -->
     <!-- BEGIN PAGE LEVEL JS -->
     <script src="{% static 'management/assets/js/dashboard.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/assets/js/form_elements.js' %}" type="text/javascript"></script>
     <script src="{% static 'management/assets/js/scripts.js' %}" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS -->
   </body>

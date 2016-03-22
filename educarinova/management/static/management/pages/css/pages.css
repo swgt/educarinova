@@ -1211,6 +1211,7 @@ body.rtl [class*="col-"] {
   overflow: hidden;
   display: block;
   padding: 0;
+  margin: 0;
   background-color: #f0f0f0;
 }
 .jumbotron .inner {
