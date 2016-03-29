@@ -1,0 +1,74 @@
+{% extends 'management/base.html' %}
+{% block title %}Editando uma sala - Educarinova{% endblock title %}
+{% block content %}
+<!-- START PAGE CONTENT -->
+<div class="content ">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+          <li>
+            <p>Educarinova</p>
+          </li>
+          <li><a href="/classroom">Salas</a>
+          <li><a href="#" class="active">Nova Sala</a>
+        </li>
+      </ul>
+      <!-- END BREADCRUMB -->
+    </div>
+  </div>
+</div>
+<!-- END JUMBOTRON -->
+<!-- START CONTAINER FLUID -->
+<div class="container-fluid container-fixed-lg">
+  <div class="row">
+    <div class="col-lg-7 col-md-6 ">
+      <div class="panel panel-transparent">
+        <div class="panel-body">
+          <form role="form" autocomplete="off" novalidate="novalidate">
+            
+            {% for field in form %}
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label>{{field.label}}</label>
+
+                  {{field}}
+                  
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="clearfix"></div>
+            <button class="btn btn-primary" type="submit">Cadastrar</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-lg-5 col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-heading">
+          <div class="panel-title">Validation
+          </div>
+        </div>
+        <div class="panel-body">
+          <h3>Showcase and guide users with a <br>
+          better User Interface &amp; Experience.</h3>
+          <p>Forms are one of the most important components
+            <br> when it comes to a dashboard. Recognizing that fact, users are
+          <br>able work in a maximum content width.</p>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+{% endblock content %}

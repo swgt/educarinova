@@ -53,6 +53,16 @@ class Unit(models.Model):
     def __str__(self):
         return str(self.school) +" "+ self.name
 
+class Classroom(models.Model):
+    identification = models.CharField('Identificação da sala', max_length=100)
+    TYPES_CLASSROOM = (
+        ('Sala de Aula', 'Sala de Aula'),
+        ('Laboratório', 'Laboratório'),
+        ('Outro', 'Outro'),
+    )
+    type = models.CharField('tipo de sala', max_length=30, choices=TYPES_CLASSROOM)
+    unit = models.ForeignKey(Unit, verbose_name='unidade')
+
 
 class CommonInfo(models.Model):
     name = models.CharField('nome', max_length=150)

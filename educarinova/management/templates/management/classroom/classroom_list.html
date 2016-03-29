@@ -1,6 +1,6 @@
 {% extends 'management/base.html' %}
 
-{% block title %}Selecione um aluno para modificar - Educarinova{% endblock title %}
+{% block title %}Selecione uma sala para modificar - Educarinova{% endblock title %}
 
 {% block content %}
 <!-- START PAGE CONTENT -->
@@ -14,7 +14,7 @@
           <li>
             <p>Educarinova</p>
           </li>
-          <li><a href="#" class="active">Alunos</a>
+          <li><a href="#" class="active">Salas</a>
           </li>
         </ul>
         <!-- END BREADCRUMB -->
@@ -27,11 +27,11 @@
     <!-- START PANEL -->
     <div class="panel panel-transparent">
       <div class="panel-heading">
-        <div class="panel-title">Selecione um aluno para modificar
+        <div class="panel-title">Selecione uma sala para modificar
         </div>
         <div class="pull-right">
           <div class="col-xs-12">
-            <a id="show-modal" href="new" class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Adicionar aluno
+            <a id="show-modal" href="new" class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Adicionar sala
             </a>
           </div>
         </div>
@@ -44,14 +44,14 @@
               <th style="width:1%">
                 <button class="btn"><i class="pg-trash"></i></button>
               </th>
-              <th>Nome</th>
-              <th>Matrícula</th>
-              <th>Unidade</th>
-              <th>Status</th>
+              <th>Unidade Escolar</th>
+              <th>Identificação</th>
+              <th>Tipo de Sala</th>
+              
             </tr>
           </thead>
           <tbody>
-            {% for student in students %}
+            {% for classroom in classrooms %}
             <tr>
               <td class="v-align-middle">
                 <div class="checkbox ">
@@ -60,17 +60,15 @@
                 </div>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.name }}</p>
+                <p>{{ classroom.unit }}</p>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.matriculation }}</p>
+                <p>{{ classroom.identification }}</p>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.unit }}</p>
+                <p>{{ classroom.type }}</p>
               </td>
-              <td class="v-align-middle">
-                <p>{{ student.status }}</p>
-              </td>
+              
             </tr>
             {% endfor %}
           </tbody>
