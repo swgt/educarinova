@@ -61,7 +61,7 @@ class Classroom(models.Model):
         ('Outro', 'Outro'),
     )
     type = models.CharField('tipo de sala', max_length=30, choices=TYPES_CLASSROOM)
-    unit = models.ForeignKey(Unit, verbose_name='unidade')
+    unit = models.ForeignKey(Unit, verbose_name='unidade escolar')
 
 
 class CommonInfo(models.Model):
@@ -152,4 +152,18 @@ class Employee(CommonInfo):
 
 
 class Matriculation(models.Model):
+    pass
+
+class Serie(models.Model):
+    serie = models.CharField('série', max_length=20)
+    LEVELS = (
+        ('Creche', 'Creche'),
+        ('Infantil', 'Infantil'),
+        ('Fundamental', 'Fundamental'),
+        ('Médio', 'Médio'),
+        ('Outro', 'Outro'),
+    )
+    level = models.CharField('nível', max_length=25, choices=LEVELS)
+
+class Class(models.Model):
     pass
