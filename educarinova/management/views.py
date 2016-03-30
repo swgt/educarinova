@@ -10,7 +10,7 @@ def register(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'management/dashboard.html')
+    return render(request, 'management/base.html')
 
 
 @login_required
