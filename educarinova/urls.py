@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from educarinova.core.views import home
-from educarinova.management.views import register
+from educarinova.management.views.viewsa import register
 
 urlpatterns = [
     url(r'^$', home),

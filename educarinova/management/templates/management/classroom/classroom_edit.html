@@ -1,0 +1,68 @@
+{% extends 'management/base.html' %}
+{% block title %}Editando uma sala - Educarinova{% endblock title %}
+{% block content %}
+<!-- START PAGE CONTENT -->
+<div class="content ">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+          <li>
+            <p>Educarinova</p>
+          </li>
+          <li><a href="/classroom">Salas</a>
+          <li><a href="#" class="active">Nova Sala</a>
+        </li>
+      </ul>
+      <!-- END BREADCRUMB -->
+    </div>
+  </div>
+</div>
+<!-- END JUMBOTRON -->
+<!-- START CONTAINER FLUID -->
+<div class="container-fluid container-fixed-lg">
+  <div class="row">
+    <div class="col-lg-7 col-md-6 ">
+      <div class="panel panel-transparent">
+        <div class="panel-body">
+          <form role="form" autocomplete="off" novalidate="novalidate">
+            
+            {% for field in form %}
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label>{{field.label}}</label>
+
+                  {{field}}
+                  
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="clearfix"></div>
+            <button class="btn btn-primary" type="submit">Cadastrar</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-lg-5 col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-body">
+          <h4>Salas de Aula</h4>
+          <p>Ter salas de aula cadastradas no sistema é indispensável<br/>
+            para o pleno funcionamento da nossa plataforma. Matenha<br/>
+            esses dados atualizados.</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+{% endblock content %}

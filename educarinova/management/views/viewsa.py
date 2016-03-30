@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from educarinova.management.models import Student, School
-from educarinova.management.forms import StudentForm
+from educarinova.management.forms.forms_students import StudentForm
 
 
 def register(request):
@@ -10,7 +10,7 @@ def register(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'management/base.html')
+    return render(request, 'management/dashboard.html')
 
 
 @login_required
@@ -32,7 +32,6 @@ def new(request):
 
 def delete():
     pass
-
 
 def test_students(request, school):
     students = Student.objects.filter(school=school)

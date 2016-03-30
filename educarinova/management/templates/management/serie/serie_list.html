@@ -1,6 +1,6 @@
 {% extends 'management/base.html' %}
 
-{% block title %}Selecione um aluno para modificar - Educarinova{% endblock title %}
+{% block title %}Selecione uma série para modificar - Educarinova{% endblock title %}
 
 {% block content %}
 <!-- START PAGE CONTENT -->
@@ -14,7 +14,7 @@
           <li>
             <p>Educarinova</p>
           </li>
-          <li><a href="#" class="active">Alunos</a>
+          <li><a href="#" class="active">Série</a>
           </li>
         </ul>
         <!-- END BREADCRUMB -->
@@ -27,50 +27,43 @@
     <!-- START PANEL -->
     <div class="panel panel-transparent">
       <div class="panel-heading">
-        <div class="panel-title">Selecione um aluno para modificar
+        <div class="panel-title">Selecione uma série para modificar
         </div>
         <div class="pull-right">
           <div class="col-xs-12">
-            <a id="show-modal" href="new" class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Adicionar aluno
+            <a id="show-modal" href="new" class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Adicionar Série
             </a>
           </div>
         </div>
         <div class="clearfix"></div>
       </div>
       <div class="panel-body">
-        <table class="table table-hover demo-table-dynamic" id="tableWithDynamicRows">
+        <table class="table table-striped dataTable no-footer">
           <thead>
             <tr>
               <th style="width:1%">
                 <button class="btn"><i class="pg-trash"></i></button>
               </th>
-              <th>Nome</th>
-              <th>Matrícula</th>
-              <th>Unidade</th>
-              <th>Status</th>
+              <th>Série</th>
+              <th>Nível</th>              
             </tr>
           </thead>
           <tbody>
-            {% for student in students %}
+            {% for serie in series %}
             <tr>
               <td class="v-align-middle">
                 <div class="checkbox ">
-                  <input type="checkbox" value="3" id="checkbox1">
-                  <label for="checkbox1"></label>
+                  <input type="checkbox" name='a' value="{{serie.id}}" id="{{serie.id}}">
+                  <label for="{{serie.id}}"></label>
                 </div>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.name }}</p>
+                <p>{{ serie.serie }}</p>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.matriculation }}</p>
+                <p>{{ serie.level }}</p>
               </td>
-              <td class="v-align-middle">
-                <p>{{ student.unit }}</p>
-              </td>
-              <td class="v-align-middle">
-                <p>{{ student.status }}</p>
-              </td>
+              
             </tr>
             {% endfor %}
           </tbody>
