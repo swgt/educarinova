@@ -8,8 +8,8 @@ class ClassroomForm(forms.ModelForm):
 		model = Classroom
 		fields = ['unit', 'identification', 'type']
 		widgets = {
-			'unit': forms.Select(attrs={'class': 'form-control'}),
+			'unit': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
             'identification': forms.TextInput(attrs={'class': 'form-control', 'aria-required':'true'}),
-            'type': forms.Select(attrs={'class': 'form-control'}),
+            'type': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
             
         }

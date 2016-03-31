@@ -9,6 +9,8 @@ class SerieForm(forms.ModelForm):
 		fields = '__all__'
 		widgets = {
 			'serie': forms.TextInput(attrs={'class': 'form-control', 'aria-required':'true'}),
-            'level': forms.Select(attrs={'class': 'form-control'}),
+            'level': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
             
+
+
         }

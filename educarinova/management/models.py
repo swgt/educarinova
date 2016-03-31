@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 
 
 class School(models.Model):
@@ -165,5 +166,14 @@ class Serie(models.Model):
     )
     level = models.CharField('nível', max_length=25, choices=LEVELS)
 
+    def __str__(self):
+        return self.serie
+
 class Class(models.Model):
-    pass
+    name = models.CharField('nome da turma', max_length=30)
+    serie = models.ForeignKey(Serie, verbose_name="serie")
+    ano_letivo = models.IntegerField('ano letivo', default=date.today().year)
+    unit = models.ForeignKey(Unit, verbose_name='unidade escolar')
+
+class Subject(models.Model):
+    name = models.CharField('nome da disciplina', max_length=50)

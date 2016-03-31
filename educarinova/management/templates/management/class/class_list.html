@@ -1,0 +1,82 @@
+{% extends 'management/base.html' %}
+
+{% block title %}Selecione uma turma para modificar - Educarinova{% endblock title %}
+
+{% block content %}
+<!-- START PAGE CONTENT -->
+<div class="content ">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+          <li>
+            <p>Educarinova</p>
+          </li>
+          <li><a href="#" class="active">Turma</a>
+          </li>
+        </ul>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- START PANEL -->
+    <div class="panel panel-transparent">
+      <div class="panel-heading">
+        <div class="panel-title">Selecione uma turma para modificar
+        </div>
+        <div class="pull-right">
+          <div class="col-xs-12">
+            <a id="show-modal" href="new" class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Adicionar Turma
+            </a>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+        <table class="table table-striped dataTable no-footer">
+          <thead>
+            <tr>
+              <th style="width:1%">
+                <button class="btn"><i class="pg-trash"></i></button>
+              </th>
+              <th>Nome da turma</th>
+              <th>Série</th>  
+              <th>Ano Letivo</th>             
+            </tr>
+          </thead>
+          <tbody>
+            {% for class in classes %}
+            <tr>
+              <td class="v-align-middle">
+                <div class="checkbox ">
+                  <input type="checkbox" name='a' value="{{class.id}}" id="{{class.id}}">
+                  <label for="{{class.id}}"></label>
+                </div>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ class.name }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ class.serie }}</p>
+              </td>
+              <td class="v-align-middle">
+                <p>{{ class.ano_letivo }}</p>
+              </td>
+              
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- END PANEL -->
+  </div>
+  <!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+{% endblock content %}

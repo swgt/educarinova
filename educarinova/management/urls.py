@@ -3,6 +3,8 @@ from educarinova.management.views.viewsa import dashboard, list_, edit, new, del
 from educarinova.management.views.views_classroom import *
 from educarinova.management.views.views_unit import *
 from educarinova.management.views.views_serie import *
+from educarinova.management.views.views_subject import *
+from educarinova.management.views.views_class import *
 
 
 
@@ -28,4 +30,11 @@ urlpatterns = [
 
     url(r'^serie/$', list_serie, name='list_serie'),
     url(r'^serie/new/$', new_serie, name='new_setie'),
+
+    url(r'^subject/$', list_subject, name='list_subject'),
+    url(r'^subject/new/$', new_subject, name='new_subject'),
+
+    url(r'^class/$', list_class, name='list_class'),
+    url(r'^class/new/$', new_class, name='new_class'),
+
 ]
