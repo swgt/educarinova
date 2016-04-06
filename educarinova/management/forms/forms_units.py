@@ -4,6 +4,7 @@ from educarinova.management.models import Unit
 
 class UnitForm(forms.ModelForm):
 
-	class Meta:
-		model = Unit
-		fields = '__all__'
+    class Meta:
+        model = Unit
+        fields = ['name', 'school']
+        widgets = {'school': forms.Select(attrs={'data-init-plugin':'select2'})}
