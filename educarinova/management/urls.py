@@ -7,7 +7,6 @@ from educarinova.management.views.views_subject import *
 from educarinova.management.views.views_class import *
 
 
-
 class LENDConf:
     def __init__(self):
         self.urlpatterns = [
