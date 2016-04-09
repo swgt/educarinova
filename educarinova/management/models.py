@@ -28,7 +28,11 @@ class School(models.Model):
 
 class Address(models.Model):
     CEP = models.CharField('CEP', max_length=9)
-    type_of_street = models.CharField('tipo de logradouro', max_length=100)
+    TYPE_OF_STREET_CHOICES = (
+        ('Rua', 'Rua'),
+        ('Avenida', 'Avenida')
+    )
+    type_of_street = models.CharField('tipo de logradouro', max_length=100, choices=TYPE_OF_STREET_CHOICES)
     street = models.CharField('logradouro', max_length=100)
     house_number = models.CharField('número', max_length=6)
     complement = models.CharField('complemento', max_length=100, null=True, blank=True)
