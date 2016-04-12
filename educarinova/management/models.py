@@ -134,10 +134,10 @@ class Matriculation(models.Model):
         ('Em Curso', 'Em Curso'),
         ('Concluido', 'Concluido'),
     )
-    status = models.CharField('situação', max_length=10, choices=STATUS)
+    status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
     score = models.ForeignKey(Score, verbose_name="nota", null=True)
     attendance = models.ForeignKey(Attendance, verbose_name="frequência", default=0)
-    created_at = models.DateTimeField('criado em', auto_now_add=True)
+    created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
 
 
 class Student(CommonInfo):
@@ -202,10 +202,10 @@ class Serie(models.Model):
 
 class Class(models.Model):
     name = models.CharField('nome da turma', max_length=30)
-    serie = models.ForeignKey(Serie, verbose_name="serie")
+    serie = models.ForeignKey(Serie, verbose_name="serie", null=True)
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
     vacancies = models.CharField('vagas', max_length=10, default=0)
-    unit = models.ForeignKey(Unit, verbose_name='unidade escolar')
+    unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
     matriculation = models.ForeignKey(Matriculation, verbose_name='matricula', default=False)
 
 
