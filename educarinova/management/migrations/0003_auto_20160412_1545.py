@@ -38,11 +38,6 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='management.Score', verbose_name='nota'),
         ),
         migrations.AddField(
-            model_name='classroom',
-            name='unit',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='management.Unit', verbose_name='unidade escolar'),
-        ),
-        migrations.AddField(
             model_name='class',
             name='matriculation',
             field=models.ForeignKey(default=False, on_delete=django.db.models.deletion.CASCADE, to='management.Matriculation', verbose_name='matricula'),
