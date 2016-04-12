@@ -141,13 +141,8 @@ class Matriculation(models.Model):
 
 
 class Student(CommonInfo):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    matriculation = models.OneToOneField(
-        Matriculation,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        verbose_name='matrícula',
-    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario')
+    matriculation = models.OneToOneField(Matriculation, on_delete=models.CASCADE, primary_key=True, verbose_name='matrícula')
     unit = models.ForeignKey(Unit, verbose_name="unidade", default=False)
     contact = models.ForeignKey(Contact, verbose_name="contato", default=False)
     address = models.ForeignKey(Address, verbose_name="endereço", default=False)
