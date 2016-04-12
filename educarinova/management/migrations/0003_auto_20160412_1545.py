@@ -22,15 +22,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Matriculation',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('number_matriculation', models.IntegerField(default=educarinova.management.models.random_string, verbose_name='matricula')),
-                ('status', models.CharField(choices=[('Ativo', 'Ativo'), ('Desativado', 'Desativado'), ('Em Curso', 'Em Curso'), ('Concluido', 'Concluido')], max_length=10, null=True, verbose_name='situação')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True, verbose_name='criado em')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Score',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
