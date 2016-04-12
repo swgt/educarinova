@@ -14,14 +14,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Class',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30, verbose_name='nome da turma')),
-                ('ano_letivo', models.IntegerField(default=2016, verbose_name='ano letivo')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Attendance',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
