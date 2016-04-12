@@ -17,9 +17,4 @@ class Migration(migrations.Migration):
             model_name='matriculation',
             name='id',
         ),
-        migrations.AlterField(
-            model_name='matriculation',
-            name='number_matriculation',
-            field=models.IntegerField(default=educarinova.management.models.random_string, primary_key=True, serialize=False, verbose_name='matricula'),
-        ),
     ]
