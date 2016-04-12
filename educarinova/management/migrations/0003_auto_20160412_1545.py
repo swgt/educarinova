@@ -22,14 +22,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Classroom',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('identification', models.CharField(max_length=100, verbose_name='Identificação da sala')),
-                ('type', models.CharField(choices=[('Sala de Aula', 'Sala de Aula'), ('Laboratório', 'Laboratório'), ('Outro', 'Outro')], max_length=30, verbose_name='tipo de sala')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Contact',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
