@@ -63,13 +63,13 @@
                 <p>{{ student.name }}</p>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.matriculation }}</p>
+                <p>{{ student.matriculation.number_matriculation }}</p>
               </td>
               <td class="v-align-middle">
                 <p>{{ student.unit }}</p>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.status }}</p>
+                <p>{{ student.matriculation.status }}</p>
               </td>
             </tr>
             {% endfor %}

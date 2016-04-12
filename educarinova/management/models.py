@@ -135,9 +135,12 @@ class Matriculation(models.Model):
         ('Concluido', 'Concluido'),
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
-    score = models.ForeignKey(Score, verbose_name="nota", null=True)
-    attendance = models.ForeignKey(Attendance, verbose_name="frequência", default=0)
+    score = models.ForeignKey(Score, verbose_name="nota", null=True, blank=True)
+    attendance = models.ForeignKey(Attendance, verbose_name="frequência", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
+
+    def __str__(self):
+        return str(self.number_matriculation)
 
 
 class Student(CommonInfo):
