@@ -22,15 +22,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Class',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30, verbose_name='nome da turma')),
-                ('academic_year', models.IntegerField(default=2016, verbose_name='ano letivo')),
-                ('vacancies', models.CharField(default=0, max_length=10, verbose_name='vagas')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Classroom',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
