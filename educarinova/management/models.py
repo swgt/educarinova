@@ -127,7 +127,7 @@ class Score(models.Model):
 
 
 class Matriculation(models.Model):
-    number_matriculation = models.IntegerField('matricula', default=random_string)
+    number_matriculation = models.IntegerField('matricula', default=random_string, primary_key=True)
     STATUS = (
         ('Ativo', 'Ativo'),
         ('Desativado', 'Desativado'),
@@ -145,7 +145,7 @@ class Matriculation(models.Model):
 
 class Student(CommonInfo):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario')
-    matriculation_id = models.OneToOneField(Matriculation, on_delete=models.CASCADE, primary_key=True, verbose_name='matrícula')
+    matriculation = models.OneToOneField(Matriculation, on_delete=models.CASCADE, primary_key=True, verbose_name='matrícula')
     unit = models.ForeignKey(Unit, verbose_name="unidade", default=False)
     contact = models.ForeignKey(Contact, verbose_name="contato", default=False)
     address = models.ForeignKey(Address, verbose_name="endereço", default=False)
