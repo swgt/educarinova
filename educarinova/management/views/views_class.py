@@ -17,6 +17,7 @@ def new_class(request):
 			vclass = formClass.save(commit=False)
 			vclass.save()
 
+
 			return redirect('/subject?op=success', pk='teste')
 		else:
 			return render(request, 'management/class/class_edit.html', {'form': formClass})

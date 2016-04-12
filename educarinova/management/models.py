@@ -19,7 +19,7 @@ class School(models.Model):
 
 
 class Address(models.Model):
-    CEP = models.CharField('CEP', max_length=9)
+    CEP = models.CharField('CEP', max_length=10)
     TYPE_OF_STREET_CHOICES = (
         ('Rua', 'Rua'),
         ('Avenida', 'Avenida')

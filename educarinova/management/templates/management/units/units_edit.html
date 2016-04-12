@@ -23,12 +23,20 @@
            </li>
         </ul>
         <!-- END BREADCRUMB -->
+
       </div>
     </div>
   </div>
+  {% if unitForm.errors or addressForm.errors or  contactForm.errors%}
+      <div class="alert alert-danger" role="alert">
+                <button class="close" data-dismiss="alert"></button>
+                <strong>Erro: </strong>Verifique todos os campos do formulário de cadastro.
+      </div>
+ {% endif %}
   <!-- START CONTAINER FLUID -->
   <div class="container-fluid container-fixed-lg">
-    <div id="rootwizard" class="m-t-50">
+   
+    <div id="rootwizard">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs nav-tabs-linetriangle nav-tabs-separator nav-stack-sm">
         <li class="active">
@@ -45,7 +53,10 @@
         </li>
       </ul>
       <!-- Tab panes -->
+            <form role="form" action="" method="POST">
+          {% csrf_token %}
       <div class="tab-content">
+   
         <div class="tab-pane padding-20 active slide-left" id="tab1">
           <div class="row row-same-height">
             <div class="col-md-5 b-r b-dashed b-grey sm-b-b">
@@ -61,7 +72,9 @@
                 {% for field in unitForm %}
                   <div class="row">
                     <div class="col-sm-12">
-                      <div class="form-group form-group-default required">
+                      <div class="form-group form-group-default  
+                          {% if field.field.required  %} required{% endif  %}
+                          {% if field.errors%} has-error{% endif  %}">
                         <label>{{field.label}}</label>
                         {{field|add_class:'form-control'}}
                       </div>
@@ -87,7 +100,9 @@
                 {% for field in contactForm %}
                   <div class="row">
                     <div class="col-sm-12">
-                      <div class="form-group form-group-default required">
+                      <div class="form-group form-group-default  
+                          {% if field.field.required  %} required{% endif  %}
+                          {% if field.errors%} has-error{% endif  %}">
                         <label>{{field.label}}</label>
                         {{field|add_class:'form-control'}}
                       </div>
@@ -140,7 +155,9 @@
                 {% for field in addressForm %}
                   <div class="row">
                     <div class="col-sm-12">
-                      <div class="form-group form-group-default required">
+                      <div class="form-group form-group-default  
+                          {% if field.field.required  %} required{% endif  %}
+                          {% if field.errors%} has-error{% endif  %}">
                         <label>{{field.label}}</label>
                         {{field|add_class:'form-control'}}
                       </div>
@@ -164,9 +181,7 @@
               </button>
             </li>
             <li class="next finish hidden">
-              <button class="btn btn-primary btn-cons btn-animated from-left fa fa-cog pull-right" type="button">
-                <span>Finalizar</span>
-              </button>
+              <input value="Cadastrar" type="submit" class="btn btn-primary btn-cons btn-animated from-left fa fa-cog pull-right" >
             </li>
             <li class="previous first hidden">
               <button class="btn btn-default btn-cons btn-animated from-left fa fa-cog pull-right" type="button">
@@ -180,7 +195,9 @@
             </li>
           </ul>
         </div>
+
       </div>
+         </form>
     </div>
   </div>
   <!-- END CONTAINER FLUID -->
@@ -190,7 +207,14 @@
 
 {% block js-additional %}
 <script type="text/javascript" src="{%  static 'management/assets/plugins/boostrap-form-wizard/js/jquery.bootstrap.wizard.min.js' %}"></script>
+
+<script src="{%  static 'management/assets/plugins/jquery-inputmask/jquery.inputmask.min.js' %}" type="text/javascript"></script>
+
+
 <script>
+
+    $("#id_CEP").mask("99.999-999");
+
     (function($) {
         'use strict';
         $(document).ready(function() {
