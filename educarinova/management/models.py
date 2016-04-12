@@ -1,6 +1,14 @@
+from random import randint
+
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
+
+
+def random_string():
+    number_random = randint(10000, 99999)
+    current_date = date.today().year
+    return str(current_date) + str(number_random)
 
 
 class School(models.Model):
@@ -56,7 +64,8 @@ class Unit(models.Model):
     created_at = models.DateTimeField('criado em', auto_now_add=True)
 
     def __str__(self):
-        return str(self.school) +" "+ self.name
+        return str(self.school) + " " + self.name
+
 
 class Classroom(models.Model):
     identification = models.CharField('Identificação da sala', max_length=100)
@@ -109,16 +118,34 @@ class CommonInfo(models.Model):
     naturalness = models.CharField('naturalidade', max_length=100)
 
 
-class Student(CommonInfo):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    matriculation = models.CharField('matrícula', max_length=100, primary_key=True)
+class Attendance(models.Model):
+    pass
+
+
+class Score(models.Model):
+    pass
+
+
+class Matriculation(models.Model):
+    number_matriculation = models.IntegerField('matricula', default=random_string)
     STATUS = (
         ('Ativo', 'Ativo'),
         ('Desativado', 'Desativado'),
         ('Em Curso', 'Em Curso'),
         ('Concluido', 'Concluido'),
     )
-    status = models.CharField('situação', max_length=10, choices=STATUS)
+    status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
+    score = models.ForeignKey(Score, verbose_name="nota", null=True, blank=True)
+    attendance = models.ForeignKey(Attendance, verbose_name="frequência", null=True, blank=True)
+    created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
+
+    def __str__(self):
+        return str(self.number_matriculation)
+
+
+class Student(CommonInfo):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario')
+    matriculation = models.OneToOneField(Matriculation, on_delete=models.CASCADE, primary_key=True, verbose_name='matrícula')
     unit = models.ForeignKey(Unit, verbose_name="unidade", default=False)
     contact = models.ForeignKey(Contact, verbose_name="contato", default=False)
     address = models.ForeignKey(Address, verbose_name="endereço", default=False)
@@ -156,9 +183,6 @@ class Employee(CommonInfo):
         return self.name
 
 
-class Matriculation(models.Model):
-    pass
-
 class Serie(models.Model):
     serie = models.CharField('série', max_length=20)
     LEVELS = (
@@ -173,11 +197,15 @@ class Serie(models.Model):
     def __str__(self):
         return self.serie
 
+
 class Class(models.Model):
     name = models.CharField('nome da turma', max_length=30)
-    serie = models.ForeignKey(Serie, verbose_name="serie")
-    ano_letivo = models.IntegerField('ano letivo', default=date.today().year)
-    unit = models.ForeignKey(Unit, verbose_name='unidade escolar')
+    serie = models.ForeignKey(Serie, verbose_name="serie", null=True)
+    academic_year = models.IntegerField('ano letivo', default=date.today().year)
+    vacancies = models.CharField('vagas', max_length=10, default=0)
+    unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
+    matriculation = models.ForeignKey(Matriculation, verbose_name='matricula', default=False)
+
 
 class Subject(models.Model):
     name = models.CharField('nome da disciplina', max_length=50)

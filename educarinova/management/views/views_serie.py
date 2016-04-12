@@ -10,7 +10,7 @@ def list_serie(request):
 
 @login_required
 def new_serie(request):
-    
+
 	if request.method == 'POST':
 		formSerie = SerieForm(request.POST)
 		if (formSerie.is_valid()):

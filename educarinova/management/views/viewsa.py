@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from educarinova.management.models import Student, School
-from educarinova.management.forms.forms_students import StudentForm
+from educarinova.management.forms.forms_students import StudentForm, AddressForm, MatriculationForm, ContactForm
 
 
 def register(request):
@@ -26,12 +26,21 @@ def edit(request, pk):
 
 @login_required
 def new(request):
-    form = StudentForm()
-    return render(request, 'management/students/student_edit.html', {'form': form})
+    form_student = StudentForm()
+    form_address = AddressForm()
+    form_matriculation = MatriculationForm()
+    form_contact = ContactForm()
+    return render(request, 'management/students/student_edit.html', {
+        'form_student': form_student,
+        'form_address': form_address,
+        'form_matriculation': form_matriculation,
+        'form_contact': form_contact
+    })
 
 
 def delete():
     pass
+
 
 def test_students(request, school):
     students = Student.objects.filter(school=school)
