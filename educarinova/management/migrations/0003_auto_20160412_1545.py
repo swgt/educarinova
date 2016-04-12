@@ -42,9 +42,4 @@ class Migration(migrations.Migration):
             name='matriculation',
             field=models.ForeignKey(default=False, on_delete=django.db.models.deletion.CASCADE, to='management.Matriculation', verbose_name='matricula'),
         ),
-        migrations.AddField(
-            model_name='class',
-            name='unit',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='management.Unit', verbose_name='unidade escolar'),
-        ),
     ]
