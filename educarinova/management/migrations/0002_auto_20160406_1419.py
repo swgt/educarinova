@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='class',
             name='vagas',
-            field=models.CharField(default=0, max_length=10, verbose_name='vagas'),
+            field=models.CharField(default="0", max_length=10, verbose_name='vagas'),
         ),
         migrations.AddField(
             model_name='matriculation',
