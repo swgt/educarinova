@@ -16,20 +16,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Address',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('CEP', models.CharField(max_length=9, verbose_name='CEP')),
-                ('type_of_street', models.CharField(choices=[('Rua', 'Rua'), ('Avenida', 'Avenida')], max_length=100, verbose_name='tipo de logradouro')),
-                ('street', models.CharField(max_length=100, verbose_name='logradouro')),
-                ('house_number', models.CharField(max_length=6, verbose_name='número')),
-                ('complement', models.CharField(blank=True, max_length=100, null=True, verbose_name='complemento')),
-                ('district', models.CharField(max_length=100, verbose_name='bairro')),
-                ('city', models.CharField(max_length=100, verbose_name='cidade')),
-                ('state', models.CharField(max_length=100, verbose_name='estado')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Attendance',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
