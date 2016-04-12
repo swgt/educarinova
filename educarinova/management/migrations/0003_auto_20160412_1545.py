@@ -22,18 +22,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Contact',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cell_phone', models.CharField(max_length=20, verbose_name='celular')),
-                ('cell_phone_secondary', models.CharField(blank=True, max_length=20, null=True, verbose_name='outro celular')),
-                ('phone', models.CharField(blank=True, max_length=20, null=True, verbose_name='telefone¹')),
-                ('phone_secondary', models.CharField(blank=True, max_length=20, null=True, verbose_name='telefone²')),
-                ('email', models.EmailField(max_length=254, verbose_name='e-mail')),
-                ('fax', models.CharField(blank=True, max_length=20, null=True, verbose_name='fax')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Matriculation',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
