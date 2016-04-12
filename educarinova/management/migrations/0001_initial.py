@@ -190,7 +190,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='class',
             name='serie',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='management.Serie', verbose_name='serie'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='management.Serie', verbose_name='série'),
         ),
         migrations.AddField(
             model_name='class',
