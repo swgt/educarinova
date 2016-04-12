@@ -27,21 +27,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
             ],
         ),
-        migrations.CreateModel(
-            name='Serie',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('serie', models.CharField(max_length=20, verbose_name='série')),
-                ('level', models.CharField(choices=[('Creche', 'Creche'), ('Infantil', 'Infantil'), ('Fundamental', 'Fundamental'), ('Médio', 'Médio'), ('Outro', 'Outro')], max_length=25, verbose_name='nível')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Subject',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, verbose_name='nome da disciplina')),
-            ],
-        ),
         migrations.AddField(
             model_name='matriculation',
             name='attendance',
