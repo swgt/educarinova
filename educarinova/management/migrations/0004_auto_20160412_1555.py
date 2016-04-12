@@ -23,9 +23,4 @@ class Migration(migrations.Migration):
             name='score',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='management.Score', verbose_name='nota'),
         ),
-        migrations.AlterField(
-            model_name='student',
-            name='matriculation',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='management.matriculation', verbose_name='matrícula'),
-        ),
     ]
