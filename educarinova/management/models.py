@@ -125,6 +125,23 @@ class Attendance(models.Model):
 class Score(models.Model):
     pass
 
+
+class Matriculation(models.Model):
+    number_matriculation = models.IntegerField('matricula', default=random_string, primary_key=True)
+    STATUS = (
+        ('Ativo', 'Ativo'),
+        ('Desativado', 'Desativado'),
+        ('Em Curso', 'Em Curso'),
+        ('Concluido', 'Concluido'),
+    )
+    status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
+    score = models.ForeignKey(Score, verbose_name="nota", null=True, blank=True)
+    attendance = models.ForeignKey(Attendance, verbose_name="frequência", null=True, blank=True)
+    created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
+
+    def __str__(self):
+        return str(self.number_matriculation)
+
  
 class ReportCard(models.Model):
     pass
