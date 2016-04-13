@@ -190,6 +190,22 @@ class Class(models.Model):
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
     vacancies = models.CharField('vagas', max_length=10, default=0)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
+    #financeiro
+    value_tuition_fee = models.DecimalField('mensalidade', max_digits=5, decimal_places=2)
+
+
+class TuitionFee(models.Model):
+    discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=5, decimal_places=2)
+    reason_discount_tuition_fee = models.CharField('motivo do desconto', max_length=255)
+    expiration_day = models.PositiveIntegerField('dia de vencimento')
+    FREQUENCY_PAYMENT = (
+        ('Mensal', 'Mensal'),
+        ('Bimestral', 'Bimestral'),
+        ('Trimestral', 'Trimestral'),
+        ('Semestral', 'Semestral'),
+        ('Anual', 'Anual'),
+        )
+    frequency_payment = models.CharField('frequencia de pagamento', max_length=30, choices=FREQUENCY_PAYMENT)
 
 
 class Matriculation(models.Model):
@@ -206,10 +222,26 @@ class Matriculation(models.Model):
     status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
+    #financeiro
+    tuition_fee = models.ForeignKey(TuitionFee, verbose_name='mensalidade')
 
     def __str__(self):
         return str(self.number_matriculation)
-    
+
+
+class AdditionalCost(models.Model):
+    name = models.CharField('nome do custo', max_length=50)
+    valor = models.DecimalField('valor', max_digits=5, decimal_places=2)
+
+
+class Payment(models.Model):
+    STATUS_PAYMENT = (
+        ('Aguardando', 'Aguardando'),
+        ('Cancelado', 'Cancelado'),
+        ('Pago', 'Pago')
+        )
+    status = models.CharField('status do pagamento', max_length=15, choices=STATUS_PAYMENT)
+
 
 class Subject(models.Model):
     name = models.CharField('nome da disciplina', max_length=50)

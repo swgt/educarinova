@@ -22,10 +22,14 @@
 </div>
 <!-- END JUMBOTRON -->
 <!-- START CONTAINER FLUID -->
-<div class="container-fluid container-fixed-lg">
+<div class="container-fluid container-fixed-lg bg-white">
   <div class="row">
     <div class="col-lg-7 col-md-6 ">
       <div class="panel panel-transparent">
+      <div class="panel-heading">
+          <div class="panel-title">Cadastro de Séries
+          </div>
+      </div>
         <div class="panel-body">
           <form role="form" action="" method="POST">
           {% csrf_token %}
@@ -42,7 +46,7 @@
             {% endfor %}
 
             <div class="clearfix"></div>
-            <button class="btn btn-primary" type="submit">Cadastrar</button>
+            <button class="btn btn-complete" type="submit">Cadastrar</button>
           </form>
         </div>
       </div>
