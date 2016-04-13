@@ -55,7 +55,7 @@
       <!-- Tab panes -->
             <form role="form" action="" method="POST">
           {% csrf_token %}
-      <div class="tab-content">
+      <div class="tab-content bg-white">
    
         <div class="tab-pane padding-20 active slide-left" id="tab1">
           <div class="row row-same-height">
@@ -195,9 +195,9 @@
             </li>
           </ul>
         </div>
-
+    
       </div>
-         </form>
+       
     </div>
   </div>
   <!-- END CONTAINER FLUID -->
@@ -214,6 +214,10 @@
 <script>
 
     $("#id_CEP").mask("99.999-999");
+    $("#id_cell_phone").mask("(99) 99999-9999");
+    $("#id_cell_phone_secondary").mask("(99) 99999-9999");
+    $("#id_phone_secondary").mask("(99) 99999-9999");
+    $("#id_phone").mask("(99) 99999-9999");
 
     (function($) {
         'use strict';

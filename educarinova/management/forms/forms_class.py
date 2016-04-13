@@ -10,7 +10,8 @@ class ClassForm(forms.ModelForm):
 		widgets = {
 			'name': forms.TextInput(attrs={'class': 'form-control', 'aria-required':'true'}),
             'serie': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
-            'ano_letivo': forms.NumberInput(attrs={'class': 'form-control', 'aria-required':'true'}),
-            'unit': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'})
+            'academic_year': forms.NumberInput(attrs={'class': 'form-control', 'aria-required':'true'}),
+            'unit': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
+            'vacancies': forms.TextInput(attrs={'class':'form-control'})
 	            
         }
