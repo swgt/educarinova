@@ -12,8 +12,35 @@ def list_unit(request):
 
 @login_required
 def new_unit(request):
-    unitForm = UnitForm()
-    addressForm = AddressForm()
-    contactForm = ContactForm()
 
-    return render(request, 'management/units/units_edit.html', {'unitForm': unitForm, 'addressForm': addressForm, 'contactForm':contactForm})
+
+	if request.method == 'POST':
+
+		unitForm = UnitForm(request.POST)
+		addressForm = AddressForm(request.POST)
+		contactForm = ContactForm(request.POST)
+
+		if (unitForm.is_valid() and addressForm.is_valid() and contactForm.is_valid()):
+			address = addressForm.save(commit=False)
+			address.save()
+
+			contact = contactForm.save(commit=False)
+			contact.save()
+
+			unit = unitForm.save(commit=False)
+			unit.address = address
+			unit.contact = contact
+
+			unit.save()
+
+			return redirect('/unit?op=success')
+		else:
+			return render(request, 'management/units/units_edit.html', {'unitForm': unitForm, 'addressForm': addressForm, 'contactForm':contactForm})
+	else:
+		unitForm = UnitForm()
+		addressForm = AddressForm()
+		contactForm = ContactForm()
+
+		return render(request, 'management/units/units_edit.html', {'unitForm': unitForm, 'addressForm': addressForm, 'contactForm':contactForm})
+
+

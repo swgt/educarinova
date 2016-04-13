@@ -27,7 +27,7 @@ class School(models.Model):
 
 
 class Address(models.Model):
-    CEP = models.CharField('CEP', max_length=9)
+    CEP = models.CharField('CEP', max_length=10)
     TYPE_OF_STREET_CHOICES = (
         ('Rua', 'Rua'),
         ('Avenida', 'Avenida')
@@ -142,11 +142,13 @@ class Matriculation(models.Model):
     def __str__(self):
         return str(self.number_matriculation)
 
+ 
+class ReportCard(models.Model):
+    pass
+
 
 class Student(CommonInfo):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario')
-    matriculation = models.OneToOneField(Matriculation, on_delete=models.CASCADE, primary_key=True, verbose_name='matrícula')
-    unit = models.ForeignKey(Unit, verbose_name="unidade", default=False)
     contact = models.ForeignKey(Contact, verbose_name="contato", default=False)
     address = models.ForeignKey(Address, verbose_name="endereço", default=False)
     created_at = models.DateTimeField('criado em', auto_now_add=True)
@@ -162,6 +164,7 @@ class Student(CommonInfo):
 
 class Employee(CommonInfo):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #funcionario tem matricula?
     matriculation = models.CharField('matrícula', max_length=100, primary_key=True)
     unit = models.ForeignKey(Unit, verbose_name="unidade", default=False)
     contact = models.ForeignKey(Contact, verbose_name="contato", default=False)
@@ -204,8 +207,26 @@ class Class(models.Model):
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
     vacancies = models.CharField('vagas', max_length=10, default=0)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
-    matriculation = models.ForeignKey(Matriculation, verbose_name='matricula', default=False)
 
+
+class Matriculation(models.Model):
+    number_matriculation = models.IntegerField('matricula', default=random_string)
+    school_class = models.ForeignKey(Class, verbose_name="turma", null=True, blank=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno')
+    STATUS = (
+        ('Ativo', 'Ativo'),
+        ('Desativado', 'Desativado'),
+        ('Em Análise', 'Em Análise'),
+        ('Em Curso', 'Em Curso'),
+        ('Concluido', 'Concluido'),
+    )
+    status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
+    report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
+    created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
+
+    def __str__(self):
+        return str(self.number_matriculation)
+    
 
 class Subject(models.Model):
     name = models.CharField('nome da disciplina', max_length=50)

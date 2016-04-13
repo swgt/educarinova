@@ -6,9 +6,28 @@
 {% block content %}
 <!-- START PAGE CONTENT -->
 <div class="content ">
+ <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+          <li>
+            <p>Educarinova</p>
+          </li>
+          <li><a href="/students/">Alunos</a>
+          </li>
+          <li><a href="#" class="active">Novo/Editar Aluno</a>
+          </li>
+        </ul>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
   <!-- START CONTAINER FLUID -->
   <div class="container-fluid container-fixed-lg">
-    <div id="rootwizard" class="m-t-50">
+    <div id="rootwizard">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs nav-tabs-linetriangle nav-tabs-separator nav-stack-sm">
         <li class="active">
@@ -25,7 +44,7 @@
         </li>
       </ul>
       <!-- Tab panes -->
-      <div class="tab-content">
+      <div class="tab-content" >
         <div class="tab-pane padding-20 active slide-left" id="tab1">
           <div class="row row-same-height">
             <div class="col-md-5 b-r b-dashed b-grey ">
@@ -514,7 +533,7 @@
           <ul class="pager wizard">
             <li class="next">
               <button class="btn btn-complete btn-cons btn-animated from-left fa fa-truck pull-right" type="button">
-                <span>Next</span>
+                <span>Próximo</span>
               </button>
             </li>
             <li class="next finish hidden">
@@ -524,26 +543,17 @@
             </li>
             <li class="previous first hidden">
               <button class="btn btn-default btn-cons btn-animated from-left fa fa-cog pull-right" type="button">
-                <span>First</span>
+                <span>Primeiro</span>
               </button>
             </li>
             <li class="previous">
               <button class="btn btn-default btn-cons pull-right" type="button">
-                <span>Previous</span>
+                <span>Anterior</span>
               </button>
             </li>
           </ul>
         </div>
-        <div class="wizard-footer padding-20 bg-master-light">
-          <p class="small hint-text pull-left no-margin">
-            The Top Content Is Soley Created using pages UI Elements such as Invoice, Tabs, Form Layouts etc. and are prior for representation Purpose Only.
-          </p>
-          <div class="pull-right">
-            <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
-          </div>
-          <div class="clearfix"></div>
         </div>
-      </div>
     </div>
   </div>
   <!-- END CONTAINER FLUID -->
