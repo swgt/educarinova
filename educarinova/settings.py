@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'educarinova.core',
     'educarinova.management.apps.ManagementConfig',
-    'widget_tweaks'
+    'widget_tweaks',
+    'pyboleto'
 ]
 
 MIDDLEWARE_CLASSES = [

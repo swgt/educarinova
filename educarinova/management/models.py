@@ -125,23 +125,6 @@ class Attendance(models.Model):
 class Score(models.Model):
     pass
 
-
-class Matriculation(models.Model):
-    number_matriculation = models.IntegerField('matricula', default=random_string, primary_key=True)
-    STATUS = (
-        ('Ativo', 'Ativo'),
-        ('Desativado', 'Desativado'),
-        ('Em Curso', 'Em Curso'),
-        ('Concluido', 'Concluido'),
-    )
-    status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
-    score = models.ForeignKey(Score, verbose_name="nota", null=True, blank=True)
-    attendance = models.ForeignKey(Attendance, verbose_name="frequência", null=True, blank=True)
-    created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
-
-    def __str__(self):
-        return str(self.number_matriculation)
-
  
 class ReportCard(models.Model):
     pass
@@ -207,6 +190,18 @@ class Class(models.Model):
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
     vacancies = models.CharField('vagas', max_length=10, default=0)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
+    SHIFTS = (
+        ('Matutino','Matutino'),
+        ('Vespertino','Vespertino'),
+        ('Noturno','Noturno'),
+        ('Outro','Outro'),
+        )
+    shift = models.CharField('turno', max_length=10, choices=SHIFTS)
+    PERIODS = (
+        ('Meio Periodo','Meio Periodo'),
+        ('Integral','Integral'),
+        )
+    period = models.CharField('período', max_length=10, choices=PERIODS)
     #financeiro
     value_tuition_fee = models.DecimalField('mensalidade', max_digits=5, decimal_places=2)
 
@@ -215,14 +210,14 @@ class TuitionFee(models.Model):
     discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=5, decimal_places=2)
     reason_discount_tuition_fee = models.CharField('motivo do desconto', max_length=255)
     expiration_day = models.PositiveIntegerField('dia de vencimento')
-    FREQUENCY_PAYMENT = (
+    FREQUENCY_PAYMENTS = (
         ('Mensal', 'Mensal'),
         ('Bimestral', 'Bimestral'),
         ('Trimestral', 'Trimestral'),
         ('Semestral', 'Semestral'),
         ('Anual', 'Anual'),
         )
-    frequency_payment = models.CharField('frequencia de pagamento', max_length=30, choices=FREQUENCY_PAYMENT)
+    frequency_payment = models.CharField('frequencia de pagamento', max_length=30, choices=FREQUENCY_PAYMENTS)
 
 
 class Matriculation(models.Model):
@@ -248,16 +243,45 @@ class Matriculation(models.Model):
 
 class AdditionalCost(models.Model):
     name = models.CharField('nome do custo', max_length=50)
-    valor = models.DecimalField('valor', max_digits=5, decimal_places=2)
+    value = models.DecimalField('valor', max_digits=5, decimal_places=2)
+    monthly = models.BooleanField('mensal?', default=False)
+
+
+class AdditionalCostAcquired(models.Model):
+    matriculation = models.ForeignKey(Matriculation, verbose_name='matricula')
+    additional_cost = models.ForeignKey(AdditionalCost, verbose_name='custo adicional')
+    MONTHS = (
+        (1, 'Janeiro'),
+        (2, 'Fevereiro'),
+        (3, 'Março'),
+        (4, 'Abril'),
+        (5, 'Maio'),
+        (6, 'Junho'),
+        (7, 'Julho'),
+        (8, 'Agosto'),
+        (9, 'Setembro'),
+        (10, 'Outubro'),
+        (11, 'Novembro'),
+        (12, 'Dezembro'),
+        )
+    month = models.PositiveIntegerField('mês de cotratação')
 
 
 class Payment(models.Model):
+    matriculation = models.ForeignKey(Matriculation, verbose_name='matricula')
+    agreement = models.BooleanField('acordo?', default=False)
+    months_related = models.CharField('meses de referência', max_length=100)
+
+
+class StatusPayment(models.Model):
+    payment = models.ForeignKey(Payment, verbose_name='pagamento')
     STATUS_PAYMENT = (
         ('Aguardando', 'Aguardando'),
         ('Cancelado', 'Cancelado'),
         ('Pago', 'Pago')
         )
     status = models.CharField('status do pagamento', max_length=15, choices=STATUS_PAYMENT)
+    date = models.DateField('data de atualização')
 
 
 class Subject(models.Model):

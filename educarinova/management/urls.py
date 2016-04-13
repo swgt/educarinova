@@ -5,6 +5,7 @@ from educarinova.management.views.views_unit import *
 from educarinova.management.views.views_serie import *
 from educarinova.management.views.views_subject import *
 from educarinova.management.views.views_class import *
+from educarinova.management.views.view_boleto import *
 
 
 class LENDConf:
@@ -35,5 +36,8 @@ urlpatterns = [
 
     url(r'^class/$', list_class, name='list_class'),
     url(r'^class/new/$', new_class, name='new_class'),
+
+    url(r'^gerarboleto/$', print_all, name='gerar_boleto'),
+
 
 ]
