@@ -1,7 +1,11 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from educarinova.management.models import Student, School
-from educarinova.management.forms.forms_students import StudentForm, AddressForm, MatriculationForm, ContactForm
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, resolve_url as r, redirect
+from educarinova.management.models import Student
+from django.contrib.auth.models import User
+from educarinova.management.forms.forms_students import StudentForm, AddressForm, UserForm, ContactForm
 
 
 def register(request):
@@ -20,34 +24,51 @@ def list_(request):
 
 
 @login_required
-def edit(request, pk):
-    return render(request, 'management/students/student_edit.html')
-
-
-@login_required
-def new(request):
-    form_student = StudentForm()
-    form_address = AddressForm()
-    form_matriculation = MatriculationForm()
-    form_contact = ContactForm()
-    return render(request, 'management/students/student_edit.html', {
-        'form_student': form_student,
-        'form_address': form_address,
-        'form_matriculation': form_matriculation,
-        'form_contact': form_contact
-    })
-
-
 def delete():
     pass
 
 
-def test_students(request, school):
-    students = Student.objects.filter(school=school)
-    print (students)
-    return render(request, 'management/index.html', {'students': students})
+@login_required
+def edit():
+    pass
 
 
-def test_home(request):
-    schools = School.objects.all()
-    return render(request, 'management/home.html', {'schools': schools})
+@login_required
+def new(request):
+    if request.method == 'POST':
+        return create(request)
+
+    return empty_form(request)
+
+
+@login_required
+def empty_form(request):
+    return render(request, 'management/students/student_edit.html', {
+        'form_student': StudentForm(),
+        'form_address': AddressForm(),
+        'form_contact': ContactForm(),
+        'form_user': UserForm()
+    })
+
+
+@login_required
+def create(request):
+    form_student = StudentForm(request.POST)
+
+    if not form_student.is_valid():
+
+        return render(request, 'management/students/student_edit.html', {'form_student': form_student})
+
+    student = Student.objects.create(**form_student.cleaned_data)
+
+    return HttpResponseRedirect(r('students:detail', student.pk))
+
+
+@login_required
+def detail(request, pk):
+    try:
+        student = Student.objects.get(pk=pk)
+    except Student.DoesNotExist:
+        raise Http404
+
+    return render(request, 'management/students/student_detail.html', {'student': student})

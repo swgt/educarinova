@@ -28,6 +28,7 @@
   <!-- START CONTAINER FLUID -->
   <div class="container-fluid container-fixed-lg">
     <div id="rootwizard">
+      <form role="form" action="." method="post">{% csrf_token %}
       <!-- Nav tabs -->
       <ul class="nav nav-tabs nav-tabs-linetriangle nav-tabs-separator nav-stack-sm">
         <li class="active">
@@ -44,7 +45,7 @@
         </li>
       </ul>
       <!-- Tab panes -->
-      <div class="tab-content" >
+      <div class="tab-content">
         <div class="tab-pane padding-20 active slide-left" id="tab1">
           <div class="row row-same-height">
             <div class="col-md-5 b-r b-dashed b-grey ">
@@ -56,32 +57,10 @@
             </div>
             <div class="col-md-7">
               <div class="padding-30">
-                <form role="form" action="." method="post">
-                  {% csrf_token %}
                   {{ form.non_field_errors }}
                   <p>Dados Escolar</p>
                   <div class="form-group-attached">
-                    <div class="form-group form-group-default form-group-default-select2 required">
-                      <label for="{{ form_student.unit.id_for_label }}">{{ form_student.unit.label }}</label>
-                      {{ form_student.unit.errors }}
-                      {{ form_student.unit }}
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-7">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_matriculation.number_matriculation.id_for_label }}">{{ form_matriculation.number_matriculation.label }}</label>
-                          {{ form_matriculation.number_matriculation.errors }}
-                          {{ form_matriculation.number_matriculation }}
-                        </div>
-                      </div>
-                      <div class="col-sm-5">
-                        <div class="form-group form-group-default form-group-default-select2 required">
-                          <label for="{{ form_matriculation.status.id_for_label }}">{{ form_matriculation.status.label }}</label>
-                          {{ form_matriculation.status.errors }}
-                          {{ form_matriculation.status }}
-                        </div>
-                      </div>
-                    </div>
+
                   </div>
                   <br>
                   <p>Dados Pessoais</p>
@@ -116,12 +95,8 @@
                       <div class="col-sm-7">
                         <div class="form-group form-group-default">
                           <label for="{{ form_student.gender.id_for_label }}">{{ form_student.gender.label }}</label>
-                          <div class="radio radio-complete" style="margin: 0;">
-                            <input type="radio" checked="checked" value="M" name="gender" id="M">
-                            <label for="M" style="display: inline-block; font-weight: normal; margin-left: 20px; opacity: 1;">Masculino</label>
-                            <input type="radio" value="F" name="gender" id="F">
-                            <label for="F" style="display: inline-block; font-weight: normal; margin-left: 20px; opacity: 1;">Feminino</label>
-                          </div>
+                          {{ form_student.gender.errors }}
+                          {{ form_student.gender }}
                         </div>
                       </div>
                     </div>
@@ -163,7 +138,6 @@
                       {{ form_student.naturalness }}
                     </div>
                   </div>
-                </form>
               </div>
             </div>
           </div>
@@ -179,7 +153,6 @@
             </div>
             <div class="col-md-7">
               <div class="padding-30">
-                <form role="form">
                   <p>Dados de Endereço</p>
                   <div class="form-group-attached">
                     <div class="row clearfix">
@@ -236,14 +209,13 @@
                       </div>
                       <div class="col-sm-3">
                         <div class="form-group form-group-default">
-                          <label for="{{ form_address.CEP.id_for_label }}">{{ form_address.CEP.label }}</label>
-                          {{ form_address.CEP.errors }}
-                          {{ form_address.CEP }}
+                          <label for="{{ form_address.cep.id_for_label }}">{{ form_address.cep.label }}</label>
+                          {{ form_address.cep.errors }}
+                          {{ form_address.cep }}
                         </div>
                       </div>
                     </div>
                   </div>
-                </form>
               </div>
             </div>
           </div>
@@ -260,7 +232,6 @@
             </div>
             <div class="col-md-7">
               <div class="padding-30">
-                <form role="form">
                   <p>Dados de Contato</p>
                   <div class="form-group-attached">
                     <div class="row clearfix">
@@ -521,7 +492,6 @@
                       {{ form_contact.email }}
                     </div>
                   </div>
-                </form>
               </div>
             </div>
           </div>
@@ -537,7 +507,7 @@
               </button>
             </li>
             <li class="next finish hidden">
-              <button class="btn btn-complete btn-cons btn-animated from-left fa fa-cog pull-right" type="button">
+              <button class="btn btn-complete btn-cons btn-animated from-left fa fa-cog pull-right" type="submit">
                 <span>Finish</span>
               </button>
             </li>
@@ -553,7 +523,8 @@
             </li>
           </ul>
         </div>
-        </div>
+      </div>
+      </form>
     </div>
   </div>
   <!-- END CONTAINER FLUID -->
@@ -627,6 +598,6 @@ $(document).ready(function() {
     $('#myDatepicker').datepicker();
 });
 $('.datepicker-component2').datepicker({format: 'dd/mm/yyyy', language: 'pt-BR'});
-$("#id_cpf").mask("999.999.999-99");
+
 </script>
 {% endblock js-additional %}

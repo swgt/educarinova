@@ -1,5 +1,6 @@
 from django import forms
 from educarinova.management.models import Student, Address, Matriculation, Contact
+from django.contrib.auth.models import User
 
 
 class StudentForm(forms.ModelForm):
@@ -21,7 +22,6 @@ class StudentForm(forms.ModelForm):
             'nationality': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
             'race': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
             'naturalness': forms.TextInput(attrs={'class': 'form-control'}),
-            'unit': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
             'matriculation': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
@@ -39,7 +39,7 @@ class AddressForm(forms.ModelForm):
             'district': forms.TextInput(attrs={'class': 'form-control'}),
             'city': forms.TextInput(attrs={'class': 'form-control'}),
             'state': forms.TextInput(attrs={'class': 'form-control'}),
-            'CEP': forms.TextInput(attrs={'class': 'form-control'}),
+            'cep': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -65,4 +65,15 @@ class MatriculationForm(forms.ModelForm):
         widgets = {
             'number_matriculation': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
             'status': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
+        }
+
+
+class UserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('__all__')
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }

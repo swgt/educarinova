@@ -27,7 +27,7 @@ class School(models.Model):
 
 
 class Address(models.Model):
-    CEP = models.CharField('CEP', max_length=10)
+    cep = models.CharField('CEP', max_length=10)
     TYPE_OF_STREET_CHOICES = (
         ('Rua', 'Rua'),
         ('Avenida', 'Avenida')
@@ -41,7 +41,7 @@ class Address(models.Model):
     state = models.CharField('estado', max_length=100)
 
     def __str__(self):
-        return self.CEP
+        return self.cep
 
 
 class Contact(models.Model):
@@ -80,7 +80,7 @@ class Classroom(models.Model):
 
 class CommonInfo(models.Model):
     name = models.CharField('nome', max_length=150)
-    cpf = models.CharField('CPF', max_length=11, primary_key=True)
+    cpf = models.CharField('CPF', max_length=14, primary_key=True)
     date_of_birth = models.DateField('data de nascimento')
     RACES = (
         ('Branco(a)', 'Branco(a)'),
@@ -126,31 +126,14 @@ class Score(models.Model):
     pass
 
 
-class Matriculation(models.Model):
-    number_matriculation = models.IntegerField('matricula', default=random_string, primary_key=True)
-    STATUS = (
-        ('Ativo', 'Ativo'),
-        ('Desativado', 'Desativado'),
-        ('Em Curso', 'Em Curso'),
-        ('Concluido', 'Concluido'),
-    )
-    status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
-    score = models.ForeignKey(Score, verbose_name="nota", null=True, blank=True)
-    attendance = models.ForeignKey(Attendance, verbose_name="frequência", null=True, blank=True)
-    created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
-
-    def __str__(self):
-        return str(self.number_matriculation)
-
- 
 class ReportCard(models.Model):
     pass
 
 
 class Student(CommonInfo):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario')
-    contact = models.ForeignKey(Contact, verbose_name="contato", default=False)
-    address = models.ForeignKey(Address, verbose_name="endereço", default=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario', null=True, blank=True)
+    contact = models.ForeignKey(Contact, verbose_name="contato", null=True, blank=True)
+    address = models.ForeignKey(Address, verbose_name="endereço", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True)
 
     class Meta:
