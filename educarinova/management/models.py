@@ -188,8 +188,36 @@ class Class(models.Model):
     name = models.CharField('nome da turma', max_length=30)
     serie = models.ForeignKey(Serie, verbose_name="serie", null=True)
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
-    vacancies = models.CharField('vagas', max_length=10, default=0)
+    vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
+    SHIFTS = (
+        ('Matutino','Matutino'),
+        ('Vespertino','Vespertino'),
+        ('Noturno','Noturno'),
+        ('Outro','Outro'),
+        )
+    shift = models.CharField('turno', max_length=10, choices=SHIFTS)
+    PERIODS = (
+        ('Meio Periodo','Meio Periodo'),
+        ('Integral','Integral'),
+        )
+    period = models.CharField('período', max_length=12, choices=PERIODS)
+    #financeiro
+    value_tuition_fee = models.DecimalField('mensalidade base (R$)', max_digits=5, decimal_places=2, default=0.00)
+
+
+class TuitionFee(models.Model):
+    discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=5, decimal_places=2)
+    reason_discount_tuition_fee = models.CharField('motivo do desconto', max_length=255)
+    expiration_day = models.PositiveIntegerField('dia de vencimento')
+    FREQUENCY_PAYMENTS = (
+        ('Mensal', 'Mensal'),
+        ('Bimestral', 'Bimestral'),
+        ('Trimestral', 'Trimestral'),
+        ('Semestral', 'Semestral'),
+        ('Anual', 'Anual'),
+        )
+    frequency_payment = models.CharField('frequencia de pagamento', max_length=30, choices=FREQUENCY_PAYMENTS)
 
 
 class Matriculation(models.Model):
@@ -206,10 +234,55 @@ class Matriculation(models.Model):
     status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
+    #financeiro
+    tuition_fee = models.ForeignKey(TuitionFee, verbose_name='mensalidade')
 
     def __str__(self):
         return str(self.number_matriculation)
-    
+
+
+class AdditionalCost(models.Model):
+    name = models.CharField('nome do custo', max_length=50)
+    value = models.DecimalField('valor', max_digits=5, decimal_places=2)
+    monthly = models.BooleanField('mensal?', default=False)
+
+
+class AdditionalCostAcquired(models.Model):
+    matriculation = models.ForeignKey(Matriculation, verbose_name='matricula')
+    additional_cost = models.ForeignKey(AdditionalCost, verbose_name='custo adicional')
+    MONTHS = (
+        (1, 'Janeiro'),
+        (2, 'Fevereiro'),
+        (3, 'Março'),
+        (4, 'Abril'),
+        (5, 'Maio'),
+        (6, 'Junho'),
+        (7, 'Julho'),
+        (8, 'Agosto'),
+        (9, 'Setembro'),
+        (10, 'Outubro'),
+        (11, 'Novembro'),
+        (12, 'Dezembro'),
+        )
+    month = models.PositiveIntegerField('mês de cotratação', choices=MONTHS)
+
+
+class Payment(models.Model):
+    matriculation = models.ForeignKey(Matriculation, verbose_name='matricula')
+    agreement = models.BooleanField('acordo?', default=False)
+    months_related = models.CharField('meses de referência', max_length=100)
+
+
+class StatusPayment(models.Model):
+    payment = models.ForeignKey(Payment, verbose_name='pagamento')
+    STATUS_PAYMENT = (
+        ('Aguardando', 'Aguardando'),
+        ('Cancelado', 'Cancelado'),
+        ('Pago', 'Pago')
+        )
+    status = models.CharField('status do pagamento', max_length=15, choices=STATUS_PAYMENT)
+    date = models.DateField('data de atualização')
+
 
 class Subject(models.Model):
     name = models.CharField('nome da disciplina', max_length=50)

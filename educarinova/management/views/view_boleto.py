@@ -1,4 +1,5 @@
 import pyboleto
+from django.shortcuts import render, redirect
 from pyboleto.bank.real import BoletoReal
 from pyboleto.bank.bradesco import BoletoBradesco
 from pyboleto.bank.caixa import BoletoCaixa
@@ -18,13 +19,13 @@ def print_bb():
         d.especie_documento = 'DM'
 
         d.carteira = '18'
-        d.cedente = 'Empresa ACME LTDA'
+        d.cedente = 'Educarinova'
         d.cedente_documento = "102.323.777-01"
         d.cedente_endereco = ("Rua Acme, 123 - " +
                               "Centro - Sao Paulo/SP - " +
                               "CEP: 12345-678")
-        d.agencia_cedente = '9999'
-        d.conta_cedente = '99999'
+        d.agencia_cedente = '9999111'
+        d.conta_cedente = '999991111'
 
         d.data_vencimento = datetime.date(2010, 3, 27)
         d.data_documento = datetime.date(2010, 2, 12)
@@ -43,7 +44,7 @@ def print_bb():
 
         d.sacado = [
             "Cliente Teste %d" % (i + 1),
-            "Rua Desconhecida, 00/0000 - Não Sei - Cidade - Cep. 00000-000",
+            "Rua Desconhecidaasdasd, 00/0000 - Não Sei - Cidade - Cep. 00000-000",
             ""
             ]
         listaDados.append(d)
@@ -53,6 +54,8 @@ def print_bb():
         boleto.drawBoleto(listaDados[i])
         boleto.nextPage()
     boleto.save()
+
+    
 
 
 def print_real():
@@ -256,7 +259,7 @@ def print_itau():
     pass
 
 
-def print_all():
+def print_all(request):
     print("Pyboleto version: %s" % pyboleto.__version__)
     print("----------------------------------")
     print("     Printing Example Boletos     ")
@@ -282,6 +285,8 @@ def print_all():
 
     print("----------------------------------")
     print("Ok")
+
+    return render(request, 'management/dashboard.html')
 
 
 if __name__ == "__main__":

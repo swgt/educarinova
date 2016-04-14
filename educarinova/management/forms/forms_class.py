@@ -8,10 +8,9 @@ class ClassForm(forms.ModelForm):
 		model = Class
 		fields = '__all__'
 		widgets = {
-			'name': forms.TextInput(attrs={'class': 'form-control', 'aria-required':'true'}),
             'serie': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
-            'academic_year': forms.NumberInput(attrs={'class': 'form-control', 'aria-required':'true'}),
             'unit': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
-            'vacancies': forms.TextInput(attrs={'class':'form-control'})
+            'period': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
+            'shift': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
 	            
         }

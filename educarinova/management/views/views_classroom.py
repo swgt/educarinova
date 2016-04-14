@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from educarinova.management.models import Classroom
 from educarinova.management.forms.forms_classrooms import ClassroomForm
 
@@ -10,5 +10,15 @@ def list_classroom(request):
 
 @login_required
 def new_classroom(request):
-    form = ClassroomForm()
-    return render(request, 'management/classroom/classroom_edit.html', {'form': form})
+	if request.method == 'POST':
+		formClassroom = ClassroomForm(request.POST)
+		if (formClassroom.is_valid()):
+			classroom = formClassroom.save(commit=False)
+			classroom.save()
+
+			return redirect('/classroom?op=success', {'classroom':classroom})
+		else:
+			return render(request, 'management/classroom/classroom_edit.html', {'form': formClassroom})
+	else:
+		form = ClassroomForm()
+		return render(request, 'management/classroom/classroom_edit.html', {'form': form})
