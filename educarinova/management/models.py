@@ -188,7 +188,7 @@ class Class(models.Model):
     name = models.CharField('nome da turma', max_length=30)
     serie = models.ForeignKey(Serie, verbose_name="serie", null=True)
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
-    vacancies = models.CharField('vagas', max_length=10, default=0)
+    vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
     SHIFTS = (
         ('Matutino','Matutino'),
@@ -201,9 +201,9 @@ class Class(models.Model):
         ('Meio Periodo','Meio Periodo'),
         ('Integral','Integral'),
         )
-    period = models.CharField('período', max_length=10, choices=PERIODS)
+    period = models.CharField('período', max_length=12, choices=PERIODS)
     #financeiro
-    value_tuition_fee = models.DecimalField('mensalidade', max_digits=5, decimal_places=2)
+    value_tuition_fee = models.DecimalField('mensalidade base (R$)', max_digits=5, decimal_places=2, default=0.00)
 
 
 class TuitionFee(models.Model):
@@ -264,7 +264,7 @@ class AdditionalCostAcquired(models.Model):
         (11, 'Novembro'),
         (12, 'Dezembro'),
         )
-    month = models.PositiveIntegerField('mês de cotratação')
+    month = models.PositiveIntegerField('mês de cotratação', choices=MONTHS)
 
 
 class Payment(models.Model):

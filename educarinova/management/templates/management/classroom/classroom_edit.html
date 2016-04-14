@@ -1,4 +1,5 @@
 {% extends 'management/base.html' %}
+{% load widget_tweaks %}
 {% block title %}Editando uma sala - Educarinova{% endblock title %}
 {% block content %}
 <!-- START PAGE CONTENT -->
@@ -26,24 +27,31 @@
   <div class="row">
     <div class="col-lg-7 col-md-6 ">
       <div class="panel panel-transparent">
+      <div class="panel-heading">
+          <div class="panel-title">Cadastro de Salas de Aula
+          </div>
+      </div>
         <div class="panel-body">
-          <form role="form" autocomplete="off" novalidate="novalidate">
-            
+          <form role="form" method="POST" autocomplete="off" novalidate="novalidate">
+            {% csrf_token %}
             {% for field in form %}
             <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group form-group-default">
-                  <label>{{field.label}}</label>
-
-                  {{field}}
-                  
-                </div>
-              </div>
-            </div>
+                    <div class="col-sm-12">
+                      <label class="error">{{field.errors}}</label>
+                      <div class="form-group form-group-default  
+                          {% if field.field.required  %} required{% endif  %}
+                          {% if field.errors%} has-error{% endif  %}">
+                        <label>{{field.label}}</label>
+                        {{field|add_class:'form-control'}}
+                      </div>
+                     
+                    </div>
+                  </div>
             {% endfor %}
 
             <div class="clearfix"></div>
             <button class="btn btn-complete" type="submit">Cadastrar</button>
+            <a href="/classroom" class="btn btn-danger" type="submit">Cancelar</a>
           </form>
         </div>
       </div>

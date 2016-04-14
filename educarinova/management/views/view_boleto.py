@@ -49,7 +49,7 @@ def print_bb():
             ]
         listaDados.append(d)
 
-    boleto = BoletoPDF('boletos/boleto-bb-formato-normal-teste.pdf')
+    boleto = BoletoPDF('boleto-bb-formato-normal-teste.pdf')
     for i in range(len(listaDados)):
         boleto.drawBoleto(listaDados[i])
         boleto.nextPage()
