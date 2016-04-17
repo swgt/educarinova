@@ -45,9 +45,9 @@
                 <button class="btn"><i class="pg-trash"></i></button>
               </th>
               <th>Nome</th>
-              <th>Matrícula</th>
-              <th>Unidade</th>
-              <th>Status</th>
+              <th>CPF</th>
+              <th>Data de Nascimento</th>
+              <th>E-mail</th>
             </tr>
           </thead>
           <tbody>
@@ -63,13 +63,13 @@
                 <p>{{ student.name }}</p>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.matriculation.number_matriculation }}</p>
+                <p>{{ student.cpf }}</p>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.unit }}</p>
+                <p>{{ student.date_of_birth }}</p>
               </td>
               <td class="v-align-middle">
-                <p>{{ student.matriculation.status }}</p>
+                <p>{{ student.contact }}</p>
               </td>
             </tr>
             {% endfor %}

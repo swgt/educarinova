@@ -28,11 +28,11 @@ class School(models.Model):
 
 class Address(models.Model):
     cep = models.CharField('CEP', max_length=10)
-    TYPE_OF_STREET_CHOICES = (
+    TYPES_OF_STREETS = (
         ('Rua', 'Rua'),
         ('Avenida', 'Avenida')
     )
-    type_of_street = models.CharField('tipo de logradouro', max_length=100, choices=TYPE_OF_STREET_CHOICES)
+    type_of_street = models.CharField('tipo de logradouro', max_length=100, choices=TYPES_OF_STREETS)
     street = models.CharField('logradouro', max_length=100)
     house_number = models.CharField('número', max_length=6)
     complement = models.CharField('complemento', max_length=100, null=True, blank=True)
@@ -64,7 +64,7 @@ class Unit(models.Model):
     created_at = models.DateTimeField('criado em', auto_now_add=True)
 
     def __str__(self):
-        return str(self.school) + " " + self.name
+        return str(self.school) + " - " + self.name
 
 
 class Classroom(models.Model):
@@ -191,10 +191,10 @@ class Class(models.Model):
     vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
     SHIFTS = (
-        ('Matutino','Matutino'),
-        ('Vespertino','Vespertino'),
-        ('Noturno','Noturno'),
-        ('Outro','Outro'),
+        ('M','Matutino'),
+        ('V','Vespertino'),
+        ('N','Noturno'),
+        ('O','Outro'),
         )
     shift = models.CharField('turno', max_length=10, choices=SHIFTS)
     PERIODS = (
@@ -205,11 +205,43 @@ class Class(models.Model):
     #financeiro
     value_tuition_fee = models.DecimalField('mensalidade base (R$)', max_digits=5, decimal_places=2, default=0.00)
 
+    def __str__(self):
+        return self.name + self.shift
+
 
 class TuitionFee(models.Model):
-    discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=5, decimal_places=2)
-    reason_discount_tuition_fee = models.CharField('motivo do desconto', max_length=255)
-    expiration_day = models.PositiveIntegerField('dia de vencimento')
+    discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=5, decimal_places=2, null=True, blank=True)
+    reason_discount_tuition_fee = models.CharField('motivo do desconto', max_length=255, null=True, blank=True)
+    EXPIRATION_DAYS = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+        ('9', '9'),
+        ('10', '10'),
+        ('11', '11'),
+        ('12', '12'),
+        ('13', '13'),
+        ('14', '14'),
+        ('15', '15'),
+        ('16', '16'),
+        ('17', '17'),
+        ('18', '18'),
+        ('19', '19'),
+        ('20', '20'),
+        ('21', '21'),
+        ('22', '22'),
+        ('23', '23'),
+        ('24', '24'),
+        ('25', '25'),
+        ('26', '26'),
+        ('27', '27')
+        )
+    expiration_day = models.CharField('dia de vencimento', max_length=2, choices=EXPIRATION_DAYS)
     FREQUENCY_PAYMENTS = (
         ('Mensal', 'Mensal'),
         ('Bimestral', 'Bimestral'),
@@ -217,13 +249,16 @@ class TuitionFee(models.Model):
         ('Semestral', 'Semestral'),
         ('Anual', 'Anual'),
         )
-    frequency_payment = models.CharField('frequencia de pagamento', max_length=30, choices=FREQUENCY_PAYMENTS)
+    frequency_payment = models.CharField('frequência de pagamento', max_length=30, choices=FREQUENCY_PAYMENTS)
+
+    def __str__(self):
+        return self.frequency_payment
 
 
 class Matriculation(models.Model):
-    number_matriculation = models.IntegerField('matricula', default=random_string)
+    number_matriculation = models.IntegerField('matrícula', default=random_string)
     school_class = models.ForeignKey(Class, verbose_name="turma", null=True, blank=True)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno', null=True, blank=True)
     STATUS = (
         ('Ativo', 'Ativo'),
         ('Desativado', 'Desativado'),
@@ -235,7 +270,7 @@ class Matriculation(models.Model):
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
     #financeiro
-    tuition_fee = models.ForeignKey(TuitionFee, verbose_name='mensalidade')
+    tuition_fee = models.ForeignKey(TuitionFee, verbose_name='mensalidade', null=True, blank=True)
 
     def __str__(self):
         return str(self.number_matriculation)

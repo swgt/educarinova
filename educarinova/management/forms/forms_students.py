@@ -1,5 +1,5 @@
 from django import forms
-from educarinova.management.models import Student, Address, Matriculation, Contact
+from educarinova.management.models import Student, Address, Matriculation, Contact, TuitionFee
 from django.contrib.auth.models import User
 
 
@@ -8,11 +8,6 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ('__all__')
-        GENDERS = (
-            ('M', 'Masculino'),
-            ('F', 'Feminino'),
-        )
-        gender = forms.ChoiceField(widget=forms.RadioSelect, choices=GENDERS)
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'cpf': forms.TextInput(attrs={'class': 'form-control'}),
@@ -32,7 +27,7 @@ class AddressForm(forms.ModelForm):
         model = Address
         fields = ('__all__')
         widgets = {
-            'type_of_street': forms.TextInput(attrs={'class': 'form-control'}),
+            'type_of_street': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
             'street': forms.TextInput(attrs={'class': 'form-control'}),
             'house_number': forms.TextInput(attrs={'class': 'form-control'}),
             'complement': forms.TextInput(attrs={'class': 'form-control'}),
@@ -76,4 +71,15 @@ class UserForm(forms.ModelForm):
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+        }
+
+
+class TuitionFeeForm(forms.ModelForm):
+
+    class Meta:
+        model = TuitionFee
+        fields = ('__all__')
+        widgets = {
+            'frequency_payment': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
+            'expiration_day': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
         }
