@@ -46,94 +46,80 @@
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">Nome</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.name }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.name }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">CPF</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.cpf }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.cpf }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">Data de Nascimento</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.date_of_birth }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.date_of_birth }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">Raça</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.race }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.race }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">RG</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.rg }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.rg }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">Orgão expedidor do RG</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.dispatch_entity_rg }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.dispatch_entity_rg }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Sexo</label>
                 <div class="col-sm-9">
                   <div class="checkbox check-complete checkbox-circle">
-                    <input type="checkbox" checked="checked" value="1" id="checkbox9" disabled="disabled">
-                    <label for="checkbox9">{{ form_student.gender }}</label>
+                    <input type="checkbox" checked="checked" value="{{ form_student.gender }}" id="{{ form_student.gender.id }}" disabled="disabled">
+                    <label for="{{ form_student.gender.id_for_label }}">{{ form_student.get_gender_display }}</label>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">Nacionalidade</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.nationality }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.get_nationality_display }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">Naturalidade</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.naturalness }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.naturalness }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="fname" class="col-sm-3 control-label">Usuário</label>
                 <div class="col-sm-9">
-                  <p class="small hint-text">{{ form_student.user }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.user }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Contato</label>
                 <div class="col-sm-9">
-                  <p>Have you Worked at page Inc. before, Or joined the Pages Supirior Club?</p>
-                  <p class="hint-text small">If yes State which Place, if yes note date and Job CODE / Membership Number</p>
-                  <div class="row">
-                    <div class="col-sm-5">
-                      <p class="small hint-text">{{ form_student.contact.cell_phone }}</p>
-                    </div>
-                    <div class="col-sm-5 sm-m-t-10">
-                      <p class="small hint-text">{{ form_student.contact.email }}</p>
-                    </div>
-                  </div>
+                  <p class="small hint-text p-detail">{{ form_student.contact.cell_phone }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.contact.email }}</p>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Endereço</label>
                 <div class="col-sm-9">
-                  <p>Have you Worked at page Inc. before, Or joined the Pages Supirior Club?</p>
-                  <p class="hint-text small">If yes State which Place, if yes note date and Job CODE / Membership Number</p>
-                  <div class="row">
-                    <div class="col-sm-7">
-                      <p class="small hint-text">{{ form_student.address.type_of_street }} {{ form_student.address.street }} {{ form_student.address.house_number }}, {{ form_student.address.district }}, {{ form_student.address.city }} / {{ form_student.address.state }}</p>
-                    </div>
-                    <div class="col-sm-3 sm-m-t-10">
-                      <p class="small hint-text">{{ form_student.address.cep }}</p>
-                    </div>
-                  </div>
+                  <p class="small hint-text p-detail">{{ form_student.address.type_of_street }} {{ form_student.address.street }}, {{ form_student.address.house_number }} {{ form_student.address.complement }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.address.district }}, {{ form_student.address.city }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.address.state }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.address.cep }}</p>
                 </div>
               </div>
               <br>

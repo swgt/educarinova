@@ -239,7 +239,7 @@
                       <div class="col-sm-6">
                         <div class="form-group form-group-default input-group required">
                           <span class="input-group-addon">
-                            <select class="cs-select cs-skin-slide cs-transparent" data-init-plugin="cs-select">
+                            <select class="cs-select cs-skin-slide cs-transparent" data-init-plugin="cs-select" id="id_area_code">
                               <option data-countryCode="RN" value="84" Selected>RN (+84)</option>
                               <option data-countryCode="CE" value="85">CE (+85)</option>
                               <option data-countryCode="CE" value="88">CE (+88)</option>
@@ -316,6 +316,11 @@
                           {{ form_matriculation.status }}
                         </div>
                       </div>
+                    </div>
+                    <div class="form-group form-group-default form-group-default-select2 required">
+                      <label for="{{ form_matriculation.school_class.id_for_label }}">{{ form_matriculation.school_class.label }}</label>
+                      {{ form_matriculation.school_class.errors }}
+                      {{ form_matriculation.school_class }}
                     </div>
                     <div class="row clearfix">
                       <div class="col-sm-8">

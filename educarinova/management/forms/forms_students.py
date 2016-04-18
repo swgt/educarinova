@@ -60,6 +60,7 @@ class MatriculationForm(forms.ModelForm):
         widgets = {
             'number_matriculation': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
             'status': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
+            'school_class': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
         }
 
 

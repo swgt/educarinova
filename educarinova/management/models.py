@@ -181,7 +181,7 @@ class Serie(models.Model):
     level = models.CharField('nível', max_length=25, choices=LEVELS)
 
     def __str__(self):
-        return self.serie
+        return self.serie + ". Ensino " + self.level
 
 
 class Class(models.Model):
@@ -206,7 +206,7 @@ class Class(models.Model):
     value_tuition_fee = models.DecimalField('mensalidade base (R$)', max_digits=5, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return self.name + self.shift
+        return str(self.serie) + ", " + self.get_shift_display() + " / " +self.name
 
 
 class TuitionFee(models.Model):
