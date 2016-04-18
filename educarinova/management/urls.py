@@ -1,5 +1,6 @@
 from django.conf.urls import url, include
-from educarinova.management.views.viewsa import dashboard, list_, edit, new, delete, detail
+from educarinova.management.views.views_general import dashboard
+from educarinova.management.views.views_student import list_, edit, new, delete, detail
 from educarinova.management.views.views_classroom import *
 from educarinova.management.views.views_unit import *
 from educarinova.management.views.views_serie import *
@@ -12,7 +13,7 @@ class LENDConf:
     def __init__(self):
         self.urlpatterns = [
             url(r'^$', list_, name='list'),
-            #url(r'^(\d+)/$', edit, name='edit'),
+            url(r'^change/(\d+)/$', edit, name='edit'),
             url(r'^new/$', new, name='new'),
             url(r'^delete/$', delete, name='delete'),
             url(r'^(\d+)/$', detail, name='detail'),

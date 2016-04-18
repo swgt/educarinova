@@ -1,0 +1,213 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block title %}Selecione um aluno para modificar - Educarinova{% endblock title %}
+
+{% block content %}
+<!-- START PAGE CONTENT -->
+<div class="content ">
+ <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+          <li>
+            <p>Educarinova</p>
+          </li>
+          <li><a href="/students/">Alunos</a>
+          </li>
+          <li><a href="#" class="active">Novo/Editar Aluno</a>
+          </li>
+        </ul>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- START PANEL -->
+    <div class="panel panel-transparent">
+      <div class="panel-heading">
+        <div class="panel-title">Separated form layouts
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-10">
+            <h3>Simple but not simpler, Seperate your forms and create diversified info graphic</h3>
+            <p>Want it to be more Descriptive and User Friendly, We Made it possible, Use Seperated Form Layouts Structure to Presentate your Form Fields.
+            </p>
+            <br>
+            <p class="small hint-text">To Add A full Width Portlet - Class - portlet-full This can be used in any
+              <br> widget or situation, Highly Recomended on Forms and tables</p>
+            <form id="form-work" class="form-horizontal" role="form" autocomplete="off">
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">Nome</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.name }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">CPF</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.cpf }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">Data de Nascimento</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.date_of_birth }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">Raça</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.race }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">RG</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.rg }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">Orgão expedidor do RG</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.dispatch_entity_rg }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Sexo</label>
+                <div class="col-sm-9">
+                  <div class="checkbox check-complete checkbox-circle">
+                    <input type="checkbox" checked="checked" value="{{ form_student.gender }}" id="{{ form_student.gender.id }}" disabled="disabled">
+                    <label for="{{ form_student.gender.id_for_label }}">{{ form_student.get_gender_display }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">Nacionalidade</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.get_nationality_display }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">Naturalidade</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.naturalness }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="fname" class="col-sm-3 control-label">Usuário</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.user }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Contato</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.contact.cell_phone }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.contact.email }}</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Endereço</label>
+                <div class="col-sm-9">
+                  <p class="small hint-text p-detail">{{ form_student.address.type_of_street }} {{ form_student.address.street }}, {{ form_student.address.house_number }} {{ form_student.address.complement }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.address.district }}, {{ form_student.address.city }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.address.state }}</p>
+                  <p class="small hint-text p-detail">{{ form_student.address.cep }}</p>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                  <a href="{% url 'students:edit' form_student.pk %}" class="btn btn-success">Editar</a>
+                  <a href="{% url 'students:list' %}" class="btn btn-default"><i class="pg-close"></i> Voltar</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PANEL -->
+  </div>
+  <!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+{% endblock content %}
+
+{% block js-additional %}
+<script type="text/javascript" src="{%  static 'management/assets/plugins/boostrap-form-wizard/js/jquery.bootstrap.wizard.min.js' %}"></script>
+<script>
+    (function($) {
+        'use strict';
+        $(document).ready(function() {
+            $('#rootwizard').bootstrapWizard({
+                onTabShow: function(tab, navigation, index) {
+                    var $total = navigation.find('li').length;
+                    var $current = index + 1;
+                    if ($current >= $total) {
+                        $('#rootwizard').find('.pager .next').hide();
+                        $('#rootwizard').find('.pager .finish').show().removeClass('disabled hidden');
+                    } else {
+                        $('#rootwizard').find('.pager .next').show();
+                        $('#rootwizard').find('.pager .finish').hide();
+                    }
+                    var li = navigation.find('li.active');
+                    var btnNext = $('#rootwizard').find('.pager .next').find('button');
+                    var btnPrev = $('#rootwizard').find('.pager .previous').find('button');
+
+                    function removeIcons(btn) {
+                        btn.removeClass(function(index, css) {
+                            return (css.match(/(^|\s)fa-\S+/g) || []).join(' ');
+                        });
+                    }
+                    if ($current > 1 && $current < $total) {
+                        var nextIcon = li.next().find('.fa');
+                        var nextIconClass = nextIcon.attr('class').match(/fa-[\w-]*/).join();
+                        removeIcons(btnNext);
+                        btnNext.addClass(nextIconClass + ' btn-animated from-left fa');
+                        var prevIcon = li.prev().find('.fa');
+                        var prevIconClass = prevIcon.attr('class').match(/fa-[\w-]*/).join();
+                        removeIcons(btnPrev);
+                        btnPrev.addClass(prevIconClass + ' btn-animated from-left fa');
+                    } else if ($current == 1) {
+                        btnPrev.removeClass('btn-animated from-left fa');
+                        removeIcons(btnPrev);
+                    } else {
+                        btnNext.removeClass('btn-animated from-left fa');
+                        removeIcons(btnNext);
+                    }
+                },
+                onNext: function(tab, navigation, index) {
+                    console.log("Showing next tab");
+                },
+                onPrevious: function(tab, navigation, index) {
+                    console.log("Showing previous tab");
+                },
+                onInit: function() {
+                    $('#rootwizard ul').removeClass('nav-pills');
+                }
+            });
+            $('.remove-item').click(function() {
+                $(this).parents('tr').fadeOut(function() {
+                    $(this).remove();
+                });
+            });
+        });
+    })(window.jQuery);
+</script>
+<script>
+$(document).ready(function() {
+    $('#myDatepicker').datepicker();
+});
+$('.datepicker-component2').datepicker({format: 'dd/mm/yyyy', language: 'pt-BR'});
+
+</script>
+{% endblock js-additional %}
