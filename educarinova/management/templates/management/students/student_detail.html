@@ -140,8 +140,8 @@
               <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                  <button class="btn btn-success" type="submit">Editar</button>
-                  <button class="btn btn-default"><i class="pg-close"></i> Voltar</button>
+                  <a href="{% url 'students:edit' form_student.pk %}" class="btn btn-success">Editar</a>
+                  <a href="{% url 'students:list' %}" class="btn btn-default"><i class="pg-close"></i> Voltar</a>
                 </div>
               </div>
             </form>
