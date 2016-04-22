@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee
+from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee, Class
 from educarinova.management.forms.forms_students import StudentForm, AddressForm, UserForm, ContactForm, \
     MatriculationForm, TuitionFeeForm
 
@@ -90,8 +91,11 @@ def edit(request, pk):
 
 
 @login_required
-def delete():
-    pass
+def delete(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    student.delete()
+
+    return redirect('students:list')
 
 
 def _remove_mask_field(field):
@@ -104,3 +108,10 @@ def _remove_mask_field(field):
         field = field.replace(out, _in)
 
     return field
+
+
+def filter_by_class(request):
+    pk_class = request.POST.get('pk_school_class')
+    class_ = get_object_or_404(Class, pk=pk_class)
+
+    return HttpResponse(class_.value_tuition_fee)

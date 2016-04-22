@@ -119,7 +119,7 @@ body.rtl [class*="col-"] {
 ------------------------------------
 */
 .pace .pace-progress {
-  background: #10cfbd;
+  background: #48B0F7;
   height: 3px;
 }
 .pace .pace-progress-inner {
@@ -129,7 +129,7 @@ body.rtl [class*="col-"] {
   -webkit-animation: none;
   animation: none;
   top: 73px;
-  background: url('../img/progress/progress-circle-success.svg') no-repeat top left;
+  background: url('../img/progress/progress-circle-complete.svg') no-repeat top left;
   background-size: 100% auto;
   margin: 0 auto;
   border-width: 0;
@@ -3000,6 +3000,61 @@ fieldset[disabled] .btn-primary.active {
   color: #6d5cae;
   background-color: #ffffff;
 }
+
+/*>>>>>>>>>>>>>>>>>>>>>>>*/
+
+.btn-cancel,
+.btn-cancel:focus {
+  color: #333333;
+  background-color: #E6E6E6;
+  border-color: #E6E6E6;
+}
+.btn-cancel.active,
+.btn-cancel:active,
+.btn-cancel.active:focus,
+.btn-cancel:active:focus,
+.btn-cancel:active:hover,
+.open .dropdown-toggle.btn-cancel {
+  background-color: #626262;
+  border-color: #626262;
+  color: #333333;
+}
+.btn-cancel.hover,
+.btn-cancel:hover,
+.open .dropdown-toggle.btn-cancel {
+  background-color: #F0F0F0;
+  border-color: #F0F0F0;
+  color: #333333;
+}
+.btn-cancel.active:hover {
+  background: #626262;
+  border-color: #626262;
+}
+.btn-cancel.disabled,
+.btn-cancel[disabled],
+fieldset[disabled] .btn-cancel,
+.btn-cancel.disabled:hover,
+.btn-cancel[disabled]:hover,
+fieldset[disabled] .btn-cancel:hover,
+.btn-cancel.disabled:focus,
+.btn-cancel[disabled]:focus,
+fieldset[disabled] .btn-cancel:focus,
+.btn-cancel.disabled:active,
+.btn-cancel[disabled]:active,
+fieldset[disabled] .btn-cancel:active,
+.btn-cancel.disabled.active,
+.btn-cancel[disabled].active,
+fieldset[disabled] .btn-cancel.active {
+  background-color: #E6E6E6;
+  border-color: #E6E6E6;
+}
+.btn-cancel .badge {
+  color: #E6E6E6;
+  background-color: #333333;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>*/
+
 .btn-success,
 .btn-success:focus {
   color: #ffffff;
@@ -13662,4 +13717,8 @@ Main components
 .p-detail {
   margin-top: 10px;
   margin-bottom: 0;
+}
+
+.row-detail:hover{
+  cursor: pointer !important;
 }

@@ -147,7 +147,6 @@ class Student(CommonInfo):
 
 class Employee(CommonInfo):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #funcionario tem matricula?
     matriculation = models.CharField('matrícula', max_length=100, primary_key=True)
     unit = models.ForeignKey(Unit, verbose_name="unidade", default=False)
     contact = models.ForeignKey(Contact, verbose_name="contato", default=False)
@@ -202,7 +201,6 @@ class Class(models.Model):
         ('Integral','Integral'),
         )
     period = models.CharField('período', max_length=12, choices=PERIODS)
-    #financeiro
     value_tuition_fee = models.DecimalField('mensalidade base (R$)', max_digits=5, decimal_places=2, default=0.00)
 
     def __str__(self):
@@ -210,7 +208,7 @@ class Class(models.Model):
 
 
 class TuitionFee(models.Model):
-    discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=5, decimal_places=2, null=True, blank=True)
+    discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=3, decimal_places=0, null=True, blank=True, default=0)
     reason_discount_tuition_fee = models.CharField('motivo do desconto', max_length=255, null=True, blank=True)
     EXPIRATION_DAYS = (
         ('1', '1'),
@@ -269,7 +267,6 @@ class Matriculation(models.Model):
     status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
-    #financeiro
     tuition_fee = models.ForeignKey(TuitionFee, verbose_name='mensalidade', null=True, blank=True)
 
     def __str__(self):

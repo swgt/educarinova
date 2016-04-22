@@ -3,14 +3,15 @@ from django.shortcuts import render, redirect
 from educarinova.management.models import Class
 from educarinova.management.forms.forms_class import ClassForm
 
+
 @login_required
 def list_class(request):
     classes = Class.objects.all().order_by('-id')
     return render(request, 'management/class/class_list.html', {'classes': classes})
 
+
 @login_required
 def new_class(request):
-    
 	if request.method == 'POST':
 		formClass = ClassForm(request.POST)
 		if (formClass.is_valid()):

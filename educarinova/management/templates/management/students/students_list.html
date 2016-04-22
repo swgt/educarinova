@@ -27,59 +27,191 @@
     <!-- START PANEL -->
     <div class="panel panel-transparent">
       <div class="panel-heading">
-        <div class="panel-title">Selecione um aluno para modificar
-        </div>
-        <div class="pull-right">
-          <div class="col-xs-12">
-            <a id="show-modal" href="new" class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Adicionar aluno
-            </a>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="panel-title">Selecione um aluno para modificar</div>
+          </div>
+          <div class="col-md-4">
+            <div class="pull-right">
+              <div class="col-xs-12" style="padding-right: 0;">
+                <a href="{% url 'students:new' %}" class="btn btn-complete btn-animated from-left pg pg-plus"><span>Adicionar Aluno</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+        <form id="changelist-search" method="get">
+          <div><!-- DIV needed for valid HTML -->
+            <div class="row">
+              <div class="col-md-4">
+                <input type="text" size="40" name="q" class="form-control" value="" id="searchbar" placeholder="Digite para buscar um aluno">
+              </div>
+              <div class="col-md-8">
+                <button type="submit" class="btn btn-complete btn-cons btn-animated from-left pg pg-search">
+                  <span>Pesquisar</span>
+                </button>
+                <span class="small hint-text">1 resultado (<a href="?">2 total</a>)</span>
+              </div>
+            </div>
+          </div>
+        </form>
         <div class="clearfix"></div>
       </div>
       <div class="panel-body">
-        <table class="table table-hover demo-table-dynamic" id="tableWithDynamicRows">
-          <thead>
-            <tr>
-              <th style="width:1%">
-                <button class="btn"><i class="pg-trash"></i></button>
-              </th>
-              <th>Nome</th>
-              <th>CPF</th>
-              <th>Data de Nascimento</th>
-              <th>E-mail</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for student in students %}
-            <tr>
-              <td class="v-align-middle">
-                <div class="checkbox ">
-                  <input type="checkbox" value="3" id="checkbox1">
-                  <label for="checkbox1"></label>
-                </div>
-              </td>
-              <td class="v-align-middle">
-                <p>{{ student.name }}</p>
-              </td>
-              <td class="v-align-middle">
-                <p>{{ student.cpf }}</p>
-              </td>
-              <td class="v-align-middle">
-                <p>{{ student.date_of_birth }}</p>
-              </td>
-              <td class="v-align-middle">
-                <p>{{ student.contact }}</p>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <div class="dataTables_wrapper">
+          <div class="table-responsive">
+            <table class="table table-hover demo-table-dynamic" id="tableWithDynamicRows">
+              <thead>
+                <tr>
+                  <th style="width:1%">
+                    <button class="btn" id="btn-check" style="margin-left: -1.2rem;"><i class="pg-trash"></i></button>
+                  </th>
+                  <th>Nome</th>
+                  <th>CPF</th>
+                  <th>Data de Nascimento</th>
+                  <th>E-mail</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for student in students %}
+                <tr>
+                  <td class="v-align-middle">
+                    <div class="checkbox">
+                      <input type="checkbox" value="{{ student.name }}" id="id_delete_{{ student.pk }}" name="delete_student" data-other="{{ student.name }}">
+                      <label for="id_delete_{{ student.pk }}"></label>
+                    </div>
+                  </td>
+                  <td class="v-align-middle row-detail" data-href="{% url "students:detail" student.pk %}">
+                    <p>{{ student.name }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ student.cpf }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ student.date_of_birth }}</p>
+                  </td>
+                  <td class="v-align-middle">
+                    <p>{{ student.contact }}</p>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="dataTables_info" id="tableWithDynamicRows_info" style="padding: 4px; margin-top: 5px !important;" role="status" aria-live="polite">Showing <b>1 to 5</b> of 5 entries
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="dataTables_paginate paging_simple_numbers" style="margin: 0; white-space: nowrap; text-align: right; padding: 4px; margin-top: 5px !important;" id="tableWithDynamicRows_paginate">
+                <ul class="">
+                  <li class="paginate_button previous disabled" id="tableWithDynamicRows_previous">
+                    <a href="#" aria-controls="tableWithDynamicRows" style="padding: 5px 6px;" data-dt-idx="0" tabindex="0">
+                      <i class="pg-arrow_left"></i>
+                    </a>
+                  </li>
+                  <li class="paginate_button active">
+                    <a href="#" aria-controls="tableWithDynamicRows" style="font-weight: bold; color: #626262; opacity: 1; background: none; border-color: transparent; padding: 5px 6px;" data-dt-idx="1" tabindex="0">1</a>
+                  </li>
+                  <li class="paginate_button next disabled" id="tableWithDynamicRows_next">
+                    <a href="#" aria-controls="tableWithDynamicRows" style="padding: 5px 6px;" data-dt-idx="2" tabindex="0">
+                      <i class="pg-arrow_right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- END PANEL -->
   </div>
+  <!-- MODAL STICK UP  -->
+  <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header clearfix text-left">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+          </button>
+          <h4>Tem certeza?</h4>
+          <p>Tem certeza de que deseja apagar o aluno selecionado? Todos os seguintes objetos e seus itens relacionados serão removidos:</p>
+        </div>
+        <div class="modal-body">
+          <h5 class="bold">Resumo</h5>
+          <ul id="demo-content">
+            <li>Matriculations: 2</li>
+            <li>Alunos: 2</li>
+            <li>Common infos: 2</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger m-t-5 inline">Sim, tenho certeza</button>
+          <button type="button" class="btn btn-cancel m-t-5 inline">Não, me leve de volta</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- END MODAL STICK UP  -->
+  <!-- MODAL STICK UP SMALL ALERT -->
+  <div class="modal fade stick-up" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content-wrapper">
+        <div class="modal-content">
+          <div class="modal-header clearfix text-left">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+            </button>
+            <h5>Nenhum aluno selecionado</h5>
+          </div>
+          <div class="modal-body">
+            <p class="no-margin">Selecione pelo menos um aluno para deletar.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-complete btn-block" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- END MODAL STICK UP SMALL ALERT -->
   <!-- END CONTAINER FLUID -->
 </div>
 <!-- END PAGE CONTENT -->
 {% endblock content %}
+
+{% block js-additional %}
+<script>
+    (function($) {
+        'use strict';
+        $(document).ready(function ($) {
+            $(".row-detail").click(function () {
+                window.document.location = $(this).data("href");
+            });
+            $("#btn-check").click(function () {
+                var checks = $("input[type=checkbox][name='delete_student']:checked");
+                if (checks.length == 0){
+                    $('#myModal2').modal('toggle');
+                }else {
+                    console.log(checks);
+                    var students_for_remove = '';
+                    for (var i = 0; i < checks.length; i++){
+                        students_for_remove += "<li>" +checks[i].value + "</li>";
+                    }
+                    $("ul#demo-content").html(students_for_remove);
+                    $('#myModal').modal('toggle');
+                }
+            });
+        });
+    })(window.jQuery);
+$(document).ready(function(){
+  $("#select_all").change(function(){
+    $(".checkbox1").prop('checked', $(this).prop("checked"));
+  });
+});
+</script>
+{% endblock js-additional %}
