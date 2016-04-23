@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.template import RequestContext
 from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee, Class
 from educarinova.management.forms.forms_students import StudentForm, AddressForm, UserForm, ContactForm, \
     MatriculationForm, TuitionFeeForm
@@ -9,10 +11,19 @@ from educarinova.management.forms.forms_students import StudentForm, AddressForm
 
 @login_required
 def list_(request):
-    student_list = Student.objects.all()
+    query = request.GET.get('q')
+    if query is None:
+        query = ''
+
+    total_students = Student.objects.count()
+    student_list = Student.objects.filter(Q(name__icontains=query) | Q(cpf__icontains=query) |
+                                          Q(contact__email__icontains=query) |
+                                          Q(date_of_birth__icontains=query)).order_by('created_at')
+
     paginator = Paginator(student_list, 10)
 
     page = request.GET.get('page')
+
     try:
         students = paginator.page(page)
     except PageNotAnInteger:
@@ -20,7 +31,10 @@ def list_(request):
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
 
-    return render(request, 'management/students/students_list.html', {'students': students})
+    return render(request, 'management/students/students_list.html',
+                  {'students': students,
+                   'query': query,
+                   'total_students': total_students})
 
 
 @login_required
