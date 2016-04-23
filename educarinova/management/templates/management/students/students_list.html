@@ -22,6 +22,15 @@
     </div>
   </div>
   <!-- END JUMBOTRON -->
+
+  <div class="alert alert-success" style="padding: 15px;">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">×</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <span><i class="fa fa-check"></i> Aluno "Arthu Felipe Manaia dos Santos" foi adicionado com sucesso.</span>
+  </div>
+
   <!-- START CONTAINER FLUID -->
   <div class="container-fluid container-fixed-lg">
     <!-- START PANEL -->
@@ -64,7 +73,7 @@
               <thead>
                 <tr>
                   <th style="width:1%">
-                    <button class="btn" id="btn-check" style="margin-left: -1.2rem;"><i class="pg-trash"></i></button>
+                    <button class="btn" id="btn-check" style="margin-left: -1.10rem;"><i class="pg-trash"></i></button>
                   </th>
                   <th>Nome</th>
                   <th>CPF</th>
@@ -100,22 +109,24 @@
           </div>
           <div class="row">
             <div class="col-md-8">
-              <div class="dataTables_info" id="tableWithDynamicRows_info" style="padding: 4px; margin-top: 5px !important;" role="status" aria-live="polite">Showing <b>1 to 5</b> of 5 entries
+              <div class="dataTables_info" id="tableWithDynamicRows_info" style="padding: 4px; margin-top: 5px !important;" role="status" aria-live="polite">Mostrando <b>{{ students.start_index }} até {{ students.end_index }}</b> de {{ students.paginator.count }} registros
               </div>
             </div>
             <div class="col-md-4">
               <div class="dataTables_paginate paging_simple_numbers" style="margin: 0; white-space: nowrap; text-align: right; padding: 4px; margin-top: 5px !important;" id="tableWithDynamicRows_paginate">
                 <ul class="">
-                  <li class="paginate_button previous disabled" id="tableWithDynamicRows_previous">
-                    <a href="#" aria-controls="tableWithDynamicRows" style="padding: 5px 6px;" data-dt-idx="0" tabindex="0">
+                  <li class="paginate_button previous {% if not students.has_previous %}disabled{% endif %}" id="tableWithDynamicRows_previous">
+                    <a href="?page={% if students.has_previous %}{{ students.previous_page_number }}{% endif %}" aria-controls="tableWithDynamicRows" style="padding: 5px 6px;" data-dt-idx="0" tabindex="0">
                       <i class="pg-arrow_left"></i>
                     </a>
                   </li>
-                  <li class="paginate_button active">
-                    <a href="#" aria-controls="tableWithDynamicRows" style="font-weight: bold; color: #626262; opacity: 1; background: none; border-color: transparent; padding: 5px 6px;" data-dt-idx="1" tabindex="0">1</a>
-                  </li>
-                  <li class="paginate_button next disabled" id="tableWithDynamicRows_next">
-                    <a href="#" aria-controls="tableWithDynamicRows" style="padding: 5px 6px;" data-dt-idx="2" tabindex="0">
+                  {% for page in students.paginator.page_range %}
+                    <li class="paginate_button {% if students.number == page %}active{% endif %}">
+                      <a href="?page={{ page }}" aria-controls="tableWithDynamicRows" style="color: #626262; background: none; border-color: transparent; padding: 5px 6px;" data-dt-idx="1" tabindex="0">{{ page }}</a>
+                    </li>
+                  {% endfor %}
+                  <li class="paginate_button next {% if not students.has_next %}disabled{% endif %}" id="tableWithDynamicRows_next">
+                    <a href="?page={% if students.has_next %}{{ students.next_page_number }}{% endif %}" aria-controls="tableWithDynamicRows" style="padding: 5px 6px;" data-dt-idx="2" tabindex="0">
                       <i class="pg-arrow_right"></i>
                     </a>
                   </li>

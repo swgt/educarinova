@@ -299,6 +299,7 @@
             </div>
             <div class="col-md-7">
               <div class="padding-30">
+                  <div id="div-loading"></div>
                   <p>Informações de matrícula</p>
                   <div class="form-group-attached">
                     <div class="row clearfix">
@@ -491,9 +492,6 @@
     })(window.jQuery);
 </script>
 <script>
-$(document).ready(function() {
-    $('#myDatepicker').datepicker();
-});
 $('.datepicker-component2').datepicker({format: 'dd/mm/yyyy', language: 'pt-BR'});
 $("#id_cpf").mask("999.999.999-99");
 $("#id_cep").mask("99999-999");
@@ -545,7 +543,7 @@ $(function () {
         'pk_school_class': pk_school_class
       },
       beforeSend: function(xhr, settings) {
-        console.log("Before Send");
+        $('#div-loading').html('<div class="progress-circle-indeterminate progress-circle-complete" style="width: 1.4rem; height: 1.4rem; margin-right: 0;"></div>');
         $.ajaxSettings.beforeSend(xhr, settings);
       },
       success: function (data) {
@@ -554,6 +552,8 @@ $(function () {
         var total_costs = $("#id_total_costs");
 
         tuition_fee = parseInt(tuition_fee[0].innerHTML);
+
+        $('#div-loading').empty();
 
         if (discount == 0) {
           total_costs.html(tuition_fee.toString());

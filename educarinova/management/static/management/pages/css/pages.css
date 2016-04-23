@@ -7891,6 +7891,7 @@ div.cs-skin-slide .cs-options ul li.cs-selected span {
 }
 .dataTables_wrapper .dataTables_paginate ul > li.disabled a {
   opacity: .35;
+  cursor: not-allowed;
 }
 .dataTables_wrapper .dataTables_paginate ul > li.disabled a:hover {
   opacity: .35;
@@ -7923,6 +7924,7 @@ div.cs-skin-slide .cs-options ul li.cs-selected span {
 .dataTables_wrapper .dataTables_paginate ul > li.active > a {
   font-weight: bold;
   color: #fff;
+  cursor: default;
   background: #626262;
   border-color: #626262;
   opacity: 1;
