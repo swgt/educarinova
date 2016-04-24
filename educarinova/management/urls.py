@@ -38,6 +38,7 @@ urlpatterns = [
 
     url(r'^class/$', list_class, name='list_class'),
     url(r'^class/new/$', new_class, name='new_class'),
+    url(r'^class/(\d+)/$', detail_class, name='detail_class'),
 
     url(r'^gerarboleto/$', print_all, name='gerar_boleto'),
 

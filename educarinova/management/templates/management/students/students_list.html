@@ -81,6 +81,7 @@
                   <th>CPF</th>
                   <th>Data de Nascimento</th>
                   <th>E-mail</th>
+                  <th>Situação</th>
                 </tr>
               </thead>
               <tbody>
@@ -88,8 +89,8 @@
                 <tr>
                   <td class="v-align-middle">
                     <div class="checkbox">
-                      <input type="checkbox" value="{{ student.name }}" id="id_delete_{{ student.pk }}" name="delete_student" data-other="{{ student.name }}">
-                      <label for="id_delete_{{ student.pk }}"></label>
+                      <input type="checkbox" value="{{ student.name }}" id="{{ student.pk }}" name="delete_student" data-other="{{ student.name }}">
+                      <label for="{{ student.pk }}"></label>
                     </div>
                   </td>
                   <td class="v-align-middle row-detail" data-href="{% url "students:detail" student.pk %}">
@@ -103,6 +104,9 @@
                   </td>
                   <td class="v-align-middle">
                     <p>{{ student.contact }}</p>
+                  </td>
+                  <td class="v-align-middle" style="padding-top: 0;">
+                    <span class="status status-warning">Não Matriculado</span>
                   </td>
                 </tr>
                 {% endfor %}
@@ -144,26 +148,24 @@
   <!-- MODAL STICK UP  -->
   <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header clearfix text-left">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
-          </button>
-          <h4>Tem certeza?</h4>
-          <p>Tem certeza de que deseja apagar o aluno selecionado? Todos os seguintes objetos e seus itens relacionados serão removidos:</p>
+      <form method="POST" action="{% url 'students:delete' %}">{% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header clearfix text-left">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i></button>
+            <h4>Tem certeza?</h4>
+            <p>Tem certeza de que deseja apagar o(s) aluno(s) selecionado(s)? Todos os dados e itens relacionados serão removidos:</p>
+          </div>
+          <div class="modal-body">
+            <h5 class="bold">Resumo</h5>
+            <ul id="demo-content"></ul>
+            <div id="hidden-inputs"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger m-t-5 inline">Sim, tenho certeza</button>
+            <button type="button" data-dismiss="modal" class="btn btn-cancel m-t-5 inline">Não, me leve de volta</button>
+          </div>
         </div>
-        <div class="modal-body">
-          <h5 class="bold">Resumo</h5>
-          <ul id="demo-content">
-            <li>Matriculations: 2</li>
-            <li>Alunos: 2</li>
-            <li>Common infos: 2</li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger m-t-5 inline">Sim, tenho certeza</button>
-          <button type="button" class="btn btn-cancel m-t-5 inline">Não, me leve de volta</button>
-        </div>
-      </div>
+      </form>
       <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
@@ -212,10 +214,13 @@
                 }else {
                     console.log(checks);
                     var students_for_remove = '';
+                    var hidden_input = '';
                     for (var i = 0; i < checks.length; i++){
-                        students_for_remove += "<li>" +checks[i].value + "</li>";
+                        students_for_remove += "<li>" + checks[i].value + "</li>";
+                        hidden_input += "<input type=\"hidden\" name=\""+ checks[i].id +"\" value=\"" + checks[i].id + "\">";
                     }
                     $("ul#demo-content").html(students_for_remove);
+                    $("div#hidden-inputs").html(hidden_input);
                     $('#myModal').modal('toggle');
                 }
             });

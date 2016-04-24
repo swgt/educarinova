@@ -1,0 +1,155 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block title %}Selecione uma turma para modificar - Educarinova{% endblock title %}
+
+{% block content %}
+<!-- START PAGE CONTENT -->
+<div class="content ">
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- START BREADCRUMB -->
+    <ul class="breadcrumb">
+      <li>
+        <a href="/class/">Turmas</a>
+      </li>
+      <li><a href="#" class="active">Detalhes da Turma</a>
+      </li>
+    </ul>
+    <!-- END BREADCRUMB -->
+    <!-- START PANEL -->
+    <div class="panel panel-transparent">
+      <div class="panel-body">
+        <form id="form-personal" role="form" autocomplete="off">
+          <div class="row clearfix">
+            <div class="col-sm-3">
+              <div class="form-group form-group-default">
+                <label>Unidade</label>
+                {{ form_class.unit }}
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group form-group-default">
+                <label>Série</label>
+                {{ form_class.serie }}
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group form-group-default">
+                <label>Turno</label>
+                {{ form_class.get_shift_display }}
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group form-group-default">
+                <label>Período</label>
+                {{ form_class.period }}
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group form-group-default">
+                <label>Ano Letivo</label>
+                {{ form_class.academic_year }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="form-group form-group-default">
+                <label>Nome da Turma</label>
+                {{ form_class.name }}
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group form-group-default">
+                <label>Vagas</label>
+                {{ form_class.vacancies }}
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group form-group-default">
+                <label>Mensalidade</label>
+                R$ {{ form_class.value_tuition_fee }}
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- END PANEL -->
+  </div>
+  <!-- END CONTAINER FLUID -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg bg-white">
+    <!-- START PANEL -->
+    <div class="panel panel-transparent">
+      <div class="panel-heading">
+        <div class="panel-title">Alunos matriculados nesta turma
+        </div>
+        <div class="btn-group pull-right m-b-10">
+          <button type="button" class="btn btn-complete"><i class="fa fa-plus"></i> Nova Matrícula</button>
+          <button type="button" class="btn btn-complete dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Settings</a>
+            </li>
+            <li><a href="#">Help</a>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-hover" id="basicTable">
+            <thead>
+              <tr>
+                <th style="width:1%">
+                  <button class="btn"><i class="pg-trash"></i>
+                  </button>
+                </th>
+                <th style="width:20%">Nome</th>
+                <th style="width:20%">Matrícula</th>
+                <th style="width:29%">Data de Ingresso</th>
+                <th style="width:15%">Mensalidade</th>
+                <th style="width:15%">Situação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for matriculation in matriculations %}
+              <tr>
+                <td class="v-align-middle">
+                  <div class="checkbox ">
+                    <input type="checkbox" value="3" id="checkbox1">
+                    <label for="checkbox1"></label>
+                  </div>
+                </td>
+                <td class="v-align-middle ">
+                  <p>{{ matriculation.student }}</p>
+                </td>
+                <td class="v-align-middle">
+                  <p>{{ matriculation.number_matriculation }}</p>
+                </td>
+                <td class="v-align-middle">
+                  <p>{{ matriculation.created_at }}</p>
+                </td>
+                <td class="v-align-middle">
+                  <p>{{ matriculation.tuition_fee }}</p>
+                </td>
+                <td class="v-align-middle" style="padding-top: 0;">
+                  <span class="status status-warning">{{ matriculation.status }}</span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- END PANEL -->
+  </div>
+  <!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+{% endblock content %}

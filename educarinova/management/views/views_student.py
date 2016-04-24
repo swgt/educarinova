@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
-from django.template import RequestContext
+from django.shortcuts import render, redirect, get_object_or_404
 from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee, Class
 from educarinova.management.forms.forms_students import StudentForm, AddressForm, UserForm, ContactForm, \
     MatriculationForm, TuitionFeeForm
@@ -116,9 +115,12 @@ def edit(request, pk):
 
 
 @login_required
-def delete(request, pk):
-    student = get_object_or_404(Student, pk=pk)
-    student.delete()
+def delete(request):
+    for pk in request.POST:
+        if pk != 'csrfmiddlewaretoken':
+            student = get_object_or_404(Student, pk=pk)
+            student.contact.delete()
+            student.address.delete()
 
     return redirect('students:list')
 

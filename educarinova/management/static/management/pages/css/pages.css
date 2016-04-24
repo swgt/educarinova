@@ -13724,3 +13724,54 @@ Main components
 .row-detail:hover{
   cursor: pointer !important;
 }
+
+span.status {
+    display: block;
+    font-size: 95%;
+    font-weight: 400;
+    padding: 4px 8px 4px 6px;
+    white-space: nowrap;
+}
+
+span.status-warning { /* Amarelo */
+    background: #fcf8e3;
+    border-left: 2px solid #8a6d3b;
+    color: #8a6d3b;
+}
+
+span.status-danger { /* Vermelho */
+    background: #f2dede;
+    border-left: 2px solid #a94442;
+    color: #a94442;
+}
+
+span.status-info { /* Azul */
+    background: #d9edf7;
+    border-left: 2px solid #31708f;
+    color: #31708f;
+}
+
+span.status-success { /* Verde */
+    background: #dff0d8;
+    border-left: 2px solid #3c763d;
+    color: #3c763d;
+}
+
+span.status-neutral { /* Cinza */
+    background: #999;
+    border-left: 2px solid #FAFAFA;
+    color: #FAFAFA;
+}
+
+span.status-closed { /* Preto */
+    background: #888;
+    border-left: 2px solid #000;
+    color: #FAFAFA;
+}
+
+span.disabled { /* Cinza Claro */
+    background: #eee;
+    border-left: 2px solid #666;
+    color: #666;
+    opacity: 0.6;
+}
