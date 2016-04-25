@@ -241,7 +241,7 @@ class TuitionFee(models.Model):
         ('26', '26'),
         ('27', '27')
         )
-    expiration_day = models.CharField('dia de vencimento', max_length=2, choices=EXPIRATION_DAYS)
+    expiration_day = models.CharField('dia de vencimento', max_length=2, choices=EXPIRATION_DAYS, default=5)
     FREQUENCY_PAYMENTS = (
         ('Mensal', 'Mensal'),
         ('Bimestral', 'Bimestral'),
@@ -249,7 +249,7 @@ class TuitionFee(models.Model):
         ('Semestral', 'Semestral'),
         ('Anual', 'Anual'),
         )
-    frequency_payment = models.CharField('frequência de pagamento', max_length=30, choices=FREQUENCY_PAYMENTS)
+    frequency_payment = models.CharField('frequência de pagamento', max_length=30, choices=FREQUENCY_PAYMENTS, default="Mensal")
 
     def __str__(self):
         return self.frequency_payment
