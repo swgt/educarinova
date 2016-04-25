@@ -72,7 +72,7 @@
                   <label for="{{class.id}}"></label>
                 </div>
               </td>
-              <td class="v-align-middle">
+              <td class="v-align-middle row-detail" data-href="{% url "detail_class" class.pk %}">
                 <p>{{ class.name }}</p>
               </td>
               <td class="v-align-middle">
@@ -100,3 +100,16 @@
 </div>
 <!-- END PAGE CONTENT -->
 {% endblock content %}
+
+{% block js-additional %}
+<script>
+    (function($) {
+        'use strict';
+        $(document).ready(function ($) {
+            $(".row-detail").click(function () {
+                window.document.location = $(this).data("href");
+            });
+        });
+    })(window.jQuery);
+</script>
+{% endblock js-additional %}

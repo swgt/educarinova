@@ -83,4 +83,6 @@ class TuitionFeeForm(forms.ModelForm):
         widgets = {
             'frequency_payment': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
             'expiration_day': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
+            'discount_tuition_fee': forms.NumberInput(attrs={'class': 'form-control'}),
+            'reason_discount_tuition_fee': forms.TextInput(attrs={'class': 'form-control'}),
         }

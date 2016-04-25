@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
 
+from django.utils.html import format_html
+
 
 def random_string():
     number_random = randint(10000, 99999)
@@ -144,10 +146,21 @@ class Student(CommonInfo):
     def __str__(self):
         return self.name
 
+    def get_verify_if_matriculate(self):
+        enrollment_students = self.matriculation_set.all()
+
+        if not enrollment_students:
+            return format_html('<span class="status status-{}">{}</span>',
+                               'neutral', 'Não Matriculado')
+
+        for enrollment_student in enrollment_students:
+            return format_html('<span class="status status-{}">{}</span>',
+                               enrollment_student.status,
+                               enrollment_student.get_status_display())
+
 
 class Employee(CommonInfo):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #funcionario tem matricula?
     matriculation = models.CharField('matrícula', max_length=100, primary_key=True)
     unit = models.ForeignKey(Unit, verbose_name="unidade", default=False)
     contact = models.ForeignKey(Contact, verbose_name="contato", default=False)
@@ -202,7 +215,6 @@ class Class(models.Model):
         ('Integral','Integral'),
         )
     period = models.CharField('período', max_length=12, choices=PERIODS)
-    #financeiro
     value_tuition_fee = models.DecimalField('mensalidade base (R$)', max_digits=5, decimal_places=2, default=0.00)
 
     def __str__(self):
@@ -210,7 +222,7 @@ class Class(models.Model):
 
 
 class TuitionFee(models.Model):
-    discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=5, decimal_places=2, null=True, blank=True)
+    discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=3, decimal_places=0, null=True, blank=True, default=0)
     reason_discount_tuition_fee = models.CharField('motivo do desconto', max_length=255, null=True, blank=True)
     EXPIRATION_DAYS = (
         ('1', '1'),
@@ -260,20 +272,24 @@ class Matriculation(models.Model):
     school_class = models.ForeignKey(Class, verbose_name="turma", null=True, blank=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno', null=True, blank=True)
     STATUS = (
-        ('Ativo', 'Ativo'),
-        ('Desativado', 'Desativado'),
-        ('Em Análise', 'Em Análise'),
-        ('Em Curso', 'Em Curso'),
-        ('Concluido', 'Concluido'),
+        ('success', 'Ativo'),
+        ('danger', 'Desativado'),
+        ('warning', 'Em Análise'),
+        ('info', 'Em Curso'),
+        ('closed', 'Concluido'),
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
-    #financeiro
     tuition_fee = models.ForeignKey(TuitionFee, verbose_name='mensalidade', null=True, blank=True)
 
     def __str__(self):
         return str(self.number_matriculation)
+
+    def get_colored_status(self):
+        return format_html('<span class="status status-{}">{}</span>',
+                           self.status,
+                           self.get_status_display())
 
 
 class AdditionalCost(models.Model):

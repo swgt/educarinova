@@ -119,7 +119,7 @@ body.rtl [class*="col-"] {
 ------------------------------------
 */
 .pace .pace-progress {
-  background: #10cfbd;
+  background: #48B0F7;
   height: 3px;
 }
 .pace .pace-progress-inner {
@@ -129,7 +129,7 @@ body.rtl [class*="col-"] {
   -webkit-animation: none;
   animation: none;
   top: 73px;
-  background: url('../img/progress/progress-circle-success.svg') no-repeat top left;
+  background: url('../img/progress/progress-circle-complete.svg') no-repeat top left;
   background-size: 100% auto;
   margin: 0 auto;
   border-width: 0;
@@ -3000,6 +3000,61 @@ fieldset[disabled] .btn-primary.active {
   color: #6d5cae;
   background-color: #ffffff;
 }
+
+/*>>>>>>>>>>>>>>>>>>>>>>>*/
+
+.btn-cancel,
+.btn-cancel:focus {
+  color: #333333;
+  background-color: #E6E6E6;
+  border-color: #E6E6E6;
+}
+.btn-cancel.active,
+.btn-cancel:active,
+.btn-cancel.active:focus,
+.btn-cancel:active:focus,
+.btn-cancel:active:hover,
+.open .dropdown-toggle.btn-cancel {
+  background-color: #626262;
+  border-color: #626262;
+  color: #333333;
+}
+.btn-cancel.hover,
+.btn-cancel:hover,
+.open .dropdown-toggle.btn-cancel {
+  background-color: #F0F0F0;
+  border-color: #F0F0F0;
+  color: #333333;
+}
+.btn-cancel.active:hover {
+  background: #626262;
+  border-color: #626262;
+}
+.btn-cancel.disabled,
+.btn-cancel[disabled],
+fieldset[disabled] .btn-cancel,
+.btn-cancel.disabled:hover,
+.btn-cancel[disabled]:hover,
+fieldset[disabled] .btn-cancel:hover,
+.btn-cancel.disabled:focus,
+.btn-cancel[disabled]:focus,
+fieldset[disabled] .btn-cancel:focus,
+.btn-cancel.disabled:active,
+.btn-cancel[disabled]:active,
+fieldset[disabled] .btn-cancel:active,
+.btn-cancel.disabled.active,
+.btn-cancel[disabled].active,
+fieldset[disabled] .btn-cancel.active {
+  background-color: #E6E6E6;
+  border-color: #E6E6E6;
+}
+.btn-cancel .badge {
+  color: #E6E6E6;
+  background-color: #333333;
+}
+
+/*>>>>>>>>>>>>>>>>>>>>>>>*/
+
 .btn-success,
 .btn-success:focus {
   color: #ffffff;
@@ -7836,6 +7891,7 @@ div.cs-skin-slide .cs-options ul li.cs-selected span {
 }
 .dataTables_wrapper .dataTables_paginate ul > li.disabled a {
   opacity: .35;
+  cursor: not-allowed;
 }
 .dataTables_wrapper .dataTables_paginate ul > li.disabled a:hover {
   opacity: .35;
@@ -7868,6 +7924,7 @@ div.cs-skin-slide .cs-options ul li.cs-selected span {
 .dataTables_wrapper .dataTables_paginate ul > li.active > a {
   font-weight: bold;
   color: #fff;
+  cursor: default;
   background: #626262;
   border-color: #626262;
   opacity: 1;
@@ -13662,4 +13719,59 @@ Main components
 .p-detail {
   margin-top: 10px;
   margin-bottom: 0;
+}
+
+.row-detail:hover{
+  cursor: pointer !important;
+}
+
+span.status {
+    display: block;
+    font-size: 95%;
+    font-weight: 400;
+    padding: 4px 8px 4px 6px;
+    white-space: nowrap;
+}
+
+span.status-warning { /* Amarelo */
+    background: #fcf8e3;
+    border-left: 2px solid #8a6d3b;
+    color: #8a6d3b;
+}
+
+span.status-danger { /* Vermelho */
+    background: #f2dede;
+    border-left: 2px solid #a94442;
+    color: #a94442;
+}
+
+span.status-info { /* Azul */
+    background: #d9edf7;
+    border-left: 2px solid #31708f;
+    color: #31708f;
+}
+
+span.status-success { /* Verde */
+    background: #dff0d8;
+    border-left: 2px solid #3c763d;
+    color: #3c763d;
+}
+
+span.status-neutral { /* Cinza */
+    background: #999;
+    border-left: 2px solid #000000;
+    color: #FAFAFA;
+}
+
+span.status-closed { /* Preto */
+    background: #888;
+    border-left: 2px solid #000;
+    color: #FAFAFA;
+}
+
+span.disabled { /* Cinza Claro */
+    background: #eee;
+    border-left: 2px solid #666;
+    color: #666;
+    opacity: 0.6;
 }

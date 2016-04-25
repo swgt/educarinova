@@ -1,12 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dash</title>
-</head>
-<body>
-    {% for school in schools %}
-        <h1><a href="{% url 'management.views.test_students' school=school.pk %}">{{ school.company_name }}</a></h1>
-    {% endfor %}
-</body>
-</html>
+{% extends 'management/base.html' %}
+
+{% block content %}
+<!-- START PAGE CONTENT -->
+<div class="content ">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+          <li>
+            <p>Educarinova</p>
+          </li>
+          <li><a href="#" class="active">Alunos</a>
+          </li>
+        </ul>
+        <!-- END BREADCRUMB -->
+      </div>
+    </div>
+  </div>
+  <!-- END JUMBOTRON -->
+  <!-- START CONTAINER FLUID -->
+  <div class="container-fluid container-fixed-lg">
+    <!-- START PANEL -->
+    <div class="panel panel-transparent">
+      <div class="panel-heading">
+        <div class="panel-title">Selecione um aluno para modificar
+        </div>
+        <div class="pull-right">
+          <div class="col-xs-12">
+            <a id="show-modal" href="new" class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Adicionar aluno
+            </a>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+
+      </div>
+    </div>
+    <!-- END PANEL -->
+  </div>
+  <!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+{% endblock content %}
+
+
+{% block js-additional %}
+  <script>
+    $(function () {                     // Aguarda a página carregar
+      $("#estado").change(function () { // Associa uma função ao evento de change
+        var estado = $(this).val();     // Armazena o estado selecionado
+        $.ajax({                        // Inicia a definição da requisição
+          url: '/filtrar_cidade/',      // Define a url da requisição
+          data: {                       // Definição dos dados que serão enviados
+            'estado': estado            // Adiciona dados a serem enviados
+          },                            
+          success: function (data) {    // Método de sucesso da requisição
+            $("#cidade").html(data);    // Alimenta a dropdown list #cidades
+          }
+        });
+      });
+    });
+  </script>
+{% endblock js-additional %}

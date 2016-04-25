@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from educarinova.management.views.views_general import dashboard
-from educarinova.management.views.views_student import list_, edit, new, delete, detail
+from educarinova.management.views.views_student import list_, edit, new, delete, detail, filter_by_class
 from educarinova.management.views.views_classroom import *
 from educarinova.management.views.views_unit import *
 from educarinova.management.views.views_serie import *
@@ -38,8 +38,9 @@ urlpatterns = [
 
     url(r'^class/$', list_class, name='list_class'),
     url(r'^class/new/$', new_class, name='new_class'),
+    url(r'^class/(\d+)/$', detail_class, name='detail_class'),
 
     url(r'^gerarboleto/$', print_all, name='gerar_boleto'),
 
-
+    url(r'^filter_by_class/$', filter_by_class, name='filter_by_class'),
 ]

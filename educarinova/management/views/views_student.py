@@ -1,14 +1,39 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee
+from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee, Class
 from educarinova.management.forms.forms_students import StudentForm, AddressForm, UserForm, ContactForm, \
     MatriculationForm, TuitionFeeForm
 
 
 @login_required
 def list_(request):
-    students = Student.objects.all()
-    return render(request, 'management/students/students_list.html', {'students': students})
+    query = request.GET.get('q')
+    if query is None:
+        query = ''
+
+    total_students = Student.objects.count()
+    student_list = Student.objects.filter(Q(name__icontains=query) | Q(cpf__icontains=query) |
+                                          Q(contact__email__icontains=query) |
+                                          Q(date_of_birth__icontains=query)).order_by('created_at')
+
+    paginator = Paginator(student_list, 10)
+
+    page = request.GET.get('page')
+
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+
+    return render(request, 'management/students/students_list.html',
+                  {'students': students,
+                   'query': query,
+                   'total_students': total_students})
 
 
 @login_required
@@ -90,8 +115,14 @@ def edit(request, pk):
 
 
 @login_required
-def delete():
-    pass
+def delete(request):
+    for pk in request.POST:
+        if pk != 'csrfmiddlewaretoken':
+            student = get_object_or_404(Student, pk=pk)
+            student.contact.delete()
+            student.address.delete()
+
+    return redirect('students:list')
 
 
 def _remove_mask_field(field):
@@ -104,3 +135,10 @@ def _remove_mask_field(field):
         field = field.replace(out, _in)
 
     return field
+
+
+def filter_by_class(request):
+    pk_class = request.POST.get('pk_school_class')
+    class_ = get_object_or_404(Class, pk=pk_class)
+
+    return HttpResponse(class_.value_tuition_fee)
