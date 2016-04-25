@@ -106,7 +106,7 @@
                     <p>{{ student.contact }}</p>
                   </td>
                   <td class="v-align-middle" style="padding-top: 0;">
-                    <span class="status status-warning">Não Matriculado</span>
+                    {{ student.get_verify_if_matriculate }}
                   </td>
                 </tr>
                 {% endfor %}

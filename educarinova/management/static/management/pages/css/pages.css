@@ -13759,7 +13759,7 @@ span.status-success { /* Verde */
 
 span.status-neutral { /* Cinza */
     background: #999;
-    border-left: 2px solid #FAFAFA;
+    border-left: 2px solid #000000;
     color: #FAFAFA;
 }
 

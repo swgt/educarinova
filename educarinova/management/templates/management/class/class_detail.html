@@ -22,16 +22,30 @@
       <div class="panel-body">
         <form id="form-personal" role="form" autocomplete="off">
           <div class="row clearfix">
-            <div class="col-sm-3">
+            <div class="col-sm-6">
               <div class="form-group form-group-default">
                 <label>Unidade</label>
                 {{ form_class.unit }}
               </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <div class="form-group form-group-default">
                 <label>Série</label>
                 {{ form_class.serie }}
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group form-group-default">
+                <label>Ano Letivo</label>
+                {{ form_class.academic_year }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group form-group-default">
+                <label>Nome da Turma</label>
+                {{ form_class.name }}
               </div>
             </div>
             <div class="col-sm-2">
@@ -48,25 +62,11 @@
             </div>
             <div class="col-sm-2">
               <div class="form-group form-group-default">
-                <label>Ano Letivo</label>
-                {{ form_class.academic_year }}
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-5">
-              <div class="form-group form-group-default">
-                <label>Nome da Turma</label>
-                {{ form_class.name }}
-              </div>
-            </div>
-            <div class="col-sm-2">
-              <div class="form-group form-group-default">
                 <label>Vagas</label>
                 {{ form_class.vacancies }}
               </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-2">
               <div class="form-group form-group-default">
                 <label>Mensalidade</label>
                 R$ {{ form_class.value_tuition_fee }}
@@ -112,7 +112,7 @@
                 <th style="width:20%">Nome</th>
                 <th style="width:20%">Matrícula</th>
                 <th style="width:29%">Data de Ingresso</th>
-                <th style="width:15%">Mensalidade</th>
+                <th style="width:15%">Frequência de Pagamento</th>
                 <th style="width:15%">Situação</th>
               </tr>
             </thead>
@@ -138,7 +138,7 @@
                   <p>{{ matriculation.tuition_fee }}</p>
                 </td>
                 <td class="v-align-middle" style="padding-top: 0;">
-                  <span class="status status-warning">{{ matriculation.status }}</span>
+                  {{ matriculation.get_colored_status }}
                 </td>
               </tr>
               {% endfor %}

@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
 
+from django.utils.html import format_html
+
 
 def random_string():
     number_random = randint(10000, 99999)
@@ -144,6 +146,18 @@ class Student(CommonInfo):
     def __str__(self):
         return self.name
 
+    def get_verify_if_matriculate(self):
+        enrollment_students = self.matriculation_set.all()
+
+        if not enrollment_students:
+            return format_html('<span class="status status-{}">{}</span>',
+                               'neutral', 'Não Matriculado')
+
+        for enrollment_student in enrollment_students:
+            return format_html('<span class="status status-{}">{}</span>',
+                               enrollment_student.status,
+                               enrollment_student.get_status_display())
+
 
 class Employee(CommonInfo):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -258,11 +272,11 @@ class Matriculation(models.Model):
     school_class = models.ForeignKey(Class, verbose_name="turma", null=True, blank=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno', null=True, blank=True)
     STATUS = (
-        ('Ativo', 'Ativo'),
-        ('Desativado', 'Desativado'),
-        ('Em Análise', 'Em Análise'),
-        ('Em Curso', 'Em Curso'),
-        ('Concluido', 'Concluido'),
+        ('success', 'Ativo'),
+        ('danger', 'Desativado'),
+        ('warning', 'Em Análise'),
+        ('info', 'Em Curso'),
+        ('closed', 'Concluido'),
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
@@ -271,6 +285,11 @@ class Matriculation(models.Model):
 
     def __str__(self):
         return str(self.number_matriculation)
+
+    def get_colored_status(self):
+        return format_html('<span class="status status-{}">{}</span>',
+                           self.status,
+                           self.get_status_display())
 
 
 class AdditionalCost(models.Model):
