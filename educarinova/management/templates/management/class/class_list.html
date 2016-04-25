@@ -32,15 +32,37 @@
  {% endif %}
     <!-- START PANEL -->
     <div class="panel panel-transparent">
-      <div class="panel-heading">
-        <div class="panel-title">Selecione uma turma para modificar
-        </div>
-        <div class="pull-right">
-          <div class="col-xs-12">
-            <a id="show-modal" href="new" class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Adicionar Turma
-            </a>
+      <div class="panel-heading">        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="panel-title">Selecione um aluno para modificar</div>
+          </div>
+          <div class="col-md-4">
+            <div class="pull-right">
+              <div class="col-xs-12" style="padding-right: 0;">
+                <a href="{% url 'new_class' %}" class="btn btn-complete btn-animated from-left pg pg-plus"><span>Adicionar Turma</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+        <form id="changelist-search" method="GET">
+          <div><!-- DIV needed for valid HTML -->
+            <div class="row">
+              <div class="col-md-4">
+                <input type="text" size="40" name="q" class="form-control" value="{{ query }}" id="id_search" placeholder="Digite para buscar uma turma" autofocus>
+              </div>
+              <div class="col-md-8">
+                <button type="submit" class="btn btn-complete btn-cons btn-animated from-left pg pg-search">
+                  <span>Pesquisar</span>
+                </button>
+                {% if query %}
+                  <span class="small hint-text">{{ classes.paginator.count }} resultado{{ classes.paginator.count|pluralize }} (<a href="?">{{ total_classes }} total</a>)</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </form>
         <div class="clearfix"></div>
       </div>
       <div class="panel-body">
