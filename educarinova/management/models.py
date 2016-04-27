@@ -353,7 +353,7 @@ class Carrier(models.Model):
         ('756', '756 - Bancoob/Sicoob'),
         ('999', '999 - Cobrança Sistema Local')
     )
-    bank_cod = models.CharField('status do pagamento', max_length=15, choices=BANK_CODS)
+    bank_cod = models.CharField('código do banco', max_length=15, choices=BANK_CODS)
     description = models.CharField('descrição', max_length=100)
     agency = models.CharField('agência', max_length=10)
     agency_dv = models.CharField('dígito verificar da agência', max_length=1)
@@ -422,12 +422,6 @@ class BankSlip(models.Model):
     matriculation = models.ForeignKey(Matriculation, verbose_name="matricula de referência")
     template_bank_slip = models.ForeignKey(TemplateBankSlip, verbose_name="template do boleto")
     carrier = models.ForeignKey(Carrier, verbose_name="portador")
-    STATUS = (
-        ('gerado', 'Gerado'),
-        ('pago', 'Pago'),
-        ('cancelado', 'Cancelado')
-    )
-    status = models.CharField('situação', max_length=10, choices=STATUS, default="gerado")
     #podemos implementar aqui um default value, que puxa do banco o ultimo
     #numero gerado e incremena 1
     document_number = models.IntegerField('número do documento')
@@ -443,7 +437,16 @@ class BankSlip(models.Model):
     )
     mode_geration = models.CharField('situação', max_length=10, choices=MODES_GERATION)
     due_date = models.DateTimeField('data de vencimento', auto_now_add=True)
-    
+
+class StatusBankSlip(models.Model):
+    bank_slip = models.ForeignKey(BankSlip, verbose_name="boleto de referência")
+    STATUS = (
+        ('gerado', 'Gerado'),
+        ('pago', 'Pago'),
+        ('cancelado', 'Cancelado')
+    )
+    status = models.CharField('situação', max_length=10, choices=STATUS, default="gerado")
+    create_at = models.DateTimeField('criado em', auto_now_add=True)
 
 class AccretionDiscount(models.Model):
     #estudar.. no sgp ele relaciona com o codigo do contrato
