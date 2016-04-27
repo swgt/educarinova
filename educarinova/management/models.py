@@ -278,7 +278,7 @@ class Matriculation(models.Model):
         ('info', 'Em Curso'),
         ('closed', 'Concluido'),
     )
-    status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
+    status = models.CharField('situação', max_length=10, choices=STATUS, null=True, default='Em Curso')
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True, null=True)
     tuition_fee = models.ForeignKey(TuitionFee, verbose_name='mensalidade', null=True, blank=True)
@@ -337,3 +337,101 @@ class StatusPayment(models.Model):
 
 class Subject(models.Model):
     name = models.CharField('nome da disciplina', max_length=50)
+
+class Carrier(models.Model):
+    BANK_CODS = (
+        ('001', '001 - Banco do Brasil'),
+        ('003', '003 - Banco da Amazônia'),
+        ('004', '004 - Banco do Nordeste'),
+        ('033', '033 - Banco Santander'),
+        ('104', '104 - Caixa Econômica'),
+        ('237', '237 - Banco Bradesco'),
+        ('241', '241 - Banco Itaú'),
+        ('256', '256 - Banco Real'),
+        ('239', '239 - Banco HSBC'),
+        ('748', '748 - SISCRED'),
+        ('756', '756 - Bancoob/Sicoob'),
+        ('999', '999 - Cobrança Sistema Local')
+    )
+    bank_cod = models.CharField('status do pagamento', max_length=15, choices=BANK_CODS)
+    description = models.CharField('descrição', max_length=100)
+    agency = models.CharField('agência', max_length=10)
+    agency_dv = models.CharField('dígito verificar da agência', max_length=1)
+    transferor_account = models.CharField('conta do cedente', max_length=10)
+    transferor_account_dv = models.CharField('dígito verificador da conta do cedente', max_length=1)
+    agreement = models.CharField('covênio', max_length=10)
+    agreement_automatic_debit = models.CharField('covênio débito automático', max_length=20)
+    contract = models.CharField('contrato', max_length=10)
+    wallet = models.CharField('carteira', max_length=10)
+    transferor_name = models.CharField('nome do cedente', max_length=50)
+    cpf_cnpj_transferor = models.CharField('CPF/CNPJ do cedente', max_length=50)
+    default_carrier = models.BooleanField('potador padrão?', default=False)
+    our_number = models.CharField('nosso número', max_length=10)
+    TYPES_BANK_SLIP = (
+        ('1', 'Título c/ Registro - Envio pelo Cedente'),
+        ('11', 'Título c/ Registro - Envio pelo Banco'),
+        ('2', '004 - Título s/ Registro - Envio pelo Cedente'),
+        ('22', 'Título s/ Registro - Envio pelo Banco')
+    )
+    type_bank_slip = models.CharField('tipo de título', max_length=50, choices=TYPES_BANK_SLIP, default="2")
+    check_days_shipment =  models.IntegerField('dias de antencedência para gerar a remessa', default=0)
+    STATUS = (
+        ('success', 'Ativo'),
+        ('danger', 'Desativado')
+    )
+    status = models.CharField('situação', max_length=10, choices=STATUS, default="success")
+
+class TemplateBankSlip(models.Model):
+    payment_local = models.CharField('local de pagamento', max_length=100)
+    instruction1 = models.CharField('instrução 1', max_length=100)
+    instruction2 = models.CharField('instrução 2', max_length=100)
+    instruction3 = models.CharField('instrução 3', max_length=100)
+    instruction4 = models.CharField('instrução 4', max_length=100)
+    instruction5 = models.CharField('instrução 5', max_length=100)
+    rate_bank_slip = models.DecimalField('taxa do boleto (R$)', max_digits=5, decimal_places=2, default=0.00)
+    include_rate = models.BooleanField('incluir taxa do boleto no valor?', default=False)
+    penalty = models.IntegerField('multa por atraso (%)')
+    interest = models.IntegerField('juros por atraso (%)')
+    discount_due_date = models.DecimalField('desconto até o vencimento', max_digits=5, decimal_places=2, default=0.00)
+    default_template = models.BooleanField('template padrão?', default=False)
+
+class Responsible(models.Model):
+    pass
+
+class CostCenter(models.Model):
+    pass
+
+class BankSlip(models.Model):
+    client = models.ForeignKey(Responsible, verbose_name="cliente")
+    template_bank_slip = models.ForeignKey(TemplateBankSlip, verbose_name="template do boleto")
+    carrier = models.ForeignKey(Carrier, verbose_name="portador")
+    STATUS = (
+        ('gerado', 'Gerado'),
+        ('pago', 'Pago'),
+        ('cancelado', 'Cancelado')
+    )
+    status = models.CharField('situação', max_length=10, choices=STATUS, default="gerado")
+    #podemos implementar aqui um default value, que puxa do banco o ultimo
+    #numero gerado e incremena 1
+    document_number = models.IntegerField('número do documento')
+    digitable_line = models.CharField('linha digitável', max_length=60)
+    cost_center = models.ForeignKey(CostCenter, verbose_name="centro de custo")
+    our_number = models.CharField('nosso número', max_length=25)
+    demonstrative = models.CharField('demostrativo', max_length=100)
+    bank_slip_value = models.DecimalField('valor do boleto', max_digits=5, decimal_places=2, default=0.00)
+    emission_date = models.DateTimeField('data de emissão', auto_now_add=True)
+    MODES_GERATION = (
+        ('lote', 'Lote'),
+        ('avulso', 'Avulso')
+    )
+    mode_geration = models.CharField('situação', max_length=10, choices=MODES_GERATION)
+    due_date = models.DateTimeField('data de vencimento', auto_now_add=True)
+    
+
+
+   
+
+
+
+    
+
