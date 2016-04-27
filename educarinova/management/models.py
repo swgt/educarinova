@@ -395,14 +395,31 @@ class TemplateBankSlip(models.Model):
     discount_due_date = models.DecimalField('desconto até o vencimento', max_digits=5, decimal_places=2, default=0.00)
     default_template = models.BooleanField('template padrão?', default=False)
 
-class Responsible(models.Model):
-    pass
+class Responsible(CommonInfo):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario', null=True, blank=True)
+    contact = models.ForeignKey(Contact, verbose_name="contato", null=True, blank=True)
+    address = models.ForeignKey(Address, verbose_name="endereço", null=True, blank=True)
+    created_at = models.DateTimeField('criado em', auto_now_add=True)
+
+class ResponsibleStudent(models.Model):
+    student = models.ForeignKey(Student, verbose_name="estudante")
+    responsible =  models.ForeignKey(Responsible, verbose_name="responsável")
+    KINSHIPS = (
+        ('Pai/Mãe', 'Pai/Mãe'),
+        ('Irmão/Irmã', 'Irmão/Irmã'),
+        ('Tio(a)', 'Tio(a)'),
+        ('Avô(ó)', 'Avô(ó)'),
+        ('Outro parentesco', 'Outro parentesco')
+    )
+    kinship = models.CharField('situação', max_length=20, choices=KINSHIPS)
+
 
 class CostCenter(models.Model):
     pass
 
 class BankSlip(models.Model):
-    client = models.ForeignKey(Responsible, verbose_name="cliente")
+    #estudar.. no sgp ele relaciona com o codigo do contrato
+    matriculation = models.ForeignKey(Matriculation, verbose_name="matricula de referência")
     template_bank_slip = models.ForeignKey(TemplateBankSlip, verbose_name="template do boleto")
     carrier = models.ForeignKey(Carrier, verbose_name="portador")
     STATUS = (
@@ -428,6 +445,25 @@ class BankSlip(models.Model):
     due_date = models.DateTimeField('data de vencimento', auto_now_add=True)
     
 
+class AccretionDiscount(models.Model):
+    #estudar.. no sgp ele relaciona com o codigo do contrato
+    matriculation = models.ForeignKey(Matriculation, verbose_name="matricula de referência")
+    value = models.DecimalField('valor do acréscimo ou desconto', max_digits=5, decimal_places=2, default=0.00)
+    justification = models.CharField('justificativa', max_length=100)
+    total_plots = models.IntegerField('total de parcelas')
+    note = models.CharField('observação', max_length=100)
+    TYPES = (
+        ('Fixo','Fixo'),
+        ('Temporário','Temporário'),
+        )
+    #Fixo: Acrescimo/Desconto sempre será aplicado. 
+    #Temporário: Acrescimo/Desconto será aplicado pela quantidade de parcelas. 
+    type_accretion_discount = models.CharField('situação', max_length=10, choices=TYPES)
+    MODES_GERATION = (
+        ('lote', 'Lote'),
+        ('avulso', 'Avulso')
+    )
+    mode_geration = models.CharField('situação', max_length=10, choices=MODES_GERATION)
 
    
 
