@@ -25,6 +25,31 @@
     </div>
   </div>
   <!-- END JUMBOTRON -->
+
+  {% if form_student.errors and not form_student.non_field_errors %}
+    <div class="alert alert-danger" style="padding: 15px;">
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">×</span>
+        <span class="sr-only">Close</span>
+      </button>
+      <span><i class="fa fa-exclamation-circle"></i>
+    {% if form_student.errors.items|length == 1 %}
+      Por favor, corrija o erro abaixo.
+    {% else %}
+      Por favor, corrija os erros abaixo.
+    {% endif %}
+      </span>
+    </div>
+  {% endif %}
+
+  {% if form_student.non_field_errors %}
+    {% for error in form_student.non_field_errors %}
+        <p class="errornote">
+    {{ error }}
+        </p>
+    {% endfor %}
+  {% endif %}
+
   <!-- START CONTAINER FLUID -->
   <div class="container-fluid container-fixed-lg">
     <div id="rootwizard">
@@ -48,97 +73,114 @@
         </li>
       </ul>
       <!-- Tab panes -->
-      <div class="tab-content">
+      <div class="form-student tab-content">
         <div class="tab-pane padding-20 active slide-left" id="tab1">
           <div class="row row-same-height">
-            <div class="col-md-5 b-r b-dashed b-grey ">
+            <div class="col-md-4 b-r b-dashed b-grey ">
               <div class="padding-30 m-t-50">
                 <h2>Suas informações estão seguras conosco!</h2>
                 <p>Nós respeitamos sua privacidade e protegemos seus dados com criptografia forte, além de políticas rigorosas de acesso a informação.</p>
                 <p class="small hint-text">Quando novas informações surgem e as circunstâncias mudam já não é possível resolver os problemas com as soluções de ontem.</p>
               </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
               <div class="padding-30">
-                  <p>Informações básica</p>
-                  <div class="form-group-attached">
-                    <div class="row clearfix">
-                      <div class="col-sm-8">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_student.name.id_for_label }}">{{ form_student.name.label }}</label>
-                          {{ form_student.name.errors }}
-                          {{ form_student.name }}
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_student.cpf.id_for_label }}">{{ form_student.cpf.label }}</label>
-                          {{ form_student.cpf.errors }}
-                          {{ form_student.cpf }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-5">
-                        <div class="form-group form-group-default input-group required">
-                          <label for="{{ form_student.date_of_birth.id_for_label }}">{{ form_student.date_of_birth.label }}</label>
-                          {{ form_student.date_of_birth.errors }}
-                          {{ form_student.date_of_birth }}
-                          <span class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="col-sm-7">
-                        <div class="form-group form-group-default">
-                          <label for="{{ form_student.gender.id_for_label }}">{{ form_student.gender.label }}</label>
-                          <div class="radio radio-complete" style="margin: 0;">
-                            <input type="radio" checked="checked" value="M" name="gender" id="M">
-                            <label for="M" style="display: inline-block; font-weight: normal; margin-left: 20px; opacity: 1;">Masculino</label>
-                            <input type="radio" value="F" name="gender" id="F">
-                            <label for="F" style="display: inline-block; font-weight: normal; margin-left: 20px; opacity: 1;">Feminino</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-7">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_student.rg.id_for_label }}">{{ form_student.rg.label }}</label>
-                          {{ form_student.rg.errors }}
-                          {{ form_student.rg }}
-                        </div>
-                      </div>
-                      <div class="col-sm-5">
-                        <div class="form-group form-group-default form-group-default-select2 required">
-                          <label for="{{ form_student.dispatch_entity_rg.id_for_label }}">{{ form_student.dispatch_entity_rg.label }}</label>
-                          {{ form_student.dispatch_entity_rg.errors }}
-                          {{ form_student.dispatch_entity_rg }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-5">
-                        <div class="form-group form-group-default form-group-default-select2 required">
-                          <label for="{{ form_student.race.id_for_label }}">{{ form_student.race.label }}</label>
-                          {{ form_student.race.errors }}
-                          {{ form_student.race }}
-                        </div>
-                      </div>
-                      <div class="col-sm-7">
-                        <div class="form-group form-group-default form-group-default-select2 required">
-                          <label for="{{ form_student.nationality.id_for_label }}">{{ form_student.nationality.label }}</label>
-                          {{ form_student.nationality.errors }}
-                          {{ form_student.nationality }}
-                        </div>
-                      </div>
-                    </div>
+                <p>Informações básica</p>
+                <div class="row clearfix">
+                  <div class="col-sm-7">
+                    {{ form_student.name.errors }}
                     <div class="form-group form-group-default required">
-                      <label for="{{ form_student.naturalness.id_for_label }}">{{ form_student.naturalness.label }}</label>
-                      {{ form_student.naturalness.errors }}
-                      {{ form_student.naturalness }}
+                      <label for="{{ form_student.name.id_for_label }}">
+                        {{ form_student.name.label }}
+                      </label>
+                      {{ form_student.name }}
                     </div>
                   </div>
+                  <div class="col-sm-5">
+                    {{ form_student.cpf.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_student.cpf.id_for_label }}">
+                        {{ form_student.cpf.label }}
+                      </label>
+                      {{ form_student.cpf }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-6">
+                    {{ form_student.date_of_birth.errors }}
+                    <div class="form-group form-group-default input-group required">
+                      <label for="{{ form_student.date_of_birth.id_for_label }}" style="margin-top: 6px; padding-left: 12px;">
+                        {{ form_student.date_of_birth.label }}
+                      </label>
+                      {{ form_student.date_of_birth }}
+                      <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    {% if form_student.date_of_birth.errors %}
+                      <ul class="errorlist"><li id="gender-error" style="height: 24px;"></li></ul>
+                    {% endif %}
+                    <div class="form-group form-group-default form-radio-basic">
+                      <label for="{{ form_student.gender.id_for_label }}">{{ form_student.gender.label }}</label>
+                      <div class="radio radio-complete" style="margin: 0;">
+                        <input type="radio" checked="checked" value="M" name="gender" id="M">
+                        <label for="M" style="display: inline-block; font-weight: normal; margin-left: 40px; opacity: 1;">Masculino</label>
+                        <input type="radio" value="F" name="gender" id="F">
+                        <label for="F" style="display: inline-block; font-weight: normal; margin-left: 20px; opacity: 1;">Feminino</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-4">
+                    {{ form_student.rg.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_student.rg.id_for_label }}">
+                        {{ form_student.rg.label }}
+                      </label>
+                      {{ form_student.rg }}
+                    </div>
+                  </div>
+                  <div class="col-sm-8">
+                    {{ form_student.dispatch_entity_rg.errors }}
+                    <div class="form-group form-group-default form-group-default-select2 required">
+                      <label class="label-select" for="{{ form_student.dispatch_entity_rg.id_for_label }}">
+                        {{ form_student.dispatch_entity_rg.label }}
+                      </label>
+                      {{ form_student.dispatch_entity_rg }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-5">
+                    {{ form_student.race.errors }}
+                    <div class="form-group form-group-default form-group-default-select2 required">
+                      <label class="label-select" for="{{ form_student.race.id_for_label }}">
+                        {{ form_student.race.label }}
+                      </label>
+                      {{ form_student.race }}
+                    </div>
+                  </div>
+                  <div class="col-sm-7">
+                    {{ form_student.nationality.errors }}
+                    <div class="form-group form-group-default form-group-default-select2 required">
+                      <label class="label-select" for="{{ form_student.nationality.id_for_label }}">
+                        {{ form_student.nationality.label }}
+                      </label>
+                      {{ form_student.nationality }}
+                    </div>
+                  </div>
+                </div>
+                {{ form_student.naturalness.errors }}
+                <div class="form-group form-group-default required">
+                  <label for="{{ form_student.naturalness.id_for_label }}">
+                    {{ form_student.naturalness.label }}
+                  </label>
+                  {{ form_student.naturalness }}
+                </div>
               </div>
             </div>
           </div>

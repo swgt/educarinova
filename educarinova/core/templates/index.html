@@ -75,8 +75,16 @@
             <li>
               <a href="#">Contato</a>
             </li>
+            {% if user.is_authenticated %}
+              <li>
+                <a href="{% url 'management' %}">Ir para o Sistema</a>
+              </li>
+              Olá, {{ user.username|upper }}
+              <a class="btn btn-sm btn-bordered btn-black block-title fs-12 hidden-sm hidden-xs" href="{% url 'logout' %}" data-text="Sign Out">Sair</a>
+            {% else %}
+              <a class="btn btn-sm btn-bordered btn-black block-title fs-12 hidden-sm hidden-xs" href="{% url 'login' %}" data-text="Sign In">Entrar</a>
+            {% endif %}
           </ul>
-          <a class="btn btn-sm btn-bordered btn-black block-title fs-12 hidden-sm hidden-xs" href="{% url 'django.contrib.auth.views.login' %}" data-text="Sign Up">Entrar</a>
         </div>
       </div>
     </nav>

@@ -63,7 +63,7 @@
             <p class="text-red text-center">Nome de usuário ou senha incorretos. Por favor, tente novamente.</p>
           {% endif %}
           <!-- START Login Form -->
-          <form id="form-login" class="p-t-15" role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
+          <form id="form-login" class="p-t-15" role="form" method="post" action="{% url 'login' %}">{% csrf_token %}
             <!-- START Form Control-->
             <div class="form-group form-group-default">
               <label>Usuário</label>

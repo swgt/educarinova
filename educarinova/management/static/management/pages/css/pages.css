@@ -13775,3 +13775,44 @@ span.disabled { /* Cinza Claro */
     color: #666;
     opacity: 0.6;
 }
+
+.label-select {
+    position: absolute;
+    z-index: 10;
+    padding: 7px 12px 0 12px;
+}
+
+.errorlist {
+    margin-left: -42px;
+    margin-bottom: 0;
+}
+
+.errorlist li {
+    list-style: outside none none;
+    color: #A94442;
+    font-size: 12px;
+    text-align: left;
+    margin-right: 0.4rem;
+}
+
+.form-group-default-select2 .errorlist li {
+    position: absolute;
+    z-index: 10;
+    padding: 7px 12px 0 12px;
+}
+
+.form-student .errorlist + .form-group {
+    background-color: rgba(245, 87, 83, 0.1);
+}
+
+.form-student .errorlist + .form-group .form-group-default.form-group-default-select2 {
+    background-color: transparent !important;
+}
+
+.form-student .errorlist + .form-radio-basic {
+    background-color: transparent !important;
+}
+
+.form-student .errorlist + .form-group .select2-container .select2-choice {
+    background-color: rgba(245, 87, 83, 0.01) !important;
+}

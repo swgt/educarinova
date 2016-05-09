@@ -125,6 +125,13 @@ def delete(request):
     return redirect('students:list')
 
 
+def filter_by_class(request):
+    pk_class = request.POST.get('pk_school_class')
+    class_ = get_object_or_404(Class, pk=pk_class)
+
+    return HttpResponse(class_.value_tuition_fee)
+
+
 def _remove_mask_field(field):
     values = (('.', ""),
               ('-', ""),
@@ -135,10 +142,3 @@ def _remove_mask_field(field):
         field = field.replace(out, _in)
 
     return field
-
-
-def filter_by_class(request):
-    pk_class = request.POST.get('pk_school_class')
-    class_ = get_object_or_404(Class, pk=pk_class)
-
-    return HttpResponse(class_.value_tuition_fee)

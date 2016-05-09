@@ -153,7 +153,8 @@ class Student(CommonInfo):
             return format_html('<span class="status status-{}">{}</span>',
                                'neutral', 'Não Matriculado')
 
-        for enrollment_student in enrollment_students:
+        for index in range(len(enrollment_students)):
+            enrollment_student = enrollment_students[len(enrollment_students)-1]
             return format_html('<span class="status status-{}">{}</span>',
                                enrollment_student.status,
                                enrollment_student.get_status_display())
@@ -272,11 +273,10 @@ class Matriculation(models.Model):
     school_class = models.ForeignKey(Class, verbose_name="turma", null=True, blank=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno', null=True, blank=True)
     STATUS = (
-        ('success', 'Ativo'),
-        ('danger', 'Desativado'),
+        ('info', 'Cursando'),
         ('warning', 'Em Análise'),
-        ('info', 'Em Curso'),
-        ('closed', 'Concluido'),
+        ('success', 'Concluido'),
+        ('danger', 'Cancelado'),
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, null=True)
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
