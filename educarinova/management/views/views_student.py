@@ -3,9 +3,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee, Class
+from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee, Class, Responsible, \
+    ResponsibleStudent
 from educarinova.management.forms.forms_students import StudentForm, AddressForm, UserForm, ContactForm, \
-    MatriculationForm, TuitionFeeForm
+    MatriculationForm, TuitionFeeForm, ResponsibleForm, ResponsibleStudentForm
 
 
 @login_required
@@ -52,6 +53,8 @@ def empty_form(request):
         'form_contact': ContactForm(),
         'form_user': UserForm(),
         'form_matriculation': MatriculationForm(),
+        'form_responsible': ResponsibleForm(),
+        'form_responsible_student': ResponsibleStudentForm(),
         'form_tuition_fee': TuitionFeeForm(),
     })
 
@@ -62,15 +65,20 @@ def create(request):
     form_address = AddressForm(request.POST)
     form_contact = ContactForm(request.POST)
     form_matriculation = MatriculationForm(request.POST)
+    form_responsible = ResponsibleForm(request.POST)
+    form_responsible_student = ResponsibleStudentForm(request.POST)
     form_tuition_fee = TuitionFeeForm(request.POST)
 
     if not form_student.is_valid() or not form_address.is_valid() or not form_contact.is_valid() \
-            or not form_matriculation.is_valid() or not form_tuition_fee.is_valid():
+            or not form_matriculation.is_valid() or not form_responsible.is_valid() \
+            or not form_responsible_student.is_valid() or not form_tuition_fee.is_valid():
         return render(request, 'management/students/student_edit.html',
                       {'form_student': form_student,
                        'form_address': form_address,
                        'form_contact': form_contact,
                        'form_matriculation': form_matriculation,
+                       'form_responsible': form_responsible,
+                       'form_responsible_student': form_responsible_student,
                        'form_tuition_fee': form_tuition_fee})
 
     form_student.cleaned_data['cpf'] = _remove_mask_field(form_student.cleaned_data['cpf'])
@@ -80,6 +88,7 @@ def create(request):
     address = Address.objects.create(**form_address.cleaned_data)
     contact = Contact.objects.create(**form_contact.cleaned_data)
     student = Student.objects.create(**form_student.cleaned_data)
+    responsible = Responsible.objects.create(**form_responsible.cleaned_data)
     student.address = address
     student.contact = contact
     student.save()
@@ -89,6 +98,11 @@ def create(request):
     matriculation.student = student
     matriculation.tuition_fee = tuition_fee
     matriculation.save()
+
+    responsible_student = ResponsibleStudent.objects.create(**form_responsible.cleaned_data)
+    responsible_student.student = student
+    responsible_student.responsible = responsible
+    responsible_student.save()
 
     return redirect('students:detail', student.pk)
 

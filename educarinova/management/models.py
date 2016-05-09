@@ -338,6 +338,7 @@ class StatusPayment(models.Model):
 class Subject(models.Model):
     name = models.CharField('nome da disciplina', max_length=50)
 
+
 class Carrier(models.Model):
     BANK_CODS = (
         ('001', '001 - Banco do Brasil'),
@@ -381,6 +382,7 @@ class Carrier(models.Model):
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, default="success")
 
+
 class TemplateBankSlip(models.Model):
     payment_local = models.CharField('local de pagamento', max_length=100)
     instruction1 = models.CharField('instrução 1', max_length=100)
@@ -395,15 +397,17 @@ class TemplateBankSlip(models.Model):
     discount_due_date = models.DecimalField('desconto até o vencimento', max_digits=5, decimal_places=2, default=0.00)
     default_template = models.BooleanField('template padrão?', default=False)
 
+
 class Responsible(CommonInfo):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario', null=True, blank=True)
     contact = models.ForeignKey(Contact, verbose_name="contato", null=True, blank=True)
     address = models.ForeignKey(Address, verbose_name="endereço", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True)
 
+
 class ResponsibleStudent(models.Model):
     student = models.ForeignKey(Student, verbose_name="estudante")
-    responsible =  models.ForeignKey(Responsible, verbose_name="responsável")
+    responsible = models.ForeignKey(Responsible, verbose_name="responsável")
     KINSHIPS = (
         ('Pai/Mãe', 'Pai/Mãe'),
         ('Irmão/Irmã', 'Irmão/Irmã'),
@@ -411,11 +415,12 @@ class ResponsibleStudent(models.Model):
         ('Avô(ó)', 'Avô(ó)'),
         ('Outro parentesco', 'Outro parentesco')
     )
-    kinship = models.CharField('situação', max_length=20, choices=KINSHIPS)
+    kinship = models.CharField('parentesco', max_length=20, choices=KINSHIPS)
 
 
 class CostCenter(models.Model):
     pass
+
 
 class BankSlip(models.Model):
     #estudar.. no sgp ele relaciona com o codigo do contrato
@@ -438,6 +443,7 @@ class BankSlip(models.Model):
     mode_geration = models.CharField('situação', max_length=10, choices=MODES_GERATION)
     due_date = models.DateTimeField('data de vencimento', auto_now_add=True)
 
+
 class StatusBankSlip(models.Model):
     bank_slip = models.ForeignKey(BankSlip, verbose_name="boleto de referência")
     STATUS = (
@@ -447,6 +453,7 @@ class StatusBankSlip(models.Model):
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, default="gerado")
     create_at = models.DateTimeField('criado em', auto_now_add=True)
+
 
 class AccretionDiscount(models.Model):
     #estudar.. no sgp ele relaciona com o codigo do contrato

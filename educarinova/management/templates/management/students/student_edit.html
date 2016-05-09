@@ -38,6 +38,7 @@
     {% else %}
       Por favor, corrija os erros abaixo.
     {% endif %}
+      Verifique todas as abas.
       </span>
     </div>
   {% endif %}
@@ -66,10 +67,10 @@
           <a data-toggle="tab" href="#tab3"><i class="fa fa-phone tab-icon"></i> <span>Contato</span></a>
         </li>
         <li class="">
-          <a data-toggle="tab" href="#tab4"><i class="fa fa-graduation-cap tab-icon"></i> <span>Matrícula</span></a>
+          <a data-toggle="tab" href="#tab4"><i class="fa fa-check tab-icon"></i> <span>Informações do Responsável</span></a>
         </li>
         <li class="">
-          <a data-toggle="tab" href="#tab5"><i class="fa fa-check tab-icon"></i> <span>Resumo</span></a>
+          <a data-toggle="tab" href="#tab5"><i class="fa fa-graduation-cap tab-icon"></i> <span>Matrícula</span></a>
         </li>
       </ul>
       <!-- Tab panes -->
@@ -187,85 +188,83 @@
         </div>
         <div class="tab-pane slide-left padding-20" id="tab2">
           <div class="row row-same-height">
-            <div class="col-md-5 b-r b-dashed b-grey ">
+            <div class="col-md-4 b-r b-dashed b-grey ">
               <div class="padding-30 m-t-50">
                 <h2>Your Information is safe with us!</h2>
                 <p>We respect your privacy and protect it with strong encryption, plus strict policies . Two-step verification, which we encourage all our customers to use.</p>
                 <p class="small hint-text">Below is a sample page for your cart , Created using pages design UI Elementes</p>
               </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
               <div class="padding-30">
-                  <p>Informações de endereço</p>
-                  <div class="form-group-attached">
-                    <div class="row clearfix">
-                      <div class="col-sm-4">
-                        <div class="form-group form-group-default form-group-default-select2 required">
-                          <label for="{{ form_address.type_of_street.id_for_label }}">{{ form_address.type_of_street.label }}</label>
-                          {{ form_address.type_of_street.errors }}
-                          {{ form_address.type_of_street }}
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_address.street.id_for_label }}">{{ form_address.street.label }}</label>
-                          {{ form_address.street.errors }}
-                          {{ form_address.street }}
-                        </div>
-                      </div>
-                      <div class="col-sm-2">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_address.house_number.id_for_label }}">{{ form_address.house_number.label }}</label>
-                          {{ form_address.house_number.errors }}
-                          {{ form_address.house_number }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group form-group-default">
-                      <label for="{{ form_address.complement.id_for_label }}">{{ form_address.complement.label }}</label>
-                      {{ form_address.complement.errors }}
-                      {{ form_address.complement }}
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-5">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_address.district.id_for_label }}">{{ form_address.district.label }}</label>
-                          {{ form_address.district.errors }}
-                          {{ form_address.district }}
-                        </div>
-                      </div>
-                      <div class="col-sm-7">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_address.city.id_for_label }}">{{ form_address.city.label }}</label>
-                          {{ form_address.city.errors }}
-                          {{ form_address.city }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-9">
-                        <div class="form-group form-group-default required">
-                          <label for="{{ form_address.state.id_for_label }}">{{ form_address.state.label }}</label>
-                          {{ form_address.state.errors }}
-                          {{ form_address.state }}
-                        </div>
-                      </div>
-                      <div class="col-sm-3">
-                        <div class="form-group form-group-default">
-                          <label for="{{ form_address.cep.id_for_label }}">{{ form_address.cep.label }}</label>
-                          {{ form_address.cep.errors }}
-                          {{ form_address.cep }}
-                        </div>
-                      </div>
+                <p>Informações de endereço</p>
+                <div class="row clearfix">
+                  <div class="col-sm-3">
+                    {{ form_address.type_of_street.errors }}
+                    <div class="form-group form-group-default form-group-default-select2 required">
+                      <label for="{{ form_address.type_of_street.id_for_label }}">{{ form_address.type_of_street.label }}</label>
+                      {{ form_address.type_of_street }}
                     </div>
                   </div>
+                  <div class="col-sm-6">
+                    {{ form_address.street.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_address.street.id_for_label }}">{{ form_address.street.label }}</label>
+                      {{ form_address.street }}
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    {{ form_address.house_number.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_address.house_number.id_for_label }}">{{ form_address.house_number.label }}</label>
+                      {{ form_address.house_number }}
+                    </div>
+                  </div>
+                </div>
+                {{ form_address.complement.errors }}
+                <div class="form-group form-group-default">
+                  <label for="{{ form_address.complement.id_for_label }}">{{ form_address.complement.label }}</label>
+                  {{ form_address.complement }}
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-5">
+                    {{ form_address.district.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_address.district.id_for_label }}">{{ form_address.district.label }}</label>
+                      {{ form_address.district }}
+                    </div>
+                  </div>
+                  <div class="col-sm-7">
+                    {{ form_address.city.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_address.city.id_for_label }}">{{ form_address.city.label }}</label>
+                      {{ form_address.city }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-9">
+                    {{ form_address.state.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_address.state.id_for_label }}">{{ form_address.state.label }}</label>
+                      {{ form_address.state }}
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    {{ form_address.cep.errors }}
+                    <div class="form-group form-group-default">
+                      <label for="{{ form_address.cep.id_for_label }}">{{ form_address.cep.label }}</label>
+                      {{ form_address.cep }}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="tab-pane slide-left padding-20" id="tab3">
           <div class="row row-same-height">
-            <div class="col-md-5 b-r b-dashed b-grey ">
+            <div class="col-md-4 b-r b-dashed b-grey ">
               <div class="padding-30 m-t-50">
                 <h2>We Secured Your Line</h2>
                 <p>Below is a sample page for your cart , Created using pages design UI Elementes</p>
@@ -273,65 +272,64 @@
                 <p class="small">By pressing Pay Now You will Agree to the Payment <a href="#">Terms &amp; Conditions</a></p>
               </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
               <div class="padding-30">
-                  <p>Informações de contato</p>
-                  <div class="form-group-attached">
-                    <div class="row clearfix">
-                      <div class="col-sm-6">
-                        <div class="form-group form-group-default input-group required">
-                          <span class="input-group-addon">
-                            <select class="cs-select cs-skin-slide cs-transparent" data-init-plugin="cs-select" id="id_area_code">
-                              <option data-countryCode="RN" value="84" Selected>RN (+84)</option>
-                              <option data-countryCode="CE" value="85">CE (+85)</option>
-                              <option data-countryCode="CE" value="88">CE (+88)</option>
-                              <option data-countryCode="PB" value="83">PB (+83)</option>
-                              <option data-countryCode="PE" value="81">PE (+81)</option>
-                              <option data-countryCode="PE" value="87">PE (+87)</option>
-                            </select>
-                          </span>
-                          <label for="{{ form_contact.cell_phone.id_for_label }}">{{ form_contact.cell_phone.label }}</label>
-                          {{ form_contact.cell_phone.errors }}
-                          {{ form_contact.cell_phone }}
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group form-group-default">
-                          <label for="{{ form_contact.cell_phone_secondary.id_for_label }}">{{ form_contact.cell_phone_secondary.label }}</label>
-                          {{ form_contact.cell_phone_secondary.errors }}
-                          {{ form_contact.cell_phone_secondary }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-7">
-                        <div class="form-group form-group-default">
-                          <label for="{{ form_contact.phone.id_for_label }}">{{ form_contact.phone.label }}</label>
-                          {{ form_contact.phone.errors }}
-                          {{ form_contact.phone }}
-                        </div>
-                      </div>
-                      <div class="col-sm-5">
-                        <div class="form-group form-group-default">
-                          <label for="{{ form_contact.phone_secondary.id_for_label }}">{{ form_contact.phone_secondary.label }}</label>
-                          {{ form_contact.phone_secondary.errors }}
-                          {{ form_contact.phone_secondary }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group form-group-default required">
-                      <label for="{{ form_contact.email.id_for_label }}">{{ form_contact.email.label }}</label>
-                      {{ form_contact.email.errors }}
-                      {{ form_contact.email }}
+                <p>Informações de contato</p>
+                <div class="row clearfix">
+                  <div class="col-sm-6">
+                    {{ form_contact.cell_phone.errors }}
+                    <div class="form-group form-group-default input-group required">
+                      <span class="input-group-addon">
+                        <select class="cs-select cs-skin-slide cs-transparent" data-init-plugin="cs-select" id="id_area_code">
+                          <option data-countryCode="RN" value="84" Selected>RN (+84)</option>
+                          <option data-countryCode="CE" value="85">CE (+85)</option>
+                          <option data-countryCode="CE" value="88">CE (+88)</option>
+                          <option data-countryCode="PB" value="83">PB (+83)</option>
+                          <option data-countryCode="PE" value="81">PE (+81)</option>
+                          <option data-countryCode="PE" value="87">PE (+87)</option>
+                        </select>
+                      </span>
+                      <label for="{{ form_contact.cell_phone.id_for_label }}">{{ form_contact.cell_phone.label }}</label>
+                      {{ form_contact.cell_phone }}
                     </div>
                   </div>
+                  <div class="col-sm-6">
+                    <ul class="errorlist"><li id="gender-error" style="height: 24px;"></li></ul>
+                    {{ form_contact.cell_phone_secondary.errors }}
+                    <div class="form-group form-group-default form-input-not-required">
+                      <label for="{{ form_contact.cell_phone_secondary.id_for_label }}">{{ form_contact.cell_phone_secondary.label }}</label>
+                      {{ form_contact.cell_phone_secondary }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-7">
+                    {{ form_contact.phone.errors }}
+                    <div class="form-group form-group-default">
+                      <label for="{{ form_contact.phone.id_for_label }}">{{ form_contact.phone.label }}</label>
+                      {{ form_contact.phone }}
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    {{ form_contact.phone_secondary.errors }}
+                    <div class="form-group form-group-default">
+                      <label for="{{ form_contact.phone_secondary.id_for_label }}">{{ form_contact.phone_secondary.label }}</label>
+                      {{ form_contact.phone_secondary }}
+                    </div>
+                  </div>
+                </div>
+                {{ form_contact.email.errors }}
+                <div class="form-group form-group-default required">
+                  <label for="{{ form_contact.email.id_for_label }}">{{ form_contact.email.label }}</label>
+                  {{ form_contact.email }}
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="tab-pane slide-left padding-20" id="tab4">
           <div class="row row-same-height">
-            <div class="col-md-5 b-r b-dashed b-grey ">
+            <div class="col-md-4 b-r b-dashed b-grey ">
               <div class="padding-30 m-t-50">
                 <h2>We Secured Your Line</h2>
                 <p>Below is a sample page for your cart , Created using pages design UI Elementes</p>
@@ -339,67 +337,108 @@
                 <p class="small">By pressing Pay Now You will Agree to the Payment <a href="#">Terms &amp; Conditions</a></p>
               </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
               <div class="padding-30">
-                  <div id="div-loading"></div>
-                  <p>Informações de matrícula</p>
-                  <div class="form-group-attached">
-                    <div class="row clearfix">
-                      <div class="col-sm-7">
-                        <div class="form-group form-group-default">
-                          <label for="{{ form_matriculation.number_matriculation.id_for_label }}">{{ form_matriculation.number_matriculation.label }}</label>
-                          {{ form_matriculation.number_matriculation.errors }}
-                          {{ form_matriculation.number_matriculation }}
-                        </div>
-                      </div>
-                      <div class="col-sm-5">
-                        <div class="form-group form-group-default form-group-default-select2">
-                          <label for="{{ form_matriculation.status.id_for_label }}">{{ form_matriculation.status.label }}</label>
-                          {{ form_matriculation.status.errors }}
-                          {{ form_matriculation.status }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group form-group-default form-group-default-select2 required">
-                      <label for="{{ form_matriculation.school_class.id_for_label }}">{{ form_matriculation.school_class.label }}</label>
-                      {{ form_matriculation.school_class.errors }}
-                      {{ form_matriculation.school_class }}
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-8">
-                        <div class="form-group form-group-default form-group-default-select2">
-                          <label for="{{ form_tuition_fee.frequency_payment.id_for_label }}">{{ form_tuition_fee.frequency_payment.label }}</label>
-                          {{ form_tuition_fee.frequency_payment.errors }}
-                          {{ form_tuition_fee.frequency_payment }}
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="form-group form-group-default form-group-default-select2">
-                          <label for="{{ form_tuition_fee.expiration_day.id_for_label }}">{{ form_tuition_fee.expiration_day.label }}</label>
-                          {{ form_tuition_fee.expiration_day.errors }}
-                          {{ form_tuition_fee.expiration_day }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row clearfix">
-                      <div class="col-sm-5">
-                        <div class="form-group form-group-default">
-                          <label for="{{ form_tuition_fee.discount_tuition_fee.id_for_label }}">{{ form_tuition_fee.discount_tuition_fee.label }}</label>
-                          {{ form_tuition_fee.discount_tuition_fee.errors }}
-                          {{ form_tuition_fee.discount_tuition_fee }}
-                        </div>
-                      </div>
-                      <div class="col-sm-7">
-                        <div class="form-group form-group-default">
-                          <label for="{{ form_tuition_fee.reason_discount_tuition_fee.id_for_label }}">{{ form_tuition_fee.reason_discount_tuition_fee.label }}</label>
-                          {{ form_tuition_fee.reason_discount_tuition_fee.errors }}
-                          {{ form_tuition_fee.reason_discount_tuition_fee }}
-                        </div>
-                      </div>
+                <div id="div-loading"></div>
+                <p>Informações do responsável</p>
+                <div class="row clearfix">
+                  <div class="col-sm-7">
+                    {{ form_responsible.name.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_responsible.name.id_for_label }}">
+                        {{ form_responsible.name.label }}
+                      </label>
+                      {{ form_responsible.name }}
                     </div>
                   </div>
-                  <br/>
-                  <div class="container-sm-height">
+                  <div class="col-sm-5">
+                    {{ form_responsible.cpf.errors }}
+                    <div class="form-group form-group-default required">
+                      <label for="{{ form_responsible.cpf.id_for_label }}">
+                        {{ form_responsible.cpf.label }}
+                      </label>
+                      {{ form_responsible.cpf }}
+                    </div>
+                  </div>
+                  {{ form_responsible_student.kinship.errors }}
+                  <div class="form-group form-group-default form-group-default-select2">
+                    <label for="{{ form_responsible_student.kinship.id_for_label }}">{{ form_responsible_student.kinship.label }}</label>
+                    {{ form_responsible_student.kinship }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane slide-left padding-20" id="tab5">
+          <div class="row row-same-height">
+            <div class="col-md-4 b-r b-dashed b-grey ">
+              <div class="padding-30 m-t-50">
+                <h2>We Secured Your Line</h2>
+                <p>Below is a sample page for your cart , Created using pages design UI Elementes</p>
+                <p class="small hint-text">Below is a sample page for your cart , Created using pages design UI Elementes</p>
+                <p class="small">By pressing Pay Now You will Agree to the Payment <a href="#">Terms &amp; Conditions</a></p>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="padding-30">
+                <div id="div-loading"></div>
+                <p>Informações de matrícula</p>
+                <div class="row clearfix">
+                  <div class="col-sm-7">
+                    {{ form_matriculation.number_matriculation.errors }}
+                    <div class="form-group form-group-default">
+                      <label for="{{ form_matriculation.number_matriculation.id_for_label }}">{{ form_matriculation.number_matriculation.label }}</label>
+                      {{ form_matriculation.number_matriculation }}
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    {{ form_matriculation.status.errors }}
+                    <div class="form-group form-group-default form-group-default-select2">
+                      <label for="{{ form_matriculation.status.id_for_label }}">{{ form_matriculation.status.label }}</label>
+                      {{ form_matriculation.status }}
+                    </div>
+                  </div>
+                </div>
+                {{ form_matriculation.school_class.errors }}
+                <div class="form-group form-group-default form-group-default-select2 required">
+                  <label for="{{ form_matriculation.school_class.id_for_label }}">{{ form_matriculation.school_class.label }}</label>
+                  {{ form_matriculation.school_class }}
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-8">
+                    {{ form_tuition_fee.frequency_payment.errors }}
+                    <div class="form-group form-group-default form-group-default-select2">
+                      <label for="{{ form_tuition_fee.frequency_payment.id_for_label }}">{{ form_tuition_fee.frequency_payment.label }}</label>
+                      {{ form_tuition_fee.frequency_payment }}
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    {{ form_tuition_fee.expiration_day.errors }}
+                    <div class="form-group form-group-default form-group-default-select2">
+                      <label for="{{ form_tuition_fee.expiration_day.id_for_label }}">{{ form_tuition_fee.expiration_day.label }}</label>
+                      {{ form_tuition_fee.expiration_day }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-5">
+                    {{ form_tuition_fee.discount_tuition_fee.errors }}
+                    <div class="form-group form-group-default">
+                      <label for="{{ form_tuition_fee.discount_tuition_fee.id_for_label }}">{{ form_tuition_fee.discount_tuition_fee.label }}</label>
+                      {{ form_tuition_fee.discount_tuition_fee }}
+                    </div>
+                  </div>
+                  <div class="col-sm-7">
+                    {{ form_tuition_fee.reason_discount_tuition_fee.errors }}
+                    <div class="form-group form-group-default">
+                      <label for="{{ form_tuition_fee.reason_discount_tuition_fee.id_for_label }}">{{ form_tuition_fee.reason_discount_tuition_fee.label }}</label>
+                      {{ form_tuition_fee.reason_discount_tuition_fee }}
+                    </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="container-sm-height">
                     <div class="row row-sm-height b-a b-grey">
                       <div class="col-sm-4 col-sm-height col-middle p-l-10 sm-padding-15">
                         <h5 class="font-montserrat all-caps small no-margin hint-text bold">Desconto (<span id="id_value_discount_tuition_fee_label">0</span>%)</h5>
@@ -418,26 +457,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="tab-pane slide-left padding-20" id="tab5">
-          <h1>Thank you.</h1>
-          <form>
-            <div>
-              <label for="estado">Estado</label>
-              <select name="estado" id="id_estado">
-                <option value="">Selecione...</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="SP">São Paulo</option>
-              </select>
-            </div>
-            <div>
-              <label for="cidade">Cidade</label>
-              <select name="cidade" id="id_cidade">
-                <option value="">Selecione...</option>
-              </select>
-            </div>
-          </form>
         </div>
         <div class="padding-20 bg-white">
           <ul class="pager wizard">

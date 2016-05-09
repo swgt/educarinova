@@ -13809,10 +13809,15 @@ span.disabled { /* Cinza Claro */
     background-color: transparent !important;
 }
 
-.form-student .errorlist + .form-radio-basic {
+.form-student .errorlist + .form-radio-basic, .form-student .errorlist + .form-input-not-required {
     background-color: transparent !important;
 }
 
 .form-student .errorlist + .form-group .select2-container .select2-choice {
     background-color: rgba(245, 87, 83, 0.01) !important;
+}
+
+a.disabled {
+   cursor: not-allowed;
+   color: #626262 !important;
 }

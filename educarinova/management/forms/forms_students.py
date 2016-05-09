@@ -1,5 +1,5 @@
 from django import forms
-from educarinova.management.models import Student, Address, Matriculation, Contact, TuitionFee
+from educarinova.management.models import Student, Address, Matriculation, Contact, TuitionFee, Responsible, ResponsibleStudent
 from django.contrib.auth.models import User
 
 
@@ -85,4 +85,25 @@ class TuitionFeeForm(forms.ModelForm):
             'expiration_day': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
             'discount_tuition_fee': forms.NumberInput(attrs={'class': 'form-control'}),
             'reason_discount_tuition_fee': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+class ResponsibleForm(forms.ModelForm):
+
+    class Meta:
+        model = Responsible
+        fields = ('__all__')
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'cpf': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+class ResponsibleStudentForm(forms.ModelForm):
+
+    class Meta:
+        model = ResponsibleStudent
+        fields = ('__all__')
+        widgets = {
+            'kinship': forms.Select(attrs={'class': 'full-width', 'data-init-plugin': 'select2'}),
         }
