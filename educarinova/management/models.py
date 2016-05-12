@@ -202,7 +202,6 @@ class Class(models.Model):
     name = models.CharField('nome da turma', max_length=30)
     serie = models.ForeignKey(Serie, verbose_name="serie", null=True)
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
-    vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
     SHIFTS = (
         ('M','Matutino'),
@@ -210,16 +209,31 @@ class Class(models.Model):
         ('N','Noturno'),
         ('O','Outro'),
         )
-    shift = models.CharField('turno', max_length=10, choices=SHIFTS)
+    shift = models.CharField('turno de aula', max_length=10, choices=SHIFTS)
     PERIODS = (
         ('Meio Periodo','Meio Periodo'),
         ('Integral','Integral'),
         )
     period = models.CharField('período', max_length=12, choices=PERIODS)
-    value_tuition_fee = models.DecimalField('mensalidade base (R$)', max_digits=5, decimal_places=2, default=0.00)
 
     def __str__(self):
         return str(self.serie) + ", " + self.get_shift_display() + " / " +self.name
+
+class SystemClass(models.Model):
+    SYSTEMS_CHOICES = (
+        ('Somente Aula','Somente Aula'),
+        ('Meio Período','Meio Período'),
+        ('Integral','Integral')
+    )
+    system = models.CharField('tipo de sistema', max_length=15, choices=SYSTEMS_CHOICES)
+    start_time = models.TimeField('hora de início')
+    end_time = models.TimeField('hora de fim')
+    vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
+
+class ClassSystemClass(models.Model):
+    classv = models.ForeignKey(Class, verbose_name='turma')
+    system_class = models.ForeignKey(SystemClass, verbose_name='sistema possível na turma')
+    value_tuition_fee = models.DecimalField('mensalidade (R$)', max_digits=5, decimal_places=2, default=0.00)
 
 
 class TuitionFee(models.Model):
@@ -248,7 +262,7 @@ class TuitionFee(models.Model):
 
 class Matriculation(models.Model):
     number_matriculation = models.IntegerField('matrícula', default=random_string)
-    school_class = models.ForeignKey(Class, verbose_name="turma", null=True, blank=True)
+    school_class = models.ForeignKey(ClassSystemClass, verbose_name="turma", null=True, blank=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno', null=True, blank=True)
     STATUS = (
         ('info', 'Cursando'),
@@ -316,9 +330,6 @@ class StatusPayment(models.Model):
     status = models.CharField('status do pagamento', max_length=15, choices=STATUS_PAYMENT)
     date = models.DateField('data de atualização')
 
-
-class Subject(models.Model):
-    name = models.CharField('nome da disciplina', max_length=50)
 
 class Carrier(models.Model):
     BANK_CODS = (
