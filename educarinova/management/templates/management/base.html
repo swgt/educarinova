@@ -54,16 +54,16 @@
             <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
             <ul class="sub-menu">
               <li class="">
-                <a href="">Funcionarios</a>
+                <a href="/students/">Alunos</a>
+                <span class="icon-thumbnail">A</span>
+              </li>
+              <li class="">
+                <a href="" class="disabled">Funcionarios</a>
                 <span class="icon-thumbnail">F</span>
               </li>
               <li class="">
-                <a href="">Professores</a>
+                <a href="" class="disabled">Professores</a>
                 <span class="icon-thumbnail">P</span>
-              </li>
-              <li class="">
-                <a href="/students/">Alunos</a>
-                <span class="icon-thumbnail">A</span>
               </li>
             </ul>
           </li>
@@ -73,7 +73,7 @@
             <span class="icon-thumbnail"><i class="fa fa-graduation-cap"></i></span>
             <ul class="sub-menu">
               <li class="">
-                <a href="">Matrícula</a>
+                <a href="" class="disabled">Matrícula</a>
                 <span class="icon-thumbnail">M</span>
               </li>
                <li>
@@ -86,11 +86,11 @@
               </li>
               
                <li class="">
-                <a href="">Horários</a>
+                <a href="" class="disabled">Horários</a>
                 <span class="icon-thumbnail">H</span>
               </li>
                <li class="">
-                <a href="">Boletins</a>
+                <a href="" class="disabled">Boletins</a>
                 <span class="icon-thumbnail">B</span>
               </li>
               <li class="">
@@ -105,19 +105,19 @@
             <span class="icon-thumbnail"><i class="fa fa-money"></i></span>
             <ul class="sub-menu">
                  <li class="">
-                <a href="">Contas a Pagar</a>
+                <a href="" class="disabled">Contas a Pagar</a>
                 <span class="icon-thumbnail">CP</span>
               </li>
               <li class="">
-                <a href="">Contas a Receber</a>
+                <a href="" class="disabled">Contas a Receber</a>
                 <span class="icon-thumbnail">CR</span>
               </li>
               <li class="">
-                <a href="">Boletos</a>
+                <a href="" class="disabled">Boletos</a>
                 <span class="icon-thumbnail">B</span>
               </li>
               <li class="">
-                <a href="">Configurações de Pagamento</a>
+                <a href="" class="disabled">Configurações de Pagamento</a>
                 <span class="icon-thumbnail">CP</span>
               </li>
             </ul>
@@ -142,15 +142,15 @@
             <span class="icon-thumbnail"><i class="fa fa-cog"></i></span>
             <ul class="sub-menu">
                <li class="">
-                <a href="">Editar Perfil</a>
+                <a href="" class="disabled">Editar Perfil</a>
                 <span class="icon-thumbnail">EP</span>
               </li>
               <li class="">
-                <a href="">Plano de Serviço</a>
+                <a href="" class="disabled">Plano de Serviço</a>
                 <span class="icon-thumbnail">PS</span>
               </li>
               <li class="">
-                <a href="">layout</a>
+                <a href="" class="disabled">Layout</a>
                 <span class="icon-thumbnail">L</span>
               </li>
             </ul>
@@ -351,7 +351,7 @@
                 <li><a href="#"><i class="pg-signals"></i> Help</a>
                 </li>
                 <li class="bg-master-lighter">
-                  <a href="{% url 'django.contrib.auth.views.logout' %}" class="clearfix">
+                  <a href="{% url 'logout' %}" class="clearfix">
                     <span class="pull-left">Logout</span>
                     <span class="pull-right"><i class="pg-power"></i></span>
                   </a>

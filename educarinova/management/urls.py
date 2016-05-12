@@ -20,7 +20,7 @@ class LENDConf:
         ]
 
 urlpatterns = [
-    url(r'^dashboard/$', dashboard),
+    url(r'^dashboard/$', dashboard, name='management'),
 
     url(r'^students/', include(LENDConf(), namespace='students')),
 

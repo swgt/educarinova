@@ -153,7 +153,8 @@ class Student(CommonInfo):
             return format_html('<span class="status status-{}">{}</span>',
                                'neutral', 'Não Matriculado')
 
-        for enrollment_student in enrollment_students:
+        for index in range(len(enrollment_students)):
+            enrollment_student = enrollment_students[len(enrollment_students)-1]
             return format_html('<span class="status status-{}">{}</span>',
                                enrollment_student.status,
                                enrollment_student.get_status_display())
@@ -250,11 +251,10 @@ class Matriculation(models.Model):
     school_class = models.ForeignKey(Class, verbose_name="turma", null=True, blank=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno', null=True, blank=True)
     STATUS = (
-        ('success', 'Ativo'),
-        ('danger', 'Desativado'),
+        ('info', 'Cursando'),
         ('warning', 'Em Análise'),
-        ('info', 'Em Curso'),
-        ('closed', 'Concluido'),
+        ('success', 'Concluido'),
+        ('danger', 'Cancelado'),
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, null=True, default='Em Curso')
     report_card = models.ForeignKey(ReportCard, verbose_name="boletim", null=True, blank=True)
@@ -317,6 +317,9 @@ class StatusPayment(models.Model):
     date = models.DateField('data de atualização')
 
 
+class Subject(models.Model):
+    name = models.CharField('nome da disciplina', max_length=50)
+
 class Carrier(models.Model):
     BANK_CODS = (
         ('001', '001 - Banco do Brasil'),
@@ -360,6 +363,7 @@ class Carrier(models.Model):
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, default="success")
 
+
 class TemplateBankSlip(models.Model):
     payment_local = models.CharField('local de pagamento', max_length=100)
     instruction1 = models.CharField('instrução 1', max_length=100)
@@ -374,15 +378,17 @@ class TemplateBankSlip(models.Model):
     discount_due_date = models.DecimalField('desconto até o vencimento', max_digits=5, decimal_places=2, default=0.00)
     default_template = models.BooleanField('template padrão?', default=False)
 
+
 class Responsible(CommonInfo):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario', null=True, blank=True)
     contact = models.ForeignKey(Contact, verbose_name="contato", null=True, blank=True)
     address = models.ForeignKey(Address, verbose_name="endereço", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True)
 
+
 class ResponsibleStudent(models.Model):
     student = models.ForeignKey(Student, verbose_name="estudante")
-    responsible =  models.ForeignKey(Responsible, verbose_name="responsável")
+    responsible = models.ForeignKey(Responsible, verbose_name="responsável")
     KINSHIPS = (
         ('Pai/Mãe', 'Pai/Mãe'),
         ('Irmão/Irmã', 'Irmão/Irmã'),
@@ -390,11 +396,12 @@ class ResponsibleStudent(models.Model):
         ('Avô(ó)', 'Avô(ó)'),
         ('Outro parentesco', 'Outro parentesco')
     )
-    kinship = models.CharField('situação', max_length=20, choices=KINSHIPS)
+    kinship = models.CharField('parentesco', max_length=20, choices=KINSHIPS)
 
 
 class CostCenter(models.Model):
     pass
+
 
 class BankSlip(models.Model):
     payment = models.ForeignKey(Payment, verbose_name="pagamento de referência")
@@ -418,8 +425,10 @@ class BankSlip(models.Model):
     mode_geration = models.CharField('situação', max_length=10, choices=MODES_GERATION)
     due_date = models.DateTimeField('data de vencimento', auto_now_add=True)
 
+
 class ReceiveLocation(models.Model):
     pass
+
 
 class StatusBankSlip(models.Model):
     bank_slip = models.ForeignKey(BankSlip, verbose_name="boleto de referência")
@@ -430,6 +439,7 @@ class StatusBankSlip(models.Model):
     )
     status = models.CharField('situação', max_length=10, choices=STATUS, default="gerado")
     create_at = models.DateTimeField('criado em', auto_now_add=True)
+
 
     #onde guardaremos os dados de pagamento de um boleto?
     #como valor pago, desconto, 
@@ -453,7 +463,6 @@ class PaymentBankSlip(models.Model):
     note = models.CharField('observação', max_length=100)
     date_payment = models.DateTimeField('data de pagamento') 
     date_process = models.DateTimeField('data de processamento', auto_now_add=True) 
-
 
 class AccretionDiscount(models.Model):
     #estudar.. no sgp ele relaciona com o codigo do contrato
@@ -496,12 +505,3 @@ class CashRegister(models.Model):
     value = models.DecimalField('valor', max_digits=5, decimal_places=2, default=0.00)
     description = models.CharField('observação', max_length=100)
     accrual_date = models.DateTimeField('data de competência', auto_now_add=True) 
-
-
-
-   
-
-
-
-    
-

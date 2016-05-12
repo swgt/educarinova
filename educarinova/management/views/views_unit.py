@@ -12,8 +12,6 @@ def list_unit(request):
 
 @login_required
 def new_unit(request):
-
-
 	if request.method == 'POST':
 
 		unitForm = UnitForm(request.POST)
