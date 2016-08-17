@@ -202,7 +202,8 @@
                   <div class="col-sm-3">
                     {{ form_address.type_of_street.errors }}
                     <div class="form-group form-group-default form-group-default-select2 required">
-                      <label for="{{ form_address.type_of_street.id_for_label }}">{{ form_address.type_of_street.label }}</label>
+                      <label for="{{ form_address.type_of_street.id_for_label }}">
+                      Tipo</label>
                       {{ form_address.type_of_street }}
                     </div>
                   </div>
@@ -402,7 +403,8 @@
                 </div>
                 {{ form_matriculation.school_class.errors }}
                 <div class="form-group form-group-default form-group-default-select2 required">
-                  <label for="{{ form_matriculation.school_class.id_for_label }}">{{ form_matriculation.school_class.label }}</label>
+                  <label for="{{ form_matriculation.school_class.id_for_label }}">
+                  {{ form_matriculation.school_class.label }}</label>
                   {{ form_matriculation.school_class }}
                 </div>
                 <div class="row clearfix">

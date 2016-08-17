@@ -7,6 +7,7 @@ from educarinova.management.views.views_serie import *
 from educarinova.management.views.views_subject import *
 from educarinova.management.views.views_class import *
 from educarinova.management.views.view_boleto import *
+from educarinova.management.views.view_systemclass import *
 
 
 class LENDConf:
@@ -23,6 +24,10 @@ urlpatterns = [
     url(r'^dashboard/$', dashboard, name='management'),
 
     url(r'^students/', include(LENDConf(), namespace='students')),
+
+    url(r'^systemclass/$', list_systemclass, name='list_systemclass'),
+    url(r'^systemclass/new/$', new_systemclass, name='new_systemclass'),
+    url(r'^systemclass/(\d+)/$', detail_systemclass, name='detail_systemclass'),
 
     url(r'^classroom/$', list_classroom, name='list_classroom'),
     url(r'^classroom/new/$', new_classroom, name='new_classroom'),

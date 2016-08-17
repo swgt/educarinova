@@ -1,0 +1,80 @@
+{% extends 'management/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Editando uma Turma - Educarinova{% endblock title %}
+{% block content %}
+<!-- START PAGE CONTENT -->
+<div class="content ">
+  <!-- START JUMBOTRON -->
+  <div class="jumbotron" data-pages="parallax">
+    <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+      <div class="inner">
+        <!-- START BREADCRUMB -->
+        <ul class="breadcrumb">
+          <li>
+            <p>Educarinova</p>
+          </li>
+          <li><a href="/systemclass">Sistema de Turma</a>
+          <li><a href="#" class="active">Novo Sistema de Turma</a>
+        </li>
+      </ul>
+      <!-- END BREADCRUMB -->
+    </div>
+  </div>
+</div>
+<!-- END JUMBOTRON -->
+<!-- START CONTAINER FLUID -->
+<div class="container-fluid container-fixed-lg bg-white">
+  <div class="row">
+    <div class="col-lg-7 col-md-6 ">
+      <div class="panel panel-transparent">
+        <div class="panel-body">
+          <form role="form" action="" method="POST">
+          {% csrf_token %}
+            {% for field in form %}
+            <div class="row">
+              <div class="col-sm-12">
+              <label class="error">{{field.errors}}</label>
+                <div class="form-group form-group-default  
+                      {% if field.field.required  %} required {% endif  %}
+                      {% if field.errors %} has-error {% endif  %}">
+                  <label>{{field.label}}</label>
+                  {{field|add_class:'form-control'}}
+                </div>
+                 
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="clearfix"></div>
+            <button class="btn btn-complete" type="submit">Cadastrar</button>
+            <a href="/systemclass" class="btn btn-danger" type="submit">Cancelar</a>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-lg-5 col-md-6">
+      <div class="panel panel-transparent">
+        <div class="panel-body">
+          <h4>Sistema de Turmas</h4>
+          <p>Sistemas são importantes para organizar suas turmas, horários</br>
+          entre outros, mantenha esses dados atualizados.</p>
+           </p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- END CONTAINER FLUID -->
+</div>
+<!-- END PAGE CONTENT -->
+{% endblock content %}
+
+
+{% block js-additional %}
+<script>
+$("#id_start_time").mask("99:99");
+$("#id_end_time").mask("99:99");
+</script>
+{% endblock js-additional %}
