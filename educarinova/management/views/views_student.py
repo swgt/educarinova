@@ -16,7 +16,9 @@ def list_(request):
         query = ''
 
     total_students = Student.objects.count()
-    student_list = Student.objects.filter(Q(name__icontains=query) | Q(cpf__icontains=query) |
+    students_active = Student.objects.filter(status__exact="info")
+    student_list = students_active.filter(Q(name__icontains=query) |
+                                          Q(cpf__icontains=query) |
                                           Q(contact__email__icontains=query) |
                                           Q(date_of_birth__icontains=query)).order_by('created_at')
 
@@ -133,8 +135,8 @@ def delete(request):
     for pk in request.POST:
         if pk != 'csrfmiddlewaretoken':
             student = get_object_or_404(Student, pk=pk)
-            student.contact.delete()
-            student.address.delete()
+            student.status = 'danger'
+            student.save()
 
     return redirect('students:list')
 
