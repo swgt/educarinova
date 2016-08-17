@@ -211,7 +211,6 @@ class Class(models.Model):
     name = models.CharField('nome da turma', max_length=30)
     serie = models.ForeignKey(Serie, verbose_name="serie", null=True)
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
-    vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
     SHIFTS = (
         ('M','Matutino'),
@@ -219,49 +218,42 @@ class Class(models.Model):
         ('N','Noturno'),
         ('O','Outro'),
         )
-    shift = models.CharField('turno', max_length=10, choices=SHIFTS)
+    shift = models.CharField('turno de aula', max_length=10, choices=SHIFTS)
     PERIODS = (
         ('Meio Periodo','Meio Periodo'),
         ('Integral','Integral'),
         )
     period = models.CharField('período', max_length=12, choices=PERIODS)
-    value_tuition_fee = models.DecimalField('mensalidade base (R$)', max_digits=5, decimal_places=2, default=0.00)
 
     def __str__(self):
         return str(self.serie) + ", " + self.get_shift_display() + " / " +self.name
+
+class SystemClass(models.Model):
+    SYSTEMS_CHOICES = (
+        ('Somente Aula','Somente Aula'),
+        ('Meio Período','Meio Período'),
+        ('Integral','Integral')
+    )
+    system = models.CharField('tipo de sistema', max_length=15, choices=SYSTEMS_CHOICES)
+    start_time = models.TimeField('hora de início')
+    end_time = models.TimeField('hora de fim')
+    vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
+
+class ClassSystemClass(models.Model):
+    classv = models.ForeignKey(Class, verbose_name='turma')
+    system_class = models.ForeignKey(SystemClass, verbose_name='sistema possível na turma')
+    value_tuition_fee = models.DecimalField('mensalidade (R$)', max_digits=5, decimal_places=2, default=0.00)
 
 
 class TuitionFee(models.Model):
     discount_tuition_fee = models.DecimalField('desconto na mensalidade', max_digits=3, decimal_places=0, null=True, blank=True, default=0)
     reason_discount_tuition_fee = models.CharField('motivo do desconto', max_length=255, null=True, blank=True)
     EXPIRATION_DAYS = (
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
         ('5', '5'),
-        ('6', '6'),
-        ('7', '7'),
-        ('8', '8'),
-        ('9', '9'),
         ('10', '10'),
-        ('11', '11'),
-        ('12', '12'),
-        ('13', '13'),
-        ('14', '14'),
         ('15', '15'),
-        ('16', '16'),
-        ('17', '17'),
-        ('18', '18'),
-        ('19', '19'),
         ('20', '20'),
-        ('21', '21'),
-        ('22', '22'),
-        ('23', '23'),
-        ('24', '24'),
-        ('25', '25'),
-        ('26', '26'),
-        ('27', '27')
+        ('25', '25')
         )
     expiration_day = models.CharField('dia de vencimento', max_length=2, choices=EXPIRATION_DAYS, default=5)
     FREQUENCY_PAYMENTS = (
@@ -279,7 +271,7 @@ class TuitionFee(models.Model):
 
 class Matriculation(models.Model):
     number_matriculation = models.IntegerField('matrícula', default=random_string)
-    school_class = models.ForeignKey(Class, verbose_name="turma", null=True, blank=True)
+    school_class = models.ForeignKey(ClassSystemClass, verbose_name="turma", null=True, blank=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE,  verbose_name='aluno', null=True, blank=True)
     STATUS = (
         ('info', 'Cursando'),
@@ -299,6 +291,10 @@ class Matriculation(models.Model):
         return format_html('<span class="status status-{}">{}</span>',
                            self.status,
                            self.get_status_display())
+
+
+class Subject(models.Model):
+    name = models.CharField('nome da disciplina', max_length=50)
 
 
 class AdditionalCost(models.Model):
@@ -342,10 +338,6 @@ class StatusPayment(models.Model):
         )
     status = models.CharField('status do pagamento', max_length=15, choices=STATUS_PAYMENT)
     date = models.DateField('data de atualização')
-
-
-class Subject(models.Model):
-    name = models.CharField('nome da disciplina', max_length=50)
 
 
 class Carrier(models.Model):
@@ -432,6 +424,7 @@ class CostCenter(models.Model):
 
 
 class BankSlip(models.Model):
+    payment = models.ForeignKey(Payment, verbose_name="pagamento de referência")
     #estudar.. no sgp ele relaciona com o codigo do contrato
     matriculation = models.ForeignKey(Matriculation, verbose_name="matricula de referência")
     template_bank_slip = models.ForeignKey(TemplateBankSlip, verbose_name="template do boleto")
@@ -453,6 +446,10 @@ class BankSlip(models.Model):
     due_date = models.DateTimeField('data de vencimento', auto_now_add=True)
 
 
+class ReceiveLocation(models.Model):
+    pass
+
+
 class StatusBankSlip(models.Model):
     bank_slip = models.ForeignKey(BankSlip, verbose_name="boleto de referência")
     STATUS = (
@@ -463,6 +460,29 @@ class StatusBankSlip(models.Model):
     status = models.CharField('situação', max_length=10, choices=STATUS, default="gerado")
     create_at = models.DateTimeField('criado em', auto_now_add=True)
 
+
+    #onde guardaremos os dados de pagamento de um boleto?
+    #como valor pago, desconto, 
+class PaymentBankSlip(models.Model):
+    bank_slip = models.ForeignKey(BankSlip, verbose_name="boleto de referência")
+    receive_location = models.ForeignKey(ReceiveLocation, verbose_name="ponto de recebimento")
+    cost_center = models.ForeignKey(CostCenter, verbose_name="centro de custo")
+    PAYMENT_METHODS = (
+        ('Dinheiro','Dinheiro'),
+        ('Transferência Bancária','Transferência Bancária'),
+        ('Cartão de Crédito','Cartão de Crédito'),
+        ('Cartão de Débito','Cartão de Débito'),
+        ('Cheque à Vista','Cheque à Vista'),
+        ('Cheque à Prazo','Cheque à Prazo'),
+    ) 
+    payment_method = models.CharField('método de pagamento', max_length=25, choices=PAYMENT_METHODS)
+    #de acordo com o valor pago, e disconto. é calculado o acréscimo/desconto para o mês seguinte
+    amount_paid = models.DecimalField('valor pago', max_digits=5, decimal_places=2, default=0.00)
+    discount = models.DecimalField('valor pago', max_digits=5, decimal_places=2, default=0.00)
+    reason_discount = models.CharField('motivo do desconto', max_length=100)
+    note = models.CharField('observação', max_length=100)
+    date_payment = models.DateTimeField('data de pagamento') 
+    date_process = models.DateTimeField('data de processamento', auto_now_add=True) 
 
 class AccretionDiscount(models.Model):
     #estudar.. no sgp ele relaciona com o codigo do contrato
@@ -484,9 +504,24 @@ class AccretionDiscount(models.Model):
     )
     mode_geration = models.CharField('situação', max_length=10, choices=MODES_GERATION)
 
-   
 
-
-
-    
-
+class CashRegister(models.Model):
+    OPERATIONS = (
+        ('Entrada', 'Entrada'),
+        ('Saída', 'Saída')
+    )
+    operation = models.CharField('operação', max_length=10, choices=OPERATIONS)
+    receive_location = models.ForeignKey(ReceiveLocation, verbose_name="ponto de recebimento")
+    cost_center = models.ForeignKey(CostCenter, verbose_name="centro de custo")
+    PAYMENT_METHODS = (
+        ('Dinheiro','Dinheiro'),
+        ('Transferência Bancária','Transferência Bancária'),
+        ('Cartão de Crédito','Cartão de Crédito'),
+        ('Cartão de Débito','Cartão de Débito'),
+        ('Cheque à Vista','Cheque à Vista'),
+        ('Cheque à Prazo','Cheque à Prazo'),
+    ) 
+    payment_method = models.CharField('método de pagamento', max_length=25, choices=PAYMENT_METHODS)
+    value = models.DecimalField('valor', max_digits=5, decimal_places=2, default=0.00)
+    description = models.CharField('observação', max_length=100)
+    accrual_date = models.DateTimeField('data de competência', auto_now_add=True) 
