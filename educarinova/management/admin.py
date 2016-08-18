@@ -1,6 +1,6 @@
 from django.contrib import admin
 from educarinova.management.models import School, Student, Unit, Contact, Employee, Address, \
-    Matriculation, Attendance, Score, TuitionFee, Serie, Class
+    Matriculation, Attendance, Score, TuitionFee, Serie, Class, SystemClass, ClassSystemClass
 
 
 class SchoolModelAdmin(admin.ModelAdmin):
@@ -23,6 +23,8 @@ admin.site.register(Employee)
 admin.site.register(Matriculation)
 admin.site.register(Attendance)
 admin.site.register(Class)
+admin.site.register(SystemClass)
+admin.site.register(ClassSystemClass)
 admin.site.register(Score)
 admin.site.register(Address)
 admin.site.register(Serie)

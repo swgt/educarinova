@@ -228,6 +228,7 @@ class Class(models.Model):
     def __str__(self):
         return str(self.serie) + ", " + self.get_shift_display() + " / " +self.name
 
+
 class SystemClass(models.Model):
     SYSTEMS_CHOICES = (
         ('Somente Aula','Somente Aula'),
@@ -239,10 +240,17 @@ class SystemClass(models.Model):
     end_time = models.TimeField('hora de fim')
     vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
 
+    def __str__(self):
+        return str(self.system) + " --- " + str(self.vacancies)
+
+
 class ClassSystemClass(models.Model):
     classv = models.ForeignKey(Class, verbose_name='turma')
     system_class = models.ForeignKey(SystemClass, verbose_name='sistema possível na turma')
     value_tuition_fee = models.DecimalField('mensalidade (R$)', max_digits=5, decimal_places=2, default=0.00)
+
+    def __str__(self):
+        return str(self.classv) + " | " + str(self.system_class) + " | " + str(self.value_tuition_fee)
 
 
 class TuitionFee(models.Model):
