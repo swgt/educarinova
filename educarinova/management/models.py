@@ -2,7 +2,8 @@ from random import randint
 
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import date, datetime
+from django.utils import timezone
 
 from django.utils.html import format_html
 
@@ -137,6 +138,14 @@ class Student(CommonInfo):
     contact = models.ForeignKey(Contact, verbose_name="contato", null=True, blank=True)
     address = models.ForeignKey(Address, verbose_name="endereço", null=True, blank=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True)
+    updated_at = models.DateTimeField('atualizado em', auto_now=True, null=True, blank=True)
+    created_by = models.ForeignKey(User, related_name='created_by_user', verbose_name='criado por', null=True, blank=True)
+    updated_by = models.ForeignKey(User, related_name='updated_by_user', verbose_name='atualizado por', null=True, blank=True)
+    STATUS = (
+        ('info', 'Ativo'),
+        ('danger', 'Desativado'),
+    )
+    status = models.CharField('situação', max_length=10, choices=STATUS, null=True, default='info')
 
     class Meta:
         verbose_name_plural = 'alunos'
@@ -219,6 +228,7 @@ class Class(models.Model):
     def __str__(self):
         return str(self.serie) + ", " + self.get_shift_display() + " / " +self.name
 
+
 class SystemClass(models.Model):
     # SYSTEMS_CHOICES = (
     #    ('Somente Aula','Somente Aula'),
@@ -232,6 +242,10 @@ class SystemClass(models.Model):
     def __str__(self):
         return self.system
 
+    def __str__(self):
+        return str(self.system) + " --- " + str(self.vacancies)
+
+
 class ClassSystemClass(models.Model):
     classv = models.ForeignKey(Class, verbose_name='turma')
     system_class = models.ForeignKey(SystemClass, verbose_name='sistema possível na turma')
@@ -240,6 +254,9 @@ class ClassSystemClass(models.Model):
 
     def __str__(self):
         return str(self.classv) + " | " + str(self.system_class)
+
+    def __str__(self):
+        return str(self.classv) + " | " + str(self.system_class) + " | " + str(self.value_tuition_fee)
 
 
 class TuitionFee(models.Model):

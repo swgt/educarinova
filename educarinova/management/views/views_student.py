@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from educarinova.management.models import Student, Contact, Address, Matriculation, TuitionFee, Class, Responsible, \
-    ResponsibleStudent
+    ResponsibleStudent, ClassSystemClass
 from educarinova.management.forms.forms_students import StudentForm, AddressForm, UserForm, ContactForm, \
     MatriculationForm, TuitionFeeForm, ResponsibleForm, ResponsibleStudentForm
 
@@ -16,7 +16,9 @@ def list_(request):
         query = ''
 
     total_students = Student.objects.count()
-    student_list = Student.objects.filter(Q(name__icontains=query) | Q(cpf__icontains=query) |
+    students_active = Student.objects.filter(status__exact="info")
+    student_list = students_active.filter(Q(name__icontains=query) |
+                                          Q(cpf__icontains=query) |
                                           Q(contact__email__icontains=query) |
                                           Q(date_of_birth__icontains=query)).order_by('created_at')
 
@@ -133,17 +135,17 @@ def delete(request):
     for pk in request.POST:
         if pk != 'csrfmiddlewaretoken':
             student = get_object_or_404(Student, pk=pk)
-            student.contact.delete()
-            student.address.delete()
+            student.status = 'danger'
+            student.save()
 
     return redirect('students:list')
 
 
 def filter_by_class(request):
     pk_class = request.POST.get('pk_school_class')
-    class_ = get_object_or_404(Class, pk=pk_class)
+    class_system_class = get_object_or_404(ClassSystemClass, classv=pk_class)
 
-    return HttpResponse(class_.value_tuition_fee)
+    return HttpResponse(class_system_class.value_tuition_fee)
 
 
 def _remove_mask_field(field):
