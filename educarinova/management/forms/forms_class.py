@@ -10,7 +10,7 @@ class ClassForm(forms.ModelForm):
 		widgets = {
             'serie': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
             'unit': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
-            'period': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
+            #'period': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
             'shift': forms.Select(attrs={'class':'form-control','data-init-plugin':'select2'}),
 	            
         }

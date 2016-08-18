@@ -1,5 +1,7 @@
 {% extends 'management/base.html' %}
+{% load static %}
 {% load widget_tweaks %}
+{% load filters %}
 {% block title %}Editando uma Turma - Educarinova{% endblock title %}
 {% block content %}
 <!-- START PAGE CONTENT -->
@@ -23,51 +25,231 @@
 </div>
 <!-- END JUMBOTRON -->
 <!-- START CONTAINER FLUID -->
-<div class="container-fluid container-fixed-lg bg-white">
-  <div class="row">
-    <div class="col-lg-7 col-md-6 ">
-      <div class="panel panel-transparent">
-        <div class="panel-body">
-          <form role="form" action="" method="POST">
-          {% csrf_token %}
-            {% for field in form %}
-            <div class="row">
-              <div class="col-sm-12">
-              <label class="error">{{field.errors}}</label>
-                <div class="form-group form-group-default  
-                      {% if field.field.required  %} required{% endif  %}
-                      {% if field.errors%} has-error{% endif  %}">
-                  <label>{{field.label}}</label>
-                  {{field|add_class:'form-control'}}
-                </div>
-                 
+
+<div class="container-fluid container-fixed-lg">
+    <div id="rootwizard">
+       <form role="form" action="" method="POST">
+      {% csrf_token %}
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs nav-tabs-linetriangle nav-tabs-separator nav-stack-sm">
+        <li class="active">
+          <a data-toggle="tab" href="#tab1"><i class="fa fa-user tab-icon"></i> <span>Informações gerais</span></a>
+        </li>
+        <li class="">
+          <a data-toggle="tab" href="#tab2"><i class="fa fa-bars tab-icon"></i> <span>Sistemas da Turma</span></a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="form-student tab-content">
+        <div class="tab-pane padding-20 active slide-left" id="tab1">
+          <div class="row row-same-height">
+            <div class="col-md-4 b-r b-dashed b-grey ">
+              <div class="padding-30 m-t-50">
+                <h2>Turmas</h2>
+                <p>Turmas são necessárias para matricular seus alunos, organizar horários entre outros. Mantenha esses dados atualizados.</p>
               </div>
             </div>
-            {% endfor %}
+            <div class="col-md-8">
+              <div class="padding-30">
+                <!-- INFORMAÇÕES BÁSICAS DA TURMA -->
+               
+                  {% for field in form %}
+                  <div class="row">
+                    <div class="col-sm-12">
+                    <label class="error">{{field.errors}}</label>
+                      <div class="form-group form-group-default  
+                            {% if field.field.required  %} required{% endif  %}
+                            {% if field.errors%} has-error{% endif  %}">
+                        <label>{{field.label}}</label>
+                        {{field|add_class:'form-control'}}
+                      </div>
+                       
+                    </div>
+                  </div>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane slide-left padding-20" id="tab2">
+          <div class="row row-same-height">
+            <div class="col-md-4 b-r b-dashed b-grey ">
+              <div class="padding-30 m-t-50">
+                <h2>Sistemas de Turma</h2>
+                <p>Escolha ao lado os sistemas possíveis que essa turma permitirá no momento de matrícula, em seguida determine seus respectivos valores.</p>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="padding-30">
+              <!-- SISTEMAS DE TURMAS AQUI -->  
 
-            <div class="clearfix"></div>
-            <button class="btn btn-complete" type="submit">Cadastrar</button>
-            <a href="/class" class="btn btn-danger" type="submit">Cancelar</a>
-          </form>
+              {% for system in systems %}
+              
+
+                <div class="checkbox check-success ">
+                    <input type="checkbox"
+                    {% if list_selected_systems|getObj:system.id %}
+                        checked="checked" 
+                    {% endif %}
+                    value="{{system.id}}" id="{{system.id}}_id_check"
+                    onchange="show_div('{{system.id}}')" name="{{system.id}}_name_check">
+                    
+                    <label for="{{system.id}}_id_check">
+                    {{system.system}} | {{system.start_time}} - {{system.end_time}}</label>
+                </div>
+               
+
+                 <div class="row" id="{{system.id}}_id_row" 
+                      {% if not list_selected_systems|getObj:system.id %}
+                           style="display: none";
+                        {% endif %}
+                       >
+                        <label class="error">
+                  {% if list_selected_systems|getObj:system.id %}
+                           {{list_selected_systems|getMessage:system.id}}
+                        {% endif %}
+                </label>
+                    <div class="col-sm-6">
+                    <label class="error">
+                      
+                    </label>
+                      <div class="form-group form-group-default required">
+                        <label>Mensalidade (R$)</label>
+                        <input class="form-control" id="{{system.id}}_mensalidade" maxlength="30" name="{{system.id}}_name_mensalidade" type="number" step="any"
+
+                        {% if list_selected_systems|getObj:system.id %}
+                            value="{{list_selected_systems|getValueTuitionFee:system.id}}" 
+                        {% endif %}
+
+                        >
+                      </div>
+                    </div>
+                     <div class="col-sm-6">
+                    <label class="error"></label>
+                      <div class="form-group form-group-default required">
+                        <label>Vagas Disponíveis</label>
+                        <input class="form-control" id="{{system.id}}_vagas" name="{{system.id}}_name_vagas" type="number"
+
+                        {% if list_selected_systems|getObj:system.id %}
+                            value="{{list_selected_systems|getVacancies:system.id}}" 
+                        {% endif %}
+
+                        >
+                      </div>
+                    </div>
+                  </div>  
+              {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="padding-20 bg-white">
+          <ul class="pager wizard">
+            <li class="next">
+              <button class="btn btn-complete btn-cons btn-animated from-left fa fa-bars pull-right" type="button">
+                <span>Próximo</span>
+              </button>
+            </li>
+            <li class="next finish hidden">
+              <button class="btn btn-complete btn-cons btn-animated from-left fa fa-cog pull-right" type="submit">
+                <span>Finalizar</span>
+              </button>
+            </li>
+            <li class="previous first hidden">
+              <button class="btn btn-default btn-cons btn-animated from-left fa fa-cog pull-right" type="button">
+                <span>Primeiro</span>
+              </button>
+            </li>
+            <li class="previous">
+              <button class="btn btn-default btn-cons pull-right" type="button">
+                <span>Anterior</span>
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
-      
-    </div>
-    <div class="col-lg-5 col-md-6">
-      <div class="panel panel-transparent">
-        <div class="panel-body">
-          <h4>Turmas</h4>
-          <p>Turmas são necessárias para matricular seus alunos,<br/>
-            organizar horários entre outros. Mantenha esses dados<br/>
-            atualizados.
-           </p>
-        </div>
-      </div>
-      
+      </form>
     </div>
   </div>
-</div>
+
 <!-- END CONTAINER FLUID -->
 </div>
 <!-- END PAGE CONTENT -->
 {% endblock content %}
+
+{% block js-additional %}
+
+<script type="text/javascript" src="{%  static 'management/assets/plugins/boostrap-form-wizard/js/jquery.bootstrap.wizard.min.js' %}"></script>
+<script>
+
+function show_div(div_id){
+
+  if (document.getElementById(div_id+'_id_check').checked){
+    $('#'+div_id+'_id_row').show();
+  }else{
+    $('#'+div_id+'_id_row').hide();
+  }
+
+}
+
+    (function($) {
+        'use strict';
+        $(document).ready(function() {
+            $('#rootwizard').bootstrapWizard({
+                onTabShow: function(tab, navigation, index) {
+                    var $total = navigation.find('li').length;
+                    var $current = index + 1;
+                    if ($current >= $total) {
+                        $('#rootwizard').find('.pager .next').hide();
+                        $('#rootwizard').find('.pager .finish').show().removeClass('disabled hidden');
+                    } else {
+                        $('#rootwizard').find('.pager .next').show();
+                        $('#rootwizard').find('.pager .finish').hide();
+                    }
+                    var li = navigation.find('li.active');
+                    var btnNext = $('#rootwizard').find('.pager .next').find('button');
+                    var btnPrev = $('#rootwizard').find('.pager .previous').find('button');
+
+                    function removeIcons(btn) {
+                        btn.removeClass(function(index, css) {
+                            return (css.match(/(^|\s)fa-\S+/g) || []).join(' ');
+                        });
+                    }
+                    if ($current > 1 && $current < $total) {
+                        var nextIcon = li.next().find('.fa');
+                        var nextIconClass = nextIcon.attr('class').match(/fa-[\w-]*/).join();
+                        removeIcons(btnNext);
+                        btnNext.addClass(nextIconClass + ' btn-animated from-left fa');
+                        var prevIcon = li.prev().find('.fa');
+                        var prevIconClass = prevIcon.attr('class').match(/fa-[\w-]*/).join();
+                        removeIcons(btnPrev);
+                        btnPrev.addClass(prevIconClass + ' btn-animated from-left fa');
+                    } else if ($current == 1) {
+                        btnPrev.removeClass('btn-animated from-left fa');
+                        removeIcons(btnPrev);
+                    } else {
+                        btnNext.removeClass('btn-animated from-left fa');
+                        removeIcons(btnNext);
+                    }
+                },
+                onNext: function(tab, navigation, index) {
+                    console.log("Showing next tab");
+                },
+                onPrevious: function(tab, navigation, index) {
+                    console.log("Showing previous tab");
+                },
+                onInit: function() {
+                    $('#rootwizard ul').removeClass('nav-pills');
+                }
+            });
+            $('.remove-item').click(function() {
+                $(this).parents('tr').fadeOut(function() {
+                    $(this).remove();
+                });
+            });
+        });
+    })(window.jQuery);
+</script>
+
+{% endblock js-additional %}

@@ -204,17 +204,17 @@ class Class(models.Model):
     academic_year = models.IntegerField('ano letivo', default=date.today().year)
     unit = models.ForeignKey(Unit, verbose_name='unidade escolar', null=True)
     SHIFTS = (
-        ('M','Matutino'),
-        ('V','Vespertino'),
-        ('N','Noturno'),
-        ('O','Outro'),
+        ('Matutino','Matutino'),
+        ('Vespertino','Vespertino'),
+        ('Noturno','Noturno'),
+        ('Outro','Outro'),
         )
     shift = models.CharField('turno de aula', max_length=10, choices=SHIFTS)
-    PERIODS = (
-        ('Meio Periodo','Meio Periodo'),
-        ('Integral','Integral'),
-        )
-    period = models.CharField('período', max_length=12, choices=PERIODS)
+    #PERIODS = (
+    #    ('Meio Periodo','Meio Periodo'),
+    #    ('Integral','Integral'),
+    #    )
+    #period = models.CharField('período', max_length=12, choices=PERIODS)
 
     def __str__(self):
         return str(self.serie) + ", " + self.get_shift_display() + " / " +self.name
@@ -229,11 +229,17 @@ class SystemClass(models.Model):
     start_time = models.TimeField('hora de início')
     end_time = models.TimeField('hora de fim')
 
+    def __str__(self):
+        return self.system
+
 class ClassSystemClass(models.Model):
     classv = models.ForeignKey(Class, verbose_name='turma')
     system_class = models.ForeignKey(SystemClass, verbose_name='sistema possível na turma')
     value_tuition_fee = models.DecimalField('mensalidade (R$)', max_digits=5, decimal_places=2, default=0.00)
     vacancies = models.CharField('vagas disponíveis', max_length=10, default=0)
+
+    def __str__(self):
+        return str(self.classv) + " | " + str(self.system_class)
 
 
 class TuitionFee(models.Model):
